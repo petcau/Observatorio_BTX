@@ -1015,3 +1015,27 @@ body { padding-bottom: 26px; }
 .site-footer .auto-rotation-control__copy small { font-size: .62rem; color: var(--ink-soft); letter-spacing: 0; }
 .site-footer .auto-rotation-control span::before { content: none; }
 html.is-handheld .site-footer .auto-rotation-control { display: none; }
+
+/* ===== Barra superior no celular: uma linha, compacta ===== */
+@media (max-width: 760px) {
+  .top-row,
+  .top-row--internal {
+    flex-wrap: nowrap;
+    gap: 10px;
+    padding-block: 6px;
+  }
+  .top-row .institutional-brand { gap: 0; flex: none; }
+  .top-row .institutional-brand p { display: none; }        /* só o ícone do Observatório */
+  .top-row .institutional-brand__logo { width: 38px; height: 38px; border-radius: 9px; }
+  .top-row .top-title,
+  .top-row--internal .top-title {
+    order: 0;
+    width: auto;
+    min-width: 0;
+    padding-left: 10px;
+    border-left: 2px solid var(--line);
+    font-size: clamp(1rem, 5.2vw, 1.35rem);
+    white-space: nowrap;
+  }
+  .top-row .top-gov { height: 34px; flex: none; }
+}

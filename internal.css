@@ -1,4 +1,4 @@
-@import url("style.css?v=20261103-btx4");
+@import url("style.css?v=20261103-btx6");
 
 body.internal-page { min-height: 100svh; }
 
@@ -2284,3 +2284,11 @@ html.is-handheld body[data-page="perfil"] .internal-shell { padding-top: 0; }
   margin-top: -19%;
   clip-path: inset(11% 0 0 0 round clamp(14px, 2.2cqw, 24px));
 }
+@media (max-width: 760px) {
+  .top-row--internal .top-title { order: 0; }
+}
+/* celular estreito: "Mostrar no Telão da BTX" numa linha */
+html.is-handheld .mobile-actions { gap: 8px; }
+html.is-handheld .mobile-actions .paulo-template__love-button { padding: 0 14px; }
+html.is-handheld .mobile-actions .telao-button { padding: 0 12px; gap: 6px; font-size: clamp(.8rem, 3.7vw, .98rem); white-space: nowrap; }
+html.is-handheld .mobile-actions .telao-button svg { width: 18px; height: 18px; flex: none; }
