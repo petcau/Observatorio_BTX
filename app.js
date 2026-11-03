@@ -1095,6 +1095,10 @@
       : `<span class="paulo-template__photo-fallback" aria-hidden="true">${escapeHTML(initials(selected.nome))}</span><span class="sr-only">Foto não disponível.</span>`;
 
     root.innerHTML = `<article class="paulo-profile" aria-labelledby="profile-title">
+      <div class="mobile-actions">
+        ${loveButtonMarkup(selected)}
+        <button class="telao-button" type="button" data-telao>${iconSVG("spark")} <span>Mostrar no Telão da BTX</span></button>
+      </div>
       <section class="paulo-template" aria-label="Ficha Descubra um talento da ciência">
         <img class="paulo-template__base" src="${PAULO_TEMPLATE_IMAGE}" alt="" aria-hidden="true" decoding="async" />
         <div class="paulo-template__photo" data-photo>${photoMarkup}</div>
@@ -1127,7 +1131,6 @@
       ${landscapeProfileMarkup(selected, { abstract, highlight, photo, institution, visibleMetrics })}
 
       <div class="paulo-profile__controls">
-        <button class="telao-button" type="button" data-telao>${iconSVG("spark")} <span>Mostrar no Telão da BTX</span></button>
         <button class="touch-button touch-button--primary" type="button" data-discover>
           ${iconSVG("spark")} <span>Conheça outro talento</span>
         </button>

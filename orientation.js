@@ -15,7 +15,8 @@
   const portraitQuery = window.matchMedia("(orientation: portrait)");
   // Aparelho de toque com tela pequena = celular/tablet → sempre automático
   const isHandheld = window.matchMedia("(pointer: coarse)").matches
-    && Math.max(window.screen.width, window.screen.height) <= 1366;
+    && Math.max(window.screen.width, window.screen.height) <= 1366
+    || new URLSearchParams(window.location.search).get("celular") === "1"; // para testar o modo celular no computador
 
   // Atalho pelo endereço: index.html?tela=retrato | paisagem | auto (fica salvo)
   const URL_MODES = { auto: "auto", retrato: "portrait", paisagem: "landscape" };

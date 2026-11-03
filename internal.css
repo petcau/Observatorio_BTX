@@ -2246,3 +2246,34 @@ html.is-handheld .telao-button:disabled { opacity: 1; cursor: default; }
 .site-footer .auto-rotation-control__switch { width: 28px; height: 16px; padding: 2px; }
 .site-footer .auto-rotation-control__switch span { width: 12px; height: 12px; }
 .site-footer .auto-rotation-control input:checked + .auto-rotation-control__switch span { transform: translateX(12px); }
+
+/* ===== Celular: barra de ações no topo do perfil (Amei + Mostrar no Telão) ===== */
+.mobile-actions { display: none; }
+html.is-handheld .mobile-actions {
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 10px;
+  margin: 0 0 12px;
+}
+html.is-handheld .mobile-actions .paulo-template__love-button {
+  position: static;
+  min-width: 0;
+  height: auto;
+  min-height: 52px;
+  padding: 0 18px;
+  gap: 8px;
+  font-size: 1rem;
+}
+html.is-handheld .mobile-actions .paulo-template__love-button svg { width: 20px; height: 20px; }
+html.is-handheld .mobile-actions .telao-button { min-height: 52px; font-size: .98rem; }
+/* no celular o Amei fica só na barra de cima (não dentro da ficha) */
+html.is-handheld .paulo-template .paulo-template__love-button { display: none; }
+
+/* Celular: sem espaço sobrando acima do perfil */
+html.is-handheld .profile-status { min-height: 0; margin: 0; }
+html.is-handheld .paulo-profile { padding-top: 8px; }
+html.is-handheld body[data-page="perfil"] .internal-shell { padding-top: 0; }
+@media (max-width: 760px) {
+  .profile-status { min-height: 0; margin: 0; }
+  .paulo-profile { padding-top: 8px; }
+}
