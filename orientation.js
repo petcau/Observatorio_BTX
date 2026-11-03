@@ -39,6 +39,7 @@
     try { localStorage.setItem(STORAGE_KEY, mode); } catch { /* sem armazenamento: vale só nesta página */ }
   }
 
+  root.classList.toggle("is-handheld", isHandheld); // usado para mostrar o botão do telão só no celular
   let mode = readMode();
 
   function apply() {

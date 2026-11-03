@@ -955,10 +955,71 @@
     clearAutoRotationTimer();
     if (!autoRotationEnabled || page !== "perfil" || researchers.length < 2) return;
 
-    autoRotationTimer = window.setTimeout(() => {
+    autoRotationTimer = window.setTimeout(async () => {
       autoRotationTimer = null;
+      // Telão: se alguém pediu um perfil pelo celular, ele entra antes do sorteio
+      const requestedId = await nextTelaoRequest();
+      const requested = requestedId && researchers.find((item) => String(item.id) === requestedId);
+      if (requested) {
+        showResearcher(requested, true);
+        return;
+      }
       discoverResearcher(currentProfileId, true);
     }, AUTO_ROTATION_DELAY);
+  }
+
+  // ===== Fila do telão (Supabase) =====
+  // Chave pública (publishable): só permite chamar as funções pedir_telao/proximo_telao.
+  const TELAO_API = "https://jaboxhqlxxneetippzfk.supabase.co/rest/v1/rpc";
+  const TELAO_KEY = "sb_publishable_PgECeJDoWsoPMUOdmmBg4w_znueBFdm";
+
+  async function telaoRpc(name, body = {}) {
+    const response = await fetch(`${TELAO_API}/${name}`, {
+      method: "POST",
+      headers: { apikey: TELAO_KEY, "Content-Type": "application/json" },
+      body: JSON.stringify(body)
+    });
+    if (!response.ok) throw new Error(`Telão indisponível (${response.status})`);
+    return response.json();
+  }
+
+  async function nextTelaoRequest() {
+    try {
+      return await telaoRpc("proximo_telao");
+    } catch {
+      return null; // sem internet ou serviço fora: segue o sorteio normal
+    }
+  }
+
+  async function requestTelao(researcher, button) {
+    button.disabled = true;
+    const label = button.querySelector("span");
+    try {
+      const result = await telaoRpc("pedir_telao", { p_researcher_id: String(researcher.id) });
+      const messages = {
+        ok: "Enviado! Aparece no telão em instantes",
+        ja_na_fila: "Já está na fila do telão",
+        fila_cheia: "Fila do telão cheia, tente depois"
+      };
+      if (label) label.textContent = messages[result] || "Não foi possível enviar";
+      button.classList.add("is-sent");
+    } catch {
+      if (label) label.textContent = "Sem conexão. Tente de novo";
+      button.disabled = false;
+    }
+  }
+
+  function showResearcher(selected, isAutomatic = false) {
+    clearAutoRotationTimer();
+    const overlay = document.querySelector("#randomizing");
+    overlay?.classList.add("is-visible");
+    overlay?.setAttribute("aria-hidden", "false");
+    window.setTimeout(() => {
+      overlay?.classList.remove("is-visible");
+      overlay?.setAttribute("aria-hidden", "true");
+      renderProfile(selected, true);
+      if (!isAutomatic) document.querySelector("#profile-title")?.focus?.({ preventScroll: true });
+    }, reducedMotion ? 80 : 520);
   }
 
   function setAutoRotation(enabled, announce = true) {
@@ -1066,6 +1127,7 @@
       ${landscapeProfileMarkup(selected, { abstract, highlight, photo, institution, visibleMetrics })}
 
       <div class="paulo-profile__controls">
+        <button class="telao-button" type="button" data-telao>${iconSVG("spark")} <span>Mostrar no Telão da BTX</span></button>
         <button class="touch-button touch-button--primary" type="button" data-discover>
           ${iconSVG("spark")} <span>Conheça outro talento</span>
         </button>
@@ -1075,6 +1137,7 @@
     </article>`;
 
     root.querySelector("[data-discover]").addEventListener("click", () => discoverResearcher(currentProfileId));
+    root.querySelector("[data-telao]")?.addEventListener("click", (event) => requestTelao(selected, event.currentTarget));
     root.querySelector("[data-auto-rotate]").addEventListener("change", (event) => setAutoRotation(event.currentTarget.checked));
     root.querySelector("[data-link-theme]")?.addEventListener("click", () => navigate(`tematicas.html?tematica=${encodeURIComponent(selected.tematica)}`));
     // Há um botão "Amei" na ficha (retrato) e outro no layout de paisagem: os dois ficam sincronizados.
@@ -1200,6 +1263,28 @@
   if (page === "territorio") initializeDataPage(renderTerritorio);
   if (page === "perfil") {
     autoRotationEnabled = readAutoRotationPreference();
+    initializeFinderDrawer();
     initializeDataPage(() => renderProfile());
+  }
+
+  // Barra lateral "Encontre seu Pesquisador" (perfil).
+  // Abre/fecha pela aba; com a troca automática ligada, alterna sozinha a cada 15 segundos.
+  function initializeFinderDrawer() {
+    const drawer = document.querySelector("#finder-drawer");
+    const toggle = drawer?.querySelector("[data-finder-toggle]");
+    if (!drawer || !toggle) return;
+    const FINDER_CYCLE = 15_000;
+
+    const setOpen = (open) => {
+      drawer.classList.toggle("is-open", open);
+      document.documentElement.classList.toggle("finder-open", open); // empurra o conteúdo
+      toggle.setAttribute("aria-expanded", String(open));
+    };
+
+    toggle.addEventListener("click", () => setOpen(!drawer.classList.contains("is-open")));
+
+    window.setInterval(() => {
+      if (autoRotationEnabled) setOpen(!drawer.classList.contains("is-open"));
+    }, FINDER_CYCLE);
   }
 })();

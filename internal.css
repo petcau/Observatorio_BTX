@@ -2131,3 +2131,114 @@ html[data-layout="landscape"] .internal-shell { width: min(100%, 1600px); }
   .numbers-gallery__thumb img { max-height: 16vh; }
   .numbers-gallery__thumb span { font-size: .68rem; line-height: 1.15; }
 }
+
+/* ===== Barra lateral "Encontre seu Pesquisador" (perfil) ===== */
+.finder-drawer {
+  position: fixed;
+  z-index: 70;
+  top: 50%;
+  right: 0;
+  display: flex;
+  align-items: center;
+  transform: translate(calc(100% - 44px), -50%); /* fechada: só a aba aparece */
+  transition: transform .55s cubic-bezier(.2, .8, .2, 1);
+}
+.finder-drawer.is-open { transform: translate(0, -50%); }
+.finder-drawer__tab {
+  width: 44px;
+  min-height: 210px;
+  padding: 14px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 10px;
+  color: #ffffff;
+  background: linear-gradient(180deg, var(--blue-deep), var(--violet) 60%, var(--blue));
+  border: 0;
+  border-radius: 16px 0 0 16px;
+  box-shadow: -8px 12px 28px rgba(2, 74, 96, .2);
+  cursor: pointer;
+}
+.finder-drawer__arrow { font-size: 1.4rem; line-height: 1; transition: transform .4s ease; }
+.finder-drawer.is-open .finder-drawer__arrow { transform: rotate(180deg); }
+.finder-drawer__tab-label {
+  writing-mode: vertical-rl;
+  transform: rotate(180deg);
+  font-size: .78rem;
+  font-weight: 800;
+  letter-spacing: .08em;
+  text-transform: uppercase;
+}
+.finder-drawer__panel {
+  width: clamp(220px, 18vw, 300px);
+  padding: 22px 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 14px;
+  text-align: center;
+  background: rgba(255, 255, 255, .97);
+  border: 1px solid var(--line);
+  border-right: 0;
+  border-radius: 20px 0 0 20px;
+  box-shadow: -14px 18px 44px rgba(2, 74, 96, .18);
+}
+.finder-drawer__title { margin: 0; color: var(--ink-soft); font-size: 1.05rem; line-height: 1.15; }
+.finder-drawer__title strong { color: var(--blue-deep); font-size: 1.55rem; }
+.finder-drawer__qr { width: 100%; height: auto; padding: 10px; background: #fff; border: 1px solid var(--line); border-radius: 14px; }
+.finder-drawer__hint { margin: 0; color: var(--violet); font-size: .8rem; font-weight: 700; }
+
+/* A barra empurra o conteúdo em vez de cobrir: reserva o espaço da aba e, aberta, do painel */
+:root { --finder-tab: 44px; --finder-panel: clamp(220px, 18vw, 300px); }
+.finder-drawer__panel { width: var(--finder-panel); }
+/* só a área do perfil encolhe; a barra do topo não se move */
+body[data-page="perfil"] #profile-content {
+  padding-right: var(--finder-tab);
+  transition: padding-right .55s cubic-bezier(.2, .8, .2, 1);
+}
+html.finder-open body[data-page="perfil"] #profile-content { padding-right: calc(var(--finder-tab) + var(--finder-panel)); }
+/* a barra ocupa a altura da área de conteúdo e fica encostada à direita */
+.finder-drawer { align-items: stretch; }
+.finder-drawer__tab { min-height: 0; }
+.finder-drawer {
+  top: var(--topbar-bottom, 90px);
+  bottom: 26px; /* acima do rodapé fino */
+  transform: translateX(calc(100% - var(--finder-tab)));
+}
+.finder-drawer.is-open { transform: translateX(0); }
+.finder-drawer__tab { justify-content: center; }
+.finder-drawer__panel { justify-content: center; border-radius: 0; }
+
+/* sem aba: fechada, a barra some por completo e não reserva espaço */
+:root { --finder-tab: 0px; }
+.finder-drawer__tab { display: none; }
+.finder-drawer { transform: translateX(100%); }
+.finder-drawer.is-open { transform: translateX(0); }
+
+/* celular/tablet: barra "Encontre seu Pesquisador" nunca aparece nem empurra o conteúdo */
+@media (max-width: 900px), (pointer: coarse) and (max-width: 1366px) {
+  .finder-drawer { display: none; }
+  body[data-page="perfil"] #profile-content,
+  html.finder-open body[data-page="perfil"] #profile-content { padding-right: 0; }
+}
+
+/* Botão "Mostrar no Telão da BTX": só no celular/tablet */
+.telao-button { display: none; }
+html.is-handheld .telao-button {
+  width: 100%;
+  min-height: 58px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  color: #ffffff;
+  background: linear-gradient(105deg, #ffcc00 0 3%, var(--blue-deep) 3% 60%, var(--blue));
+  border: 0;
+  border-radius: 999px;
+  box-shadow: 0 12px 28px rgba(2, 74, 96, .25);
+  font: 800 1.05rem var(--font);
+  cursor: pointer;
+}
+html.is-handheld .telao-button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
+html.is-handheld .telao-button.is-sent { background: #0f9d3a; }
+html.is-handheld .telao-button:disabled { opacity: 1; cursor: default; }
