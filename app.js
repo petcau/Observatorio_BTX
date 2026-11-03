@@ -781,13 +781,55 @@
     draw("instituicao");
   }
 
+  // Sorteio de "baralho": embaralha todos os pesquisadores e mostra um por vez,
+  // sem repetir ninguém até a volta completa. O baralho fica salvo no navegador,
+  // então recarregar a página continua de onde parou.
+  const DECK_KEY = "btxBaralhoPesquisadores";
+
+  function shuffledIds() {
+    const ids = researchers.map((item) => String(item.id));
+    for (let i = ids.length - 1; i > 0; i -= 1) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [ids[i], ids[j]] = [ids[j], ids[i]];
+    }
+    return ids;
+  }
+
+  function readDeck() {
+    try {
+      const deck = JSON.parse(localStorage.getItem(DECK_KEY) || "null");
+      // baralho inválido ou de outra base de dados: começa um novo
+      if (!deck || !Array.isArray(deck.ids) || deck.ids.length !== researchers.length) return null;
+      return deck;
+    } catch {
+      return null;
+    }
+  }
+
+  function saveDeck(deck) {
+    try { localStorage.setItem(DECK_KEY, JSON.stringify(deck)); } catch { /* sem armazenamento: vale só nesta visita */ }
+  }
+
+  let memoryDeck = null;
+
   function chooseRandomResearcher(excludedId = null) {
-    const lastId = excludedId || sessionStorage.getItem(LAST_DISCOVERY_KEY);
-    const options = researchers.filter((item) => String(item.id) !== String(lastId));
-    const pool = options.length ? options : researchers;
-    const selected = pool[Math.floor(Math.random() * pool.length)];
-    if (selected) sessionStorage.setItem(LAST_DISCOVERY_KEY, selected.id);
-    return selected;
+    if (!researchers.length) return null;
+    const byId = new Map(researchers.map((item) => [String(item.id), item]));
+    let deck = readDeck() || memoryDeck || { ids: shuffledIds(), pos: 0 };
+
+    for (let tries = 0; tries < researchers.length + 1; tries += 1) {
+      if (deck.pos >= deck.ids.length) deck = { ids: shuffledIds(), pos: 0 }; // fim da volta: novo baralho
+      const id = deck.ids[deck.pos];
+      deck.pos += 1;
+      const selected = byId.get(id);
+      if (selected && String(selected.id) !== String(excludedId)) {
+        memoryDeck = deck;
+        saveDeck(deck);
+        sessionStorage.setItem(LAST_DISCOVERY_KEY, selected.id);
+        return selected;
+      }
+    }
+    return researchers[0];
   }
 
   function shortText(value, maxLength = 520) {
