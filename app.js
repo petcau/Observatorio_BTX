@@ -961,7 +961,7 @@
     autoRotationTimer = window.setTimeout(async () => {
       autoRotationTimer = null;
       // Telão: se alguém pediu um perfil pelo celular, ele entra antes do sorteio
-      const requestedId = await nextTelaoRequest();
+      const requestedId = IS_TELAO ? await nextTelaoRequest() : null;
       const requested = requestedId && researchers.find((item) => String(item.id) === requestedId);
       if (requested) {
         showResearcher(requested, true);
@@ -970,6 +970,20 @@
       discoverResearcher(currentProfileId, true);
     }, AUTO_ROTATION_DELAY);
   }
+
+  // ===== Telão oficial =====
+  // Só o computador aberto com ?telao=1 pega pedidos da fila (fica salvo; ?telao=0 desliga).
+  // Assim várias abas/computadores com troca automática não disputam os pedidos.
+  const IS_TELAO = (() => {
+    const flag = new URLSearchParams(window.location.search).get("telao");
+    try {
+      if (flag === "1") localStorage.setItem("btxTelaoOficial", "1");
+      if (flag === "0") localStorage.removeItem("btxTelaoOficial");
+      return localStorage.getItem("btxTelaoOficial") === "1";
+    } catch {
+      return flag === "1";
+    }
+  })();
 
   // ===== Fila do telão (Supabase) =====
   // Chave pública (publishable): só permite chamar as funções pedir_telao/proximo_telao.
@@ -1276,7 +1290,7 @@
       overlay?.setAttribute("aria-hidden", "true");
       renderProfile(selected, true);
       // telão: perfil sorteado conta na regra "só repete depois de 3 outros"
-      if (isAutomatic) telaoRpc("registrar_exibicao", { p_researcher_id: String(selected.id) }).catch(() => {});
+      if (isAutomatic && IS_TELAO) telaoRpc("registrar_exibicao", { p_researcher_id: String(selected.id) }).catch(() => {});
       if (!isAutomatic) document.querySelector("#profile-title")?.focus?.({ preventScroll: true });
     }, reducedMotion ? 80 : 520);
   }
@@ -1305,6 +1319,7 @@
   if (page === "perfil") {
     autoRotationEnabled = readAutoRotationPreference();
     initializeFinderDrawer();
+    startTelaoQueueWatch();
     // Troca automática fica no rodapé fino (uma vez só, não é recriada a cada perfil)
     const footer = document.querySelector(".site-footer");
     if (footer && !footer.querySelector("[data-auto-rotate]")) {
@@ -1312,6 +1327,23 @@
       footer.querySelector("[data-auto-rotate]")?.addEventListener("change", (event) => setAutoRotation(event.currentTarget.checked));
     }
     initializeDataPage(() => renderProfile());
+  }
+
+  // Telão: olha a fila a cada 4 segundos e mostra o pedido na hora (só com a troca automática ligada).
+  function startTelaoQueueWatch() {
+    let busy = false;
+    window.setInterval(async () => {
+      if (!IS_TELAO || busy || !autoRotationEnabled || !researchers.length) return;
+      if (document.documentElement.classList.contains("is-handheld")) return;
+      busy = true;
+      try {
+        const requestedId = await nextTelaoRequest();
+        const requested = requestedId && researchers.find((item) => String(item.id) === requestedId);
+        if (requested) showResearcher(requested, true); // reinicia os 30 segundos a partir do pedido
+      } finally {
+        busy = false;
+      }
+    }, 4000);
   }
 
   // Barra lateral "Encontre seu Pesquisador" (perfil).
