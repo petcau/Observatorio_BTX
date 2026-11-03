@@ -999,6 +999,7 @@
       const messages = {
         ok: "Enviado! Aparece no telão em instantes",
         ja_na_fila: "Já está na fila do telão",
+        aguarde: "Já apareceu no telão. Peça de novo depois de mais 3 perfis",
         fila_cheia: "Fila do telão cheia, tente depois"
       };
       if (label) label.textContent = messages[result] || "Não foi possível enviar";
@@ -1251,6 +1252,8 @@
       overlay?.classList.remove("is-visible");
       overlay?.setAttribute("aria-hidden", "true");
       renderProfile(selected, true);
+      // telão: perfil sorteado conta na regra "só repete depois de 3 outros"
+      if (isAutomatic) telaoRpc("registrar_exibicao", { p_researcher_id: String(selected.id) }).catch(() => {});
       if (!isAutomatic) document.querySelector("#profile-title")?.focus?.({ preventScroll: true });
     }, reducedMotion ? 80 : 520);
   }
