@@ -992,3 +992,26 @@ body { padding-bottom: 26px; }
 .site-footer .screen-mode-button small { font-size: .58rem; letter-spacing: .12em; }
 .site-footer .screen-mode-button strong { font-size: .7rem; }
 .site-footer .screen-mode-button span::before { content: none; }
+
+/* Troca automática compacta no rodapé fino (perfil) */
+.site-footer .auto-rotation-control {
+  margin-right: auto;
+  margin-left: 14px;
+  min-height: 0;
+  height: 20px;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: none;
+  border: 0;
+  box-shadow: none;
+  cursor: pointer;
+}
+.site-footer .auto-rotation-control__switch { width: 28px; height: 16px; }
+.site-footer .auto-rotation-control__switch span { width: 12px; height: 12px; }
+.site-footer .auto-rotation-control__copy { flex-direction: row; align-items: baseline; gap: 6px; }
+.site-footer .auto-rotation-control__copy strong { font-size: .7rem; color: var(--blue-deep); letter-spacing: 0; }
+.site-footer .auto-rotation-control__copy small { font-size: .62rem; color: var(--ink-soft); letter-spacing: 0; }
+.site-footer .auto-rotation-control span::before { content: none; }
+html.is-handheld .site-footer .auto-rotation-control { display: none; }

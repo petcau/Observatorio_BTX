@@ -2242,3 +2242,7 @@ html.is-handheld .telao-button {
 html.is-handheld .telao-button svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 2; }
 html.is-handheld .telao-button.is-sent { background: #0f9d3a; }
 html.is-handheld .telao-button:disabled { opacity: 1; cursor: default; }
+/* chave pequena do rodapé: botão desliza só 12px */
+.site-footer .auto-rotation-control__switch { width: 28px; height: 16px; padding: 2px; }
+.site-footer .auto-rotation-control__switch span { width: 12px; height: 12px; }
+.site-footer .auto-rotation-control input:checked + .auto-rotation-control__switch span { transform: translateX(12px); }

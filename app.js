@@ -1132,13 +1132,11 @@
           ${iconSVG("spark")} <span>Conheça outro talento</span>
         </button>
         ${themeAction}
-        ${autoRotationControlMarkup()}
       </div>
     </article>`;
 
     root.querySelector("[data-discover]").addEventListener("click", () => discoverResearcher(currentProfileId));
     root.querySelector("[data-telao]")?.addEventListener("click", (event) => requestTelao(selected, event.currentTarget));
-    root.querySelector("[data-auto-rotate]").addEventListener("change", (event) => setAutoRotation(event.currentTarget.checked));
     root.querySelector("[data-link-theme]")?.addEventListener("click", () => navigate(`tematicas.html?tematica=${encodeURIComponent(selected.tematica)}`));
     // Há um botão "Amei" na ficha (retrato) e outro no layout de paisagem: os dois ficam sincronizados.
     const loveButtons = [...root.querySelectorAll("[data-love]")];
@@ -1264,6 +1262,12 @@
   if (page === "perfil") {
     autoRotationEnabled = readAutoRotationPreference();
     initializeFinderDrawer();
+    // Troca automática fica no rodapé fino (uma vez só, não é recriada a cada perfil)
+    const footer = document.querySelector(".site-footer");
+    if (footer && !footer.querySelector("[data-auto-rotate]")) {
+      footer.querySelector("[data-screen-mode]")?.insertAdjacentHTML("afterend", autoRotationControlMarkup());
+      footer.querySelector("[data-auto-rotate]")?.addEventListener("change", (event) => setAutoRotation(event.currentTarget.checked));
+    }
     initializeDataPage(() => renderProfile());
   }
 
