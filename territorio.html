@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#024a60" />
+    <link rel="icon" href="data:," />
+    <title>Onde a ciência acontece • Ciência na Bahia</title>
+    <link rel="stylesheet" href="internal.css" />
+    <script src="orientation.js"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body class="internal-page" data-page="territorio">
+    <main class="internal-shell">
+      <nav class="top-row top-row--internal" aria-label="Navegação principal">
+        <a class="institutional-brand" href="index.html" aria-label="Observatório de CT&amp;I da Bahia — início">
+          <img class="institutional-brand__logo" src="assets/logo observatório sem texto.jpeg" alt="" width="72" height="72" />
+          <p><strong>Observatório</strong><span>de CT&amp;I da Bahia</span></p>
+          <img class="brand-btx brand-btx--home" src="assets/logo-btx.png" alt="BTX — Bahia Tech Experience 2026" onerror="this.remove()" />
+        </a>
+        <p class="top-title">CIÊNCIA <em>NA BAHIA</em></p>
+        <img class="top-gov" src="assets/marca-do-lado-da-gente.png" alt="Governo da Bahia" onerror="this.remove()" />
+      </nav>
+      <header class="page-hero">
+        <span class="page-kicker">Instituições • cidades • territórios</span>
+        <h1>Onde a ciência acontece</h1>
+        <p>Explore os territórios e instituições onde se faz ciência na Bahia.</p>
+      </header>
+      <section aria-labelledby="territory-title">
+        <div class="results-heading">
+          <h2 id="territory-title">Explore a rede</h2>
+          <div class="mode-switch" aria-label="Modo de visualização"><button class="is-active" type="button" data-mode="instituicao">Por instituição</button><button type="button" data-mode="cidade">Por cidade</button></div>
+        </div>
+        <div class="territory-grid" id="territory-grid"></div>
+      </section>
+      <section class="map-placeholder" aria-labelledby="map-title">
+        <h2 id="map-title">Mapa interativo da Bahia</h2>
+        <p>Espaço preparado para a futura visualização geográfica das instituições e cientistas.</p>
+      </section>
+    </main>
+    <footer class="site-footer"><button class="screen-mode-button" type="button" data-screen-mode hidden>Tela</button><span>BTX 2026 • SECTI-BA</span></footer>
+  </body>
+</html>

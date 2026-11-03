@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#024a60" />
+    <link rel="icon" href="data:," />
+    <title>Encontre cientistas • Ciência na Bahia</title>
+    <link rel="stylesheet" href="internal.css" />
+    <script src="orientation.js"></script>
+    <script src="app.js" defer></script>
+  </head>
+  <body class="internal-page" data-page="cientistas">
+    <main class="internal-shell">
+      <nav class="top-row top-row--internal" aria-label="Navegação principal">
+        <a class="institutional-brand" href="index.html" aria-label="Observatório de CT&amp;I da Bahia — início">
+          <img class="institutional-brand__logo" src="assets/logo observatório sem texto.jpeg" alt="" width="72" height="72" />
+          <p><strong>Observatório</strong><span>de CT&amp;I da Bahia</span></p>
+          <img class="brand-btx brand-btx--home" src="assets/logo-btx.png" alt="BTX — Bahia Tech Experience 2026" onerror="this.remove()" />
+        </a>
+        <p class="top-title">CIÊNCIA <em>NA BAHIA</em></p>
+        <img class="top-gov" src="assets/marca-do-lado-da-gente.png" alt="Governo da Bahia" onerror="this.remove()" />
+      </nav>
+
+      <header class="page-hero">
+        <h1 id="listing-title">Encontre cientistas</h1>
+        <p id="listing-subtitle">Descubra pesquisadoras e pesquisadores que fazem ciência, tecnologia e inovação na Bahia.</p>
+      </header>
+
+      <section class="filter-panel" aria-label="Filtros de cientistas">
+        <div class="search-row">
+          <div class="field">
+            <label for="search">Busque pelo nome</label>
+            <input id="search" type="search" placeholder="Digite um nome" autocomplete="off" />
+          </div>
+          <button class="touch-button touch-button--text" id="clear-filters" type="button">Limpar filtros</button>
+        </div>
+        <div class="institution-picker" aria-labelledby="institution-title">
+          <div class="results-heading">
+            <h2 id="institution-title">Instituições</h2>
+            <p id="institution-count" aria-live="polite"></p>
+          </div>
+          <div class="institution-grid" id="institution-grid"></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="results-title">
+        <div class="results-heading"><h2 id="results-title">Cientistas</h2><p id="result-count" aria-live="polite"></p></div>
+        <div class="researcher-grid" id="researcher-grid"></div>
+        <nav class="pagination" id="researcher-pagination" aria-label="Paginação de cientistas"></nav>
+      </section>
+    </main>
+    <footer class="site-footer"><button class="screen-mode-button" type="button" data-screen-mode hidden>Tela</button><span>BTX 2026 • SECTI-BA</span></footer>
+  </body>
+</html>
