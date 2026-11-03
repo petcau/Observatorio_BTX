@@ -1143,20 +1143,34 @@
     root.querySelector("[data-link-theme]")?.addEventListener("click", () => navigate(`tematicas.html?tematica=${encodeURIComponent(selected.tematica)}`));
     // Há um botão "Amei" na ficha (retrato) e outro no layout de paisagem: os dois ficam sincronizados.
     const loveButtons = [...root.querySelectorAll("[data-love]")];
-    loveButtons.forEach((loveButton) => loveButton.addEventListener("click", () => {
-      const total = addLoveFor(selected.id);
-      if (total === null) {
+    // Contador de Amei guardado no Supabase (o mesmo total aparece em todos os aparelhos)
+    const showLoveTotal = (total) => {
+      if (!Number.isFinite(total)) return;
+      loveButtons.forEach((button) => {
+        const count = button.querySelector("[data-love-count]");
+        if (count) count.textContent = total > 0 ? formatNumber(total) : "";
+      });
+    };
+    telaoRpc("total_amei", { p_researcher_id: String(selected.id) })
+      .then((total) => { if (currentProfileId === selected.id) showLoveTotal(Number(total)); })
+      .catch(() => {});
+    loveButtons.forEach((loveButton) => loveButton.addEventListener("click", async () => {
+      // cada aparelho dá um Amei por pesquisador
+      if (addLoveFor(selected.id) === null) {
         if (status) status.textContent = `${selected.nome} já recebeu seu Amei neste acesso.`;
         return;
       }
       loveButtons.forEach((button) => {
         button.classList.add("is-loved", "is-pulsing");
         button.disabled = true;
-        const count = button.querySelector("[data-love-count]");
-        if (count) count.textContent = formatNumber(total);
         window.setTimeout(() => button.classList.remove("is-pulsing"), 420);
       });
       if (status) status.textContent = `${selected.nome} recebeu um Amei.`;
+      try {
+        showLoveTotal(Number(await telaoRpc("dar_amei", { p_researcher_id: String(selected.id) })));
+      } catch {
+        // sem conexão: o Amei fica marcado neste aparelho, mas não soma no banco
+      }
     }));
     // Foto do layout de paisagem: arquivo local em alta → foto do Lattes → iniciais
     root.querySelectorAll("[data-land-photo] img").forEach((image) => {

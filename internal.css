@@ -1,4 +1,4 @@
-@import url("style.css");
+@import url("style.css?v=20261103-btx4");
 
 body.internal-page { min-height: 100svh; }
 
@@ -2276,4 +2276,11 @@ html.is-handheld body[data-page="perfil"] .internal-shell { padding-top: 0; }
 @media (max-width: 760px) {
   .profile-status { min-height: 0; margin: 0; }
   .paulo-profile { padding-top: 8px; }
+}
+
+/* Ficha (retrato/celular): corta a faixa vazia do topo, onde ficava a logo do Observatório.
+   Na imagem de 941×1672, o conteúdo começa por volta de y=190 px (≈11% da altura, ≈20% da largura). */
+.paulo-template {
+  margin-top: -19%;
+  clip-path: inset(11% 0 0 0 round clamp(14px, 2.2cqw, 24px));
 }
