@@ -4,6 +4,9 @@
   const CSV_URL = "data/pesquisadoras.csv";
   const JSON_URL = "data/dados_simcc_completo.json";
   const PAULO_TEMPLATE_IMAGE = "assets/perfil-template-btx.png";
+  // no celular a ficha não mostra o brasão do Estado
+  const PAULO_TEMPLATE_IMAGE_PHONE = "assets/perfil-template-btx-celular.png";
+  const isPhoneScreen = () => document.documentElement.classList.contains("is-handheld") || window.matchMedia("(max-width: 760px)").matches;
   const RESEARCHER_PAGE_SIZE = 10;
   const SHOWCASE_METRIC_THRESHOLDS = {
     publications: 10,
@@ -1180,7 +1183,7 @@
         <button class="telao-button" type="button" data-telao>${iconSVG("spark")} <span>Mostrar no Telão da BTX</span></button>
       </div>
       <section class="paulo-template" aria-label="Ficha Descubra um talento da ciência">
-        <img class="paulo-template__base" src="${PAULO_TEMPLATE_IMAGE}" alt="" aria-hidden="true" decoding="async" />
+        <img class="paulo-template__base" src="${isPhoneScreen() ? PAULO_TEMPLATE_IMAGE_PHONE : PAULO_TEMPLATE_IMAGE}" alt="" aria-hidden="true" decoding="async" />
         <div class="paulo-template__photo" data-photo>${photoMarkup}</div>
         <div class="paulo-template__name${textFitClass(selected.nome, 22, 32)}" id="profile-title" tabindex="-1">
           <strong>${escapeHTML(selected.nome)}</strong>
