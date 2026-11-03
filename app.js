@@ -936,11 +936,14 @@
     </button>`;
   }
 
+  // Troca automática: ligada por padrão no computador/telão; sempre desligada no celular.
   function readAutoRotationPreference() {
+    if (document.documentElement.classList.contains("is-handheld")) return false;
     try {
-      return localStorage.getItem(AUTO_ROTATION_STORAGE_KEY) === "true";
+      const saved = localStorage.getItem(AUTO_ROTATION_STORAGE_KEY);
+      return saved === null ? true : saved === "true";
     } catch {
-      return false;
+      return true;
     }
   }
 
