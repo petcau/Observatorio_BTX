@@ -994,21 +994,41 @@
     }
   }
 
+  // Aviso rápido por cima da tela (some sozinho em 3 segundos)
+  let toastTimer = null;
+  function showToast(message, tone = "info") {
+    let toast = document.querySelector("#app-toast");
+    if (!toast) {
+      toast = document.createElement("div");
+      toast.id = "app-toast";
+      toast.className = "app-toast";
+      toast.setAttribute("role", "status");
+      toast.setAttribute("aria-live", "polite");
+      document.body.append(toast);
+    }
+    toast.textContent = message;
+    toast.dataset.tone = tone;
+    toast.classList.add("is-visible");
+    window.clearTimeout(toastTimer);
+    toastTimer = window.setTimeout(() => toast.classList.remove("is-visible"), 3000);
+  }
+
   async function requestTelao(researcher, button) {
-    button.disabled = true;
-    const label = button.querySelector("span");
+    if (button.disabled) return;
+    button.disabled = true; // evita toque duplo enquanto envia; o texto do botão não muda
     try {
       const result = await telaoRpc("pedir_telao", { p_researcher_id: String(researcher.id) });
       const messages = {
-        ok: "Enviado! Aparece no telão em instantes",
-        ja_na_fila: "Já está na fila do telão",
-        aguarde: "Já apareceu no telão. Peça de novo depois de mais 3 perfis",
-        fila_cheia: "Fila do telão cheia, tente depois"
+        ok: ["Enviado! Aparece no telão da BTX em instantes.", "success"],
+        ja_na_fila: ["Este perfil já está na fila do telão. Aguarde!", "info"],
+        aguarde: ["Este perfil já apareceu no telão. Tente novamente daqui alguns minutos!", "warning"],
+        fila_cheia: ["A fila do telão está cheia. Tente novamente daqui alguns minutos!", "warning"]
       };
-      if (label) label.textContent = messages[result] || "Não foi possível enviar";
-      button.classList.add("is-sent");
+      const [message, tone] = messages[result] || ["Não foi possível enviar. Tente de novo.", "warning"];
+      showToast(message, tone);
     } catch {
-      if (label) label.textContent = "Sem conexão. Tente de novo";
+      showToast("Sem conexão. Tente de novo.", "warning");
+    } finally {
       button.disabled = false;
     }
   }

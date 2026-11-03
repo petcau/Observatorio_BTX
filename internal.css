@@ -1,4 +1,4 @@
-@import url("style.css?v=20261103-btx8");
+@import url("style.css?v=20261103-btx9");
 
 body.internal-page { min-height: 100svh; }
 
@@ -2292,3 +2292,29 @@ html.is-handheld .mobile-actions { gap: 8px; }
 html.is-handheld .mobile-actions .paulo-template__love-button { padding: 0 14px; }
 html.is-handheld .mobile-actions .telao-button { padding: 0 12px; gap: 6px; font-size: clamp(.8rem, 3.7vw, .98rem); white-space: nowrap; }
 html.is-handheld .mobile-actions .telao-button svg { width: 18px; height: 18px; flex: none; }
+
+/* Aviso rápido por cima da tela (3 segundos) */
+.app-toast {
+  position: fixed;
+  z-index: 200;
+  left: 50%;
+  top: 50%;
+  width: min(88vw, 420px);
+  padding: 22px 24px;
+  color: #ffffff;
+  background: var(--blue-deep);
+  border-radius: 20px;
+  box-shadow: 0 24px 60px rgba(2, 30, 40, .35);
+  font: 800 1.08rem/1.35 var(--font);
+  text-align: center;
+  opacity: 0;
+  pointer-events: none;
+  transform: translate(-50%, -46%) scale(.96);
+  transition: opacity .25s ease, transform .25s ease;
+}
+.app-toast.is-visible { opacity: 1; transform: translate(-50%, -50%) scale(1); }
+.app-toast[data-tone="success"] { background: #0f7a35; }
+.app-toast[data-tone="warning"] { background: #b45309; }
+/* o botão do telão não muda de cor nem de texto */
+html.is-handheld .telao-button.is-sent { background: inherit; }
+html.is-handheld .telao-button:disabled { opacity: .85; }
