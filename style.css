@@ -1039,3 +1039,38 @@ html.is-handheld .site-footer .auto-rotation-control { display: none; }
   }
   .top-row .top-gov { height: 34px; flex: none; }
 }
+
+/* Crédito no rodapé fino: Observatório + data dos dados */
+.site-footer { gap: 12px; }
+.site-footer__credit {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+  margin: 0;
+  color: var(--ink-soft);
+  font-size: .66rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+.site-footer__credit a { color: var(--blue-deep); font-weight: 800; text-decoration: none; }
+.site-footer__credit a:hover, .site-footer__credit a:focus-visible { text-decoration: underline; }
+/* celular: crédito à esquerda, BTX à direita, numa linha só */
+@media (max-width: 760px) {
+  .site-footer__credit { position: static; transform: none; font-size: .6rem; white-space: normal; line-height: 1.15; }
+  .site-footer > span { font-size: .56rem; letter-spacing: .1em; flex: none; }
+  .site-footer > span::before { width: 12px; }
+}
+
+/* Rodapé: só os ícones; os textos ficam como dica (title) ao passar o mouse */
+.site-footer .screen-mode-button span,
+.site-footer .auto-rotation-control__copy {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+.site-footer .screen-mode-button { padding: 0 4px; }
+.site-footer .screen-mode-button svg { width: 16px; height: 16px; }
+.site-footer .auto-rotation-control { margin-left: 8px; }

@@ -1085,7 +1085,7 @@
   }
 
   function autoRotationControlMarkup() {
-    return `<label class="auto-rotation-control">
+    return `<label class="auto-rotation-control" title="Troca automática: novo perfil a cada 30 segundos">
       <input type="checkbox" data-auto-rotate${autoRotationEnabled ? " checked" : ""} />
       <span class="auto-rotation-control__switch" aria-hidden="true"><span></span></span>
       <span class="auto-rotation-control__copy">
@@ -1172,7 +1172,6 @@
         <button class="touch-button touch-button--primary" type="button" data-discover>
           ${iconSVG("spark")} <span>Conheça outro talento</span>
         </button>
-        ${themeAction}
       </div>
     </article>`;
 

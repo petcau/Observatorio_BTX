@@ -51,7 +51,7 @@
   }
 
   const ICONS = {
-    auto: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M4 12a8 8 0 0 1 13.7-5.6M20 12a8 8 0 0 1-13.7 5.6"/><path d="M18 2v5h-5M6 22v-5h5"/></svg>',
+    auto: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="3" width="8" height="14" rx="1.6"/><rect x="8" y="12" width="13.5" height="8" rx="1.6"/><path d="M15 4.5a5 5 0 0 1 4 4.2M19 8.7l1.2-1.6M19 8.7l-1.8-.9"/></svg>',
     portrait: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="7" y="2.5" width="10" height="19" rx="2"/></svg>',
     landscape: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="2.5" y="7" width="19" height="10" rx="2"/></svg>'
   };

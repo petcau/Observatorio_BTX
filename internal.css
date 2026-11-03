@@ -1,4 +1,4 @@
-@import url("style.css?v=20261103-btx11");
+@import url("style.css?v=20261103-btx16");
 
 body.internal-page { min-height: 100svh; }
 
@@ -2318,3 +2318,8 @@ html.is-handheld .mobile-actions .telao-button svg { width: 18px; height: 18px; 
 /* o botão do telão não muda de cor nem de texto */
 html.is-handheld .telao-button.is-sent { background: inherit; }
 html.is-handheld .telao-button:disabled { opacity: .85; }
+/* indicadores do perfil: rótulo e ícone em branco */
+@media (min-width: 900px) {
+  .profile-land__metric span,
+  .profile-land__metric span svg { color: #ffffff; stroke: #ffffff; }
+}
