@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <meta name="theme-color" content="#024a60" />
+    <meta name="description" content="Conheça cientistas baianas que fazem ciência, tecnologia e inovação." />
+    <link rel="icon" href="data:," />
+    <title>Conheça as cientistas baianas • Observatório de CT&amp;I da Bahia</title>
+    <link rel="stylesheet" href="internal.css?v=20261104-cientistas-baianas" />
+    <script src="orientation.js?v=20261104-cientistas-baianas"></script>
+    <script src="app.js?v=20261104-cientistas-baianas-2" defer></script>
+  </head>
+  <body class="internal-page" data-page="cientistas" data-researcher-scope="women">
+    <main class="internal-shell">
+      <nav class="top-row top-row--internal" aria-label="Navegação principal">
+        <a class="institutional-brand" href="index.html" aria-label="Observatório de CT&amp;I da Bahia — início">
+          <img class="institutional-brand__logo" src="assets/logo observatório sem texto.jpeg" alt="" width="72" height="72" />
+          <p><strong>Observatório</strong><span>de CT&amp;I da Bahia</span></p>
+        </a>
+        <p class="top-title">CIÊNCIA <em>NA BAHIA</em></p>
+        <img class="top-gov" src="assets/marca-do-lado-da-gente.png" alt="Governo da Bahia" onerror="this.remove()" />
+      </nav>
+
+      <header class="page-hero">
+        <p class="hero__scope">PESSOAS • TRAJETÓRIAS • CONHECIMENTO</p>
+        <h1 id="listing-title">Conheça as cientistas baianas</h1>
+        <p id="listing-subtitle">Descubra mulheres que fazem ciência, tecnologia e inovação na Bahia.</p>
+      </header>
+
+      <section class="filter-panel" aria-label="Filtros de cientistas">
+        <div class="search-row">
+          <div class="field">
+            <label for="search">Busque pelo nome da pesquisadora</label>
+            <input id="search" type="search" placeholder="Digite um nome" autocomplete="off" />
+          </div>
+          <button class="touch-button touch-button--text" id="clear-filters" type="button">Limpar filtros</button>
+        </div>
+        <div class="institution-picker" aria-labelledby="institution-title">
+          <div class="results-heading">
+            <h2 id="institution-title">Instituições</h2>
+            <p id="institution-count" aria-live="polite"></p>
+          </div>
+          <div class="institution-grid" id="institution-grid"></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="results-title">
+        <div class="results-heading"><h2 id="results-title">Pesquisadoras</h2><p id="result-count" aria-live="polite"></p></div>
+        <div class="researcher-grid" id="researcher-grid"></div>
+        <nav class="pagination" id="researcher-pagination" aria-label="Carregamento da lista de cientistas"></nav>
+      </section>
+    </main>
+    <footer class="site-footer"><button class="screen-mode-button" type="button" data-screen-mode hidden>Tela</button><p class="site-footer__credit"><a href="https://observatoriocti.secti.ba.gov.br/" target="_blank" rel="noopener noreferrer">Observatório de CT&amp;I da Bahia</a> · Dados atualizados em novembro de 2026</p><span>SECTI-BA</span></footer>
+  </body>
+</html>

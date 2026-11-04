@@ -42,6 +42,8 @@
   };
 
   const page = document.body.dataset.page;
+  const researcherScope = document.body.dataset.researcherScope || "all";
+  const listingPath = researcherScope === "women" ? "cientistas-baianas.html" : "cientistas.html";
   const params = new URLSearchParams(window.location.search);
   const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
@@ -539,7 +541,7 @@
       const nextParams = new URLSearchParams();
       if (selectedInstitution) nextParams.set("instituicao", selectedInstitution);
       const query = nextParams.toString();
-      window.history.replaceState({}, "", query ? `cientistas.html?${query}` : "cientistas.html");
+      window.history.replaceState({}, "", query ? `${listingPath}?${query}` : listingPath);
     };
 
     // Lista contínua: mostra um lote e carrega o próximo quando o fim da lista aparece na tela.
@@ -556,7 +558,7 @@
       shownCount = Math.min(shownCount + BATCH_SIZE, filteredList.length);
       if (pagination) {
         pagination.innerHTML = shownCount < filteredList.length
-          ? `<span class="infinite-loader">Carregando mais cientistas…</span>`
+          ? `<span class="infinite-loader">Carregando mais ${researcherScope === "women" ? "pesquisadoras" : "cientistas"}…</span>`
           : "";
       }
     };
@@ -575,7 +577,7 @@
       const allButton = `<button class="institution-tile${selectedInstitution ? "" : " is-active"}" type="button" data-institution="">
         <span class="institution-tile__mark" aria-hidden="true">BA</span>
         <strong>Todas</strong>
-        <span>${researchers.length} cientistas</span>
+        <span>${researchers.length} ${researcherScope === "women" ? "pesquisadoras" : "cientistas"}</span>
       </button>`;
       // Só logo e sigla; o nome completo fica no title (aparece ao passar o mouse) e no aria-label.
       institutionGrid.innerHTML = allButton + groups.map((group) => `<button class="institution-tile${group.label === selectedInstitution ? " is-active" : ""}" type="button" data-institution="${escapeHTML(group.label)}" title="${escapeHTML(group.label)}" aria-label="${escapeHTML(`${displayOrFallback(group.sigla)} — ${group.label}`)}">
@@ -601,8 +603,8 @@
       const term = search.value.trim().toLocaleLowerCase("pt-BR");
       const selectedGroup = groups.find((group) => group.label === selectedInstitution);
       listingTitle.textContent = selectedGroup
-        ? `Cientistas da ${displayOrFallback(selectedGroup.sigla)}`
-        : "Encontre cientistas";
+        ? `${researcherScope === "women" ? "Pesquisadoras" : "Cientistas"} da ${displayOrFallback(selectedGroup.sigla)}`
+        : researcherScope === "women" ? "Conheça as cientistas baianas" : "Encontre cientistas";
 
       const filtered = researchers.filter((item) => {
         const searchable = [item.nome, item.instituicao, item.sigla, item.area, item.tematica, item.cidade, item.tema]
@@ -614,8 +616,11 @@
       });
 
       updateListingURL();
+      const resultadoRotulo = researcherScope === "women"
+        ? (filtered.length === 1 ? "pesquisadora encontrada" : "pesquisadoras encontradas")
+        : (filtered.length === 1 ? "cientista encontrado" : "cientistas encontrados");
       count.textContent = filtered.length
-        ? `${filtered.length} ${filtered.length === 1 ? "cientista encontrado" : "cientistas encontrados"}`
+        ? `${filtered.length} ${resultadoRotulo}`
         : "Nenhum resultado encontrado";
       filteredList = filtered;
       shownCount = 0;
@@ -638,7 +643,7 @@
     document.querySelector("#clear-filters").addEventListener("click", () => {
       search.value = "";
       selectedInstitution = "";
-      window.history.replaceState({}, "", "cientistas.html");
+      window.history.replaceState({}, "", listingPath);
       applyFilters();
     });
     applyFilters();
@@ -1348,6 +1353,10 @@
     setLoadingState();
     try {
       researchers = await loadResearchers();
+      if (researcherScope === "women") {
+        researchers = researchers.filter((researcher) => researcher.sexo === "F");
+        dataSourceLabel = `${dataSourceLabel} · recorte de pesquisadoras`;
+      }
       setSourceNotes();
       renderer();
     } catch (error) {
