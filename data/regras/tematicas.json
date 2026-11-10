@@ -1,0 +1,1205 @@
+{
+  "_como_usar": [
+    "Regras usadas pela etapa inferirTematica do pipeline (data/atualizar_dados.js).",
+    "Os padrões são expressões regulares aplicadas ao texto em minúsculas e SEM acentos.",
+    "curso: curso citado na biografia que define a temática (vence o padrão mais longo/específico).",
+    "curso_padrao: curso genérico, usado só se as palavras-chave não decidirem.",
+    "palavras: termos procurados na biografia inteira; vence a temática com mais termos diferentes encontrados.",
+    "cursos_genericos: cursos que não indicam temática (são ignorados)."
+  ],
+  "cursos_genericos": [
+    "^licenciatura( plena| interdisciplinar)?$",
+    "^bacharelado( interdisciplinar)?$",
+    "^bacharel$",
+    "^lic$",
+    "^eng$",
+    "^ciencias?$",
+    "^andamento$",
+    "^interdisciplinar$",
+    "^tecnologias?$",
+    "^analise$",
+    "^tecnico$",
+    "^tecnologo$",
+    "^sistemas$",
+    "^teoria$",
+    "^estado$",
+    "^familia$",
+    "^desenvolvimento$",
+    "^ciencias exatas$",
+    "^ciencias humanas$",
+    "^ciencias naturais$",
+    "^ciencias da natureza$",
+    "^humanidades$",
+    "^docencia$",
+    "^engenharia$"
+  ],
+  "tematicas": [
+    {
+      "nome": "Biodiversidade, ecologia e conservação",
+      "curso": [
+        "\\becologia(?! humana)",
+        "\\bbiodiversidade(?! vegetal)",
+        "conservacao da (natureza|biodiversidade)"
+      ],
+      "curso_padrao": [
+        "ciencias? biologic",
+        "^biologia$",
+        "^biociencias$"
+      ],
+      "palavras": [
+        "\\becolog",
+        "biodiversidade",
+        "ecossistema",
+        "\\bfauna\\b",
+        "conservacao (da natureza|da biodiversidade|de especies|ambiental)",
+        "caatinga",
+        "mata atlantica",
+        "\\bcerrado\\b",
+        "restinga",
+        "manguez",
+        "polinizac",
+        "biogeograf",
+        "restauracao ecologica",
+        "unidades de conservacao"
+      ]
+    },
+    {
+      "nome": "Química e processos químicos",
+      "curso": [
+        "\\bquimica( pura| analitica| organica| inorganica| aplicada| bacharelado| licenciatura)?\\b"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "quimica analitica",
+        "quimica organica",
+        "quimica inorganica",
+        "fisico-?quimica",
+        "eletroquimica",
+        "\\bcatalis",
+        "sintese de",
+        "espectroscop",
+        "cromatograf",
+        "\\bquimica\\b",
+        "compostos (organicos|inorganicos)"
+      ]
+    },
+    {
+      "nome": "Educação, ensino e formação docente",
+      "curso": [
+        "\\beducacao(?! fisica| ambiental| musical| matematica)",
+        "\\bpedagogia",
+        "\\bensino\\b",
+        "metodologia do ensino",
+        "psicopedagogia",
+        "intervencao educativa",
+        "ciencias da educacao",
+        "educacao matematica",
+        "ensino de (ciencias|historia|fisica|quimica|matematica)"
+      ],
+      "curso_padrao": [
+        "^licenciatura( plena)?$"
+      ],
+      "palavras": [
+        "formacao (de professores|docente|inicial|continuada)",
+        "pratica pedagogica",
+        "ensino-aprendizagem",
+        "\\bcurriculo",
+        "didatica",
+        "educacao basica",
+        "alfabetiza",
+        "sala de aula",
+        "escola publica",
+        "gestao escolar",
+        "\\bpedagog",
+        "educacao (infantil|especial|inclusiva|de jovens|do campo|a distancia)",
+        "\\bensino de\\b"
+      ]
+    },
+    {
+      "nome": "Saúde coletiva e epidemiologia",
+      "curso": [
+        "saude coletiva",
+        "saude publica",
+        "epidemiologia",
+        "saude da familia",
+        "saude comunitaria",
+        "medicina de familia",
+        "saude da populacao negra",
+        "\\bnutricao( clinica)?\\b"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "epidemiolog",
+        "saude coletiva",
+        "saude publica",
+        "vigilancia (em saude|epidemiologica)",
+        "atencao primaria",
+        "\\bsus\\b",
+        "saude da familia",
+        "determinantes sociais",
+        "inquerito",
+        "nutricao",
+        "seguranca alimentar"
+      ]
+    },
+    {
+      "nome": "Produção animal e pastagens",
+      "curso": [
+        "zootecnia",
+        "ciencia animal",
+        "producao animal",
+        "forragicultura",
+        "pastagens?"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "zootecni",
+        "ruminantes",
+        "bovinos",
+        "caprinos",
+        "ovinos",
+        "suinos",
+        "avicultura",
+        "nutricao animal",
+        "forrage",
+        "pastagens?",
+        "producao animal",
+        "pecuaria",
+        "leite"
+      ]
+    },
+    {
+      "nome": "Matemática, estatística e modelagem",
+      "curso": [
+        "\\bmatematica( pura| aplicada| bacharelado)?\\b",
+        "estatistica"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "matematica",
+        "estatistica",
+        "algebra",
+        "geometria",
+        "equacoes diferenciais",
+        "probabilidade",
+        "analise numerica",
+        "topologia",
+        "analise funcional"
+      ]
+    },
+    {
+      "nome": "Sociologia, antropologia e sociedade",
+      "curso": [
+        "ciencias sociais",
+        "sociologia",
+        "antropologia",
+        "estudos etnicos",
+        "relacoes etnicas",
+        "estudos africanos"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "sociolog",
+        "antropolog",
+        "etnograf",
+        "movimentos sociais",
+        "desigualdade",
+        "\\bracismo",
+        "quilombol",
+        "indigena",
+        "comunidades tradicionais",
+        "juventude",
+        "violencia",
+        "classes sociais"
+      ]
+    },
+    {
+      "nome": "Alimentos e tecnologia agroindustrial",
+      "curso": [
+        "engenharia de alimentos",
+        "ciencias? (de|dos) alimentos",
+        "tecnologia de alimentos",
+        "^alimentos$",
+        "agroindustria",
+        "gastronomia"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "tecnologia de alimentos",
+        "ciencia de alimentos",
+        "agroindustri",
+        "processamento de alimentos",
+        "qualidade de alimentos",
+        "microbiologia de alimentos",
+        "frutos",
+        "fermentac",
+        "\\balimentos\\b"
+      ]
+    },
+    {
+      "nome": "Biotecnologia",
+      "curso": [
+        "biotecnologia",
+        "bioprocessos"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "biotecnolog",
+        "bioprocess",
+        "\\benzimas?\\b",
+        "biorremediac",
+        "biocombustive",
+        "bioprodutos",
+        "engenharia genetica",
+        "biomassa"
+      ]
+    },
+    {
+      "nome": "Diagnóstico e pesquisa clínica",
+      "curso": [
+        "analises clinicas",
+        "clinica medica",
+        "patologia( humana| experimental)?",
+        "radiologia",
+        "pediatria",
+        "ginecologia",
+        "cirurgia( geral)?$",
+        "terapia intensiva",
+        "urgencia",
+        "geriatria",
+        "assistencia farmaceutica"
+      ],
+      "curso_padrao": [
+        "^medicina$",
+        "medicina (pela|da|na)",
+        "biomedicina",
+        "farmacia( clinica| bioquimica|-bioquimica)?",
+        "ciencias farmaceuticas",
+        "ciencias biomedicas",
+        "biomedicina estetica"
+      ],
+      "palavras": [
+        "diagnostic",
+        "ensaios clinicos",
+        "pesquisa clinica",
+        "biomarcador",
+        "exames laboratoriais",
+        "analises clinicas",
+        "farmacologi",
+        "medicamentos",
+        "pratica clinica"
+      ]
+    },
+    {
+      "nome": "Computação e inteligência artificial",
+      "curso": [
+        "ciencias? da computacao",
+        "engenharia d[ae] computacao",
+        "sistemas? de informacao",
+        "\\bcomputacao( aplicada)?\\b",
+        "informatica",
+        "processamento de dados",
+        "analise (e desenvolvimento )?de sistemas",
+        "bioinformatica"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "inteligencia artificial",
+        "aprendizado de maquina",
+        "machine learning",
+        "\\bcomputacao",
+        "\\bsoftware",
+        "algoritmos?",
+        "redes neurais",
+        "ciencia de dados",
+        "mineracao de dados",
+        "engenharia de software",
+        "visao computacional",
+        "linguagem natural",
+        "banco de dados"
+      ]
+    },
+    {
+      "nome": "Física e astronomia",
+      "curso": [
+        "^fisica( bacharelado| licenciatura| - licenciatura)?$",
+        "fisica (pela|da|na)",
+        "astronomia",
+        "astrofisica"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "\\bfisica\\b(?! e saude)",
+        "astronomia",
+        "astrofisica",
+        "materia condensada",
+        "\\boptica",
+        "mecanica quantica",
+        "particulas",
+        "cosmolog",
+        "fisica teorica"
+      ]
+    },
+    {
+      "nome": "Geociências, geoquímica e petróleo",
+      "curso": [
+        "geologia",
+        "geofisica",
+        "geoquimica",
+        "geociencias",
+        "engenharia de (petroleo|minas)",
+        "\\bpetroleo"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "geolog",
+        "geoquimic",
+        "geofisic",
+        "petroleo",
+        "sediment",
+        "mineral",
+        "\\brochas\\b",
+        "hidrogeolog",
+        "tectonic",
+        "bacias? sedimentar"
+      ]
+    },
+    {
+      "nome": "Filosofia, epistemologia e ciência",
+      "curso": [
+        "filosofia",
+        "teologia"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "filosof",
+        "epistemolog",
+        "\\betica\\b",
+        "metafisica",
+        "fenomenolog",
+        "hermeneutic",
+        "\\blogica\\b"
+      ]
+    },
+    {
+      "nome": "Enfermagem e cuidado",
+      "curso": [
+        "enfermagem"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "enfermagem",
+        "cuidados? de enfermagem",
+        "assistencia de enfermagem",
+        "\\bcuidado\\b"
+      ]
+    },
+    {
+      "nome": "Linguística e estudos da linguagem",
+      "curso": [
+        "linguistica",
+        "^letras",
+        "lingua (portuguesa|inglesa|estrangeira)",
+        "estudos? (linguisticos|de linguagens)",
+        "linguagens",
+        "^ingles$",
+        "libras",
+        "linguas estrangeiras",
+        "^lingua$"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "linguistic",
+        "\\blinguagem",
+        "lingua portuguesa",
+        "gramatica",
+        "sociolinguist",
+        "analise do discurso",
+        "\\bdiscurso",
+        "traducao",
+        "\\blibras\\b",
+        "fonolog",
+        "semantic",
+        "lingua inglesa",
+        "lingua materna"
+      ]
+    },
+    {
+      "nome": "História, memória e patrimônio",
+      "curso": [
+        "^historia",
+        "historia (social|regional|economica|da africa|pela|da universidade)",
+        "museologia",
+        "arqueologia",
+        "^memoria",
+        "patrimonio"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "\\bhistori",
+        "memoria",
+        "patrimonio",
+        "arquivos?\\b",
+        "escravid",
+        "\\bcolonial",
+        "\\bimperio\\b",
+        "\\bmuseu",
+        "arqueolog"
+      ]
+    },
+    {
+      "nome": "Construção civil e infraestrutura",
+      "curso": [
+        "engenharia civil",
+        "engenharia de estruturas",
+        "^estruturas$",
+        "engenharia de agrimensura",
+        "construcao civil",
+        "geotecnia"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "construcao civil",
+        "estruturas",
+        "concreto",
+        "geotecni",
+        "pavimenta",
+        "materiais de construcao",
+        "edificac",
+        "infraestrutura"
+      ]
+    },
+    {
+      "nome": "Arquitetura, urbanismo e cidades",
+      "curso": [
+        "arquitetura",
+        "urbanismo",
+        "planejamento (urbano|territorial)",
+        "design de interiores"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "arquitetura",
+        "urbanismo",
+        "\\bcidades?\\b",
+        "planejamento urbano",
+        "espaco urbano",
+        "habitacao",
+        "paisagis"
+      ]
+    },
+    {
+      "nome": "Genética, evolução e biologia molecular",
+      "curso": [
+        "genetica",
+        "biologia (celular|molecular)",
+        "\\bbioquimica\\b",
+        "recursos geneticos"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "genetic",
+        "genomic",
+        "biologia molecular",
+        "\\bevolu",
+        "filogen",
+        "marcadores moleculares",
+        "\\bdna\\b",
+        "expressao genica",
+        "citogenetic"
+      ]
+    },
+    {
+      "nome": "Processos industriais e engenharia química",
+      "curso": [
+        "engenharia quimica",
+        "quimica industrial",
+        "^engenharia industrial$",
+        "engenharia de producao",
+        "processos industriais"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "engenharia quimica",
+        "processos industriais",
+        "reatores?",
+        "operacoes unitarias",
+        "engenharia de producao",
+        "otimizacao de processos"
+      ]
+    },
+    {
+      "nome": "Sanidade animal",
+      "curso": [
+        "medicina veterinaria",
+        "defesa agropecuaria"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "veterinari",
+        "sanidade animal",
+        "clinica (veterinaria|de pequenos|de grandes)",
+        "zoonoses?",
+        "doencas (de|dos) animais",
+        "parasitologia veterinaria"
+      ]
+    },
+    {
+      "nome": "Psicologia, subjetividade e comportamento",
+      "curso": [
+        "^psicologia",
+        "psicologia (social|clinica|da saude|do desenvolvimento|da universidade)",
+        "neuropsicologia",
+        "psicopedagogia clinica"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "psicolog",
+        "subjetividade",
+        "comportamento",
+        "psicanalis",
+        "cognic",
+        "desenvolvimento humano"
+      ]
+    },
+    {
+      "nome": "Artes e processos de criação",
+      "curso": [
+        "^artes?$",
+        "artes (visuais|plasticas|cenicas)",
+        "teatro",
+        "\\bdanca",
+        "^desenho",
+        "^design$",
+        "desenho industrial"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "\\bartes\\b",
+        "processos? (de criacao|criativos)",
+        "teatro",
+        "\\bdanca\\b",
+        "performance",
+        "artes visuais",
+        "poetica",
+        "encenac"
+      ]
+    },
+    {
+      "nome": "Materiais e novos materiais",
+      "curso": [
+        "engenharia de materiais",
+        "ciencia dos materiais"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "\\bmateriais\\b",
+        "polimer",
+        "ceramic",
+        "composito",
+        "metalurg",
+        "caracterizacao de materiais"
+      ]
+    },
+    {
+      "nome": "Comunicação, mídia e cultura digital",
+      "curso": [
+        "comunicacao",
+        "jornalismo",
+        "publicidade",
+        "relacoes publicas",
+        "\\bradio\\b"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "comunicac",
+        "jornalis",
+        "\\bmidia",
+        "redes sociais",
+        "cultura digital",
+        "publicidade",
+        "televis",
+        "\\bradio\\b"
+      ]
+    },
+    {
+      "nome": "Doenças infecciosas e parasitárias",
+      "curso": [
+        "doencas infecciosas",
+        "medicina tropical"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "doencas infecciosas",
+        "parasit",
+        "\\bdengue",
+        "leishmani",
+        "malaria",
+        "tuberculose",
+        "\\bhiv\\b",
+        "arbovir",
+        "esquistossom",
+        "doenca de chagas",
+        "virolog",
+        "\\binfecc"
+      ]
+    },
+    {
+      "nome": "Sistemas elétricos e energia",
+      "curso": [
+        "engenharia (industrial )?eletrica",
+        "^energia$",
+        "sistemas eletricos"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "\\benergia",
+        "sistemas eletricos",
+        "energias? renovave",
+        "energia solar",
+        "eolica",
+        "eletronica de potencia",
+        "smart grid",
+        "distribuicao de energia"
+      ]
+    },
+    {
+      "nome": "Botânica e biodiversidade vegetal",
+      "curso": [
+        "botanica",
+        "biodiversidade vegetal",
+        "biologia vegetal"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "botanic",
+        "taxonomia vegetal",
+        "\\bplantas\\b",
+        "angiosperm",
+        "anatomia vegetal",
+        "fisiologia vegetal",
+        "\\bflora\\b"
+      ]
+    },
+    {
+      "nome": "Odontologia e saúde bucal",
+      "curso": [
+        "odontolog",
+        "ortodontia",
+        "endodontia",
+        "implantodontia",
+        "protese dentaria",
+        "odontopediatria",
+        "periodontia",
+        "cirurgia buco"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "odontolog",
+        "saude bucal",
+        "\\bdentes?\\b",
+        "\\bcarie",
+        "periodont",
+        "ortodont",
+        "endodont"
+      ]
+    },
+    {
+      "nome": "Imunologia e interação hospedeiro-patógeno",
+      "curso": [
+        "imunologia",
+        "processos interativos d[eo]s? orgaos"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "imunolog",
+        "resposta imune",
+        "hospedeiro",
+        "patogeno",
+        "inflamac",
+        "citocinas"
+      ]
+    },
+    {
+      "nome": "Agricultura e produção vegetal",
+      "curso": [
+        "agronomia",
+        "engenharia agronomica",
+        "producao vegetal",
+        "fitotecnia",
+        "ciencias agrarias",
+        "agroecologia",
+        "engenharia agricola",
+        "^solos$",
+        "ciencia do solo",
+        "fitopatologia",
+        "microbiologia agricola"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "agronom",
+        "\\bcultivo",
+        "producao vegetal",
+        "fitotecni",
+        "\\bsolos?\\b",
+        "irrigac",
+        "fitopatolog",
+        "manejo de pragas",
+        "agroecolog",
+        "culturas agricolas",
+        "sementes",
+        "agricultura"
+      ]
+    },
+    {
+      "nome": "Saúde mental e comportamento",
+      "curso": [
+        "saude mental",
+        "psiquiatria"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "saude mental",
+        "psiquiatr",
+        "transtornos? mentais",
+        "depressao",
+        "ansiedade",
+        "dependencia quimica",
+        "\\bcaps\\b"
+      ]
+    },
+    {
+      "nome": "Recursos naturais e conservação",
+      "curso": [
+        "gestao ambiental",
+        "recursos (hidricos|naturais)",
+        "meio ambiente",
+        "engenharia florestal",
+        "ciencias? florestais?",
+        "ciencia florestal"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "recursos naturais",
+        "recursos hidricos",
+        "bacias? hidrografica",
+        "manejo florestal",
+        "gestao ambiental",
+        "florestal"
+      ]
+    },
+    {
+      "nome": "Ciência, tecnologia e inovação",
+      "curso": [
+        "propriedade intelectual",
+        "difusao do conhecimento",
+        "inovacao"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "inovacao",
+        "propriedade intelectual",
+        "transferencia de tecnologia",
+        "empreendedoris",
+        "patentes?",
+        "difusao do conhecimento",
+        "divulgacao cientifica"
+      ]
+    },
+    {
+      "nome": "Ciências ambientais e clima",
+      "curso": [
+        "ciencias ambientais",
+        "ecologia humana"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "mudancas climaticas",
+        "\\bclima",
+        "meteorolog",
+        "poluic",
+        "qualidade da agua",
+        "impactos? ambienta",
+        "ciencias ambientais"
+      ]
+    },
+    {
+      "nome": "Cultura, identidade e diversidade",
+      "curso": [
+        "^cultura",
+        "estudos interdisciplinares sobre mulheres",
+        "estudos de genero",
+        "^genero$",
+        "critica cultural"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "\\bcultura",
+        "identidade",
+        "diversidade",
+        "\\bgenero\\b",
+        "feminis",
+        "sexualidade",
+        "etnico-raciais",
+        "cultura popular",
+        "religios"
+      ]
+    },
+    {
+      "nome": "Automação, controle e sistemas inteligentes",
+      "curso": [
+        "mecatronica",
+        "engenharia de controle",
+        "automacao",
+        "engenharia eletronica"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "automac",
+        "sistemas de controle",
+        "robotic",
+        "sistemas embarcados",
+        "instrumentac",
+        "mecatronic"
+      ]
+    },
+    {
+      "nome": "Zoologia e fauna",
+      "curso": [
+        "zoologia",
+        "diversidade animal",
+        "entomologia"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "zoolog",
+        "vertebrados",
+        "invertebrados",
+        "entomolog",
+        "ornitolog",
+        "herpetolog",
+        "ictiolog",
+        "mamiferos",
+        "insetos",
+        "\\baves\\b"
+      ]
+    },
+    {
+      "nome": "Materiais e nanotecnologia",
+      "curso": [
+        "nanotecnologia",
+        "nanociencia"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "nanotecnolog",
+        "nanoparticul",
+        "nanomateria",
+        "filmes finos",
+        "nanoestrutur"
+      ]
+    },
+    {
+      "nome": "Ecossistemas aquáticos e marinhos",
+      "curso": [
+        "engenharia de pesca",
+        "sistemas aquaticos",
+        "\\bpesca\\b",
+        "aquicultura"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "ecossistemas aquaticos",
+        "\\bpeixes",
+        "\\bpesca\\b",
+        "aquicultura",
+        "recifes?",
+        "estuar",
+        "limnolog",
+        "plancton"
+      ]
+    },
+    {
+      "nome": "Literatura e crítica literária",
+      "curso": [
+        "literatura",
+        "estudos literarios"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "literatur",
+        "literaria",
+        "critica literaria",
+        "poesia",
+        "\\bromance",
+        "narrativa",
+        "teoria literaria"
+      ]
+    },
+    {
+      "nome": "Engenharia ambiental e sustentabilidade",
+      "curso": [
+        "engenharia (ambiental|sanitaria)",
+        "desenvolvimento sustentavel"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "engenharia ambiental",
+        "saneamento",
+        "residuos solidos",
+        "tratamento de (agua|efluentes)",
+        "sustentabilidade"
+      ]
+    },
+    {
+      "nome": "Economia, finanças e tributação",
+      "curso": [
+        "ciencias economicas",
+        "^economia",
+        "economia (regional|aplicada)",
+        "contabilidade",
+        "ciencias contabeis",
+        "controladoria",
+        "auditoria",
+        "desenvolvimento economico"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "\\beconomi",
+        "financ",
+        "tribut",
+        "contabil",
+        "\\bmercado",
+        "macroeconom"
+      ]
+    },
+    {
+      "nome": "Modelagem e otimização de sistemas",
+      "curso": [
+        "modelagem( computacional)?",
+        "engenharia de sistemas"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "modelagem computacional",
+        "simulac",
+        "\\botimizac",
+        "pesquisa operacional",
+        "metodos numericos"
+      ]
+    },
+    {
+      "nome": "Gestão, organizações e trabalho",
+      "curso": [
+        "^administracao( de empresas)?$",
+        "administracao (pela|da|na)",
+        "^gestao$",
+        "gestao (de pessoas|de projetos|da qualidade|de recursos humanos)",
+        "recursos humanos",
+        "logistica",
+        "marketing",
+        "secretariado",
+        "turismo"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "\\bgestao\\b",
+        "administrac",
+        "organizac",
+        "\\btrabalho\\b",
+        "recursos humanos",
+        "estrategi",
+        "empresas"
+      ]
+    },
+    {
+      "nome": "Informação e sociedade",
+      "curso": [
+        "ciencia da informacao",
+        "biblioteconomia",
+        "arquivologia"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "ciencia da informacao",
+        "biblioteconom",
+        "arquivolog",
+        "\\binformacao\\b",
+        "documentac"
+      ]
+    },
+    {
+      "nome": "Imunologia e vacinas",
+      "curso": [],
+      "curso_padrao": [],
+      "palavras": [
+        "vacina",
+        "imunizac"
+      ]
+    },
+    {
+      "nome": "Doenças crônicas e saúde cardiovascular",
+      "curso": [
+        "cardiologia"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "cardiovascular",
+        "hipertens",
+        "diabetes",
+        "doencas cronicas",
+        "obesidade",
+        "cardiolog"
+      ]
+    },
+    {
+      "nome": "Telecomunicações e redes",
+      "curso": [
+        "telecomunicac",
+        "redes de computadores"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "telecomunicac",
+        "redes de computadores",
+        "comunicacoes moveis",
+        "antenas",
+        "redes sem fio",
+        "internet das coisas"
+      ]
+    },
+    {
+      "nome": "Microbiologia, parasitologia e doenças infecciosas",
+      "curso": [
+        "^microbiologia$",
+        "microbiologia (pela|da|na)",
+        "parasitologia"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "microbiolog",
+        "bacteria",
+        "\\bfungos",
+        "parasitolog",
+        "resistencia antimicrobiana"
+      ]
+    },
+    {
+      "nome": "Cinema, audiovisual e cultura",
+      "curso": [
+        "cinema",
+        "audiovisual"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "cinema",
+        "audiovisual",
+        "\\bfilmes?\\b",
+        "documentario"
+      ]
+    },
+    {
+      "nome": "Oceanografia e ambientes marinhos",
+      "curso": [
+        "oceanografia",
+        "oceanologia"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "oceanograf",
+        "\boceano",
+        "ambientes? marinhos?",
+        "plataforma continental",
+        "oceanografia"
+      ]
+    },
+    {
+      "nome": "Oncologia e pesquisa translacional",
+      "curso": [
+        "oncologia"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "\\bcancer",
+        "oncolog",
+        "\\btumor",
+        "neoplas",
+        "pesquisa translacional"
+      ]
+    },
+    {
+      "nome": "Políticas, gestão e atenção à saúde",
+      "curso": [
+        "fisioterapia( hospitalar)?",
+        "fonoaudiologia",
+        "terapia ocupacional",
+        "ciencias da reabilitacao",
+        "ciencias da saude",
+        "^saude$",
+        "educacao fisica",
+        "gestao (em|de) saude"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "atencao a saude",
+        "gestao em saude",
+        "politicas de saude",
+        "servicos de saude",
+        "fisioterap",
+        "reabilitac",
+        "fonoaudiolog",
+        "promocao da saude",
+        "atividade fisica",
+        "educacao fisica"
+      ]
+    },
+    {
+      "nome": "Políticas públicas e desenvolvimento",
+      "curso": [
+        "politicas? (publicas|sociais?)",
+        "gestao (de politicas publicas|publica|social)",
+        "administracao publica",
+        "desenvolvimento (regional|territorial)",
+        "servico social",
+        "seguranca publica",
+        "relacoes internacionais",
+        "ciencia politica",
+        "^territorio",
+        "estudos territoriais",
+        "^direito",
+        "direito (publico|civil|penal|processual|constitucional)",
+        "jurisdicao",
+        "ciencias juridicas",
+        "direitos humanos"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "politicas publicas",
+        "desenvolvimento (regional|territorial|local)",
+        "gestao publica",
+        "assistencia social",
+        "servico social",
+        "\\bdireito",
+        "juridic",
+        "ciencia politica"
+      ]
+    },
+    {
+      "nome": "Música e etnomusicologia",
+      "curso": [
+        "musica",
+        "educacao musical",
+        "composicao( musical)?",
+        "etnomusicologia",
+        "^instrumento$"
+      ],
+      "curso_padrao": [],
+      "palavras": [
+        "\\bmusica",
+        "musical",
+        "etnomusicolog",
+        "composicao musical"
+      ]
+    }
+  ]
+}

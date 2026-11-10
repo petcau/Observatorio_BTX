@@ -1,4 +1,4 @@
-@import url("style.css?v=20261103-btx18");
+@import url("style.css?v=20261109-btx25");
 
 body.internal-page { min-height: 100svh; }
 
@@ -1864,7 +1864,7 @@ html[data-layout="landscape"] .internal-shell { width: min(100%, 1600px); }
     border-radius: 16px;
   }
   .profile-land__bio h2 { margin: 0 0 6px; color: var(--blue-deep); font-size: clamp(.9rem, 1.6vh, 1.15rem); }
-  .profile-land__bio p { margin: 0; color: var(--ink); font-size: clamp(.86rem, 1.55vh, 1.12rem); line-height: 1.5; }
+  .profile-land__bio p { margin: 0; color: var(--ink); font-size: 18px; line-height: 1.5; }
 
   .profile-land__metrics { display: grid; grid-template-columns: repeat(auto-fit, minmax(120px, 1fr)); gap: clamp(8px, 1.2vh, 14px); }
   .profile-land__metric {
@@ -2322,4 +2322,86 @@ html.is-handheld .telao-button:disabled { opacity: .85; }
 @media (min-width: 900px) {
   .profile-land__metric span,
   .profile-land__metric span svg { color: #ffffff; stroke: #ffffff; }
+}
+
+/* ===== Perfil em paisagem: esquerda = nome + foto + quadros; direita = biografia + produções ===== */
+@media (min-width: 900px) {
+  html[data-layout="landscape"] .paulo-profile { grid-template-columns: minmax(360px, 40%) minmax(0, 1fr); }
+  html[data-layout="landscape"] .profile-land__side {
+    grid-column: 1;
+    grid-row: 1;
+    min-height: 0;
+    display: flex;
+    flex-direction: column;
+    gap: clamp(8px, 1.4vh, 16px);
+  }
+  html[data-layout="landscape"] .profile-land__info { grid-column: 2; grid-row: 1; }
+  /* foto menor: ocupa só o espaço que sobra entre o nome e os quadros */
+  html[data-layout="landscape"] .profile-land__side .profile-land__photo {
+    grid-column: auto;
+    grid-row: auto;
+    flex: 1 1 auto;
+    min-height: 140px;
+    width: 100%;
+  }
+  html[data-layout="landscape"] .profile-land__side .profile-land__name { font-size: clamp(1.5rem, 1.4vw + 1.4vh, 2.8rem); }
+  html[data-layout="landscape"] .profile-land__side .profile-land__facts { flex: none; }
+  html[data-layout="landscape"] .profile-land__side .profile-land__fact { padding-block: clamp(6px, 1vh, 12px); }
+  html[data-layout="landscape"] .profile-land__side .profile-land__fact strong { font-size: clamp(.8rem, 1.4vh, 1rem); }
+}
+
+/* Indicadores do perfil (paisagem): quadrados, ícone em cima e valor embaixo */
+@media (min-width: 900px) {
+  html[data-layout="landscape"] .profile-land__metrics {
+    --lado: clamp(96px, 14vh, 136px);
+    grid-template-columns: repeat(auto-fill, var(--lado));
+    justify-content: start;
+    gap: clamp(8px, 1.2vh, 14px);
+  }
+  html[data-layout="landscape"] .profile-land__metric,
+  html[data-layout="landscape"] .profile-land__metric:is(*) {
+    width: var(--lado);
+    height: var(--lado);
+    aspect-ratio: 1 / 1;
+    padding: 10px 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 4px;
+    text-align: center;
+    border-radius: 18px;
+  }
+  html[data-layout="landscape"] .profile-land__metric span {
+    flex-direction: column;
+    align-items: center;
+    gap: 4px;
+    font-size: clamp(.68rem, 1.1vh, .82rem);
+    line-height: 1.1;
+  }
+  html[data-layout="landscape"] .profile-land__metric svg { width: clamp(22px, 3vh, 30px); height: clamp(22px, 3vh, 30px); }
+  html[data-layout="landscape"] .profile-land__metric strong { margin: 0; font-size: clamp(1.4rem, 3.2vh, 2.3rem); line-height: 1; }
+}
+
+/* título "Biografia" acima do quadro (perfil em paisagem) */
+.profile-land__titulo-bio {
+  margin: 0 0 calc(-1 * clamp(4px, 0.8vh, 10px));
+  color: var(--blue-deep);
+  font-size: clamp(1rem, 1.9vh, 1.35rem);
+  font-weight: 800;
+}
+.profile-land__titulo-bio { text-align: center; }
+
+/* Indicadores do perfil (paisagem): cartões 2x1 (largura = 2 × altura) */
+@media (min-width: 900px) {
+  html[data-layout="landscape"] .profile-land__metrics {
+    --alto: clamp(84px, 12vh, 120px);
+    grid-template-columns: repeat(auto-fill, calc(var(--alto) * 2));
+  }
+  html[data-layout="landscape"] .profile-land__metric,
+  html[data-layout="landscape"] .profile-land__metric:is(*) {
+    width: calc(var(--alto) * 2);
+    height: var(--alto);
+    aspect-ratio: 2 / 1;
+  }
 }

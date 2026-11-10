@@ -1291,30 +1291,32 @@
       </div>`).join("");
     const localPhoto = `assets/carousel/${encodeURIComponent(selected.id)}.webp`;
 
+    // Esquerda: nome, foto e quadros. Direita: biografia e produções.
     return `<section class="profile-land" aria-label="Perfil de ${escapeHTML(selected.nome)}">
-      <div class="profile-land__info">
-        <p class="profile-land__kicker">Gente que move a ciência</p>
+      <div class="profile-land__side">
         <div class="profile-land__head">
           <h1 class="profile-land__name">${escapeHTML(selected.nome)}</h1>
           ${loveButtonMarkup(selected)}
         </div>
+        <figure class="profile-land__photo" data-land-photo>
+          <span class="profile-land__initials" aria-hidden="true">${escapeHTML(initials(selected.nome))}</span>
+          <img src="${localPhoto}" data-fallback="${escapeHTML(photo || "")}" alt="Foto de ${escapeHTML(selected.nome)}" decoding="async" />
+        </figure>
         <div class="profile-land__facts">
           ${fact("flask", "Área de atuação", selected.area)}
           ${fact("degree", "Grau de formação", selected.graduacao)}
           ${fact("institution", "", institution)}
           ${fact("location", "Cidade de atuação", selected.cidade)}
         </div>
+      </div>
+      <div class="profile-land__info">
+        <h2 class="profile-land__titulo-bio">Biografia</h2>
         <div class="profile-land__bio">
-          <h2>Sobre</h2>
           <p>${escapeHTML(displayPublicText(abstract))}</p>
         </div>
         ${metricCards ? `<div class="profile-land__metrics">${metricCards}</div>` : ""}
         ${highlight ? `<p class="profile-land__highlight"><strong>Destaque</strong> ${escapeHTML(displayPublicText(highlight))}</p>` : ""}
       </div>
-      <figure class="profile-land__photo" data-land-photo>
-        <span class="profile-land__initials" aria-hidden="true">${escapeHTML(initials(selected.nome))}</span>
-        <img src="${localPhoto}" data-fallback="${escapeHTML(photo || "")}" alt="Foto de ${escapeHTML(selected.nome)}" decoding="async" />
-      </figure>
     </section>`;
   }
 
