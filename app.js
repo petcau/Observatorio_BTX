@@ -1033,6 +1033,7 @@
   // ===== Fila do telão (Supabase) =====
   // Chave pública (publishable): só permite chamar as funções pedir_telao/proximo_telao.
   const TELAO_API = "https://jaboxhqlxxneetippzfk.supabase.co/rest/v1/rpc";
+  const TELAO_REST = TELAO_API.replace(/\/rpc$/, "");
   const TELAO_KEY = "sb_publishable_PgECeJDoWsoPMUOdmmBg4w_znueBFdm";
 
   async function telaoRpc(name, body = {}) {
@@ -1043,6 +1044,45 @@
     });
     if (!response.ok) throw new Error(`Telão indisponível (${response.status})`);
     return response.json();
+  }
+
+  async function telaoRest(path) {
+    const response = await fetch(`${TELAO_REST}/${path}`, {
+      headers: { apikey: TELAO_KEY, Accept: "application/json" },
+      cache: "no-store"
+    });
+    if (!response.ok) throw new Error(`Fila indisponível (${response.status})`);
+    return response.json();
+  }
+
+  function normalizeTelaoQueue(payload) {
+    const source = Array.isArray(payload)
+      ? payload
+      : Array.isArray(payload?.fila)
+        ? payload.fila
+        : Array.isArray(payload?.items)
+          ? payload.items
+          : [];
+
+    return source
+      .filter((entry) => {
+        if (!entry || typeof entry !== "object") return true;
+        return !/exibido|concluido|finalizado|cancelado/i.test(String(entry.status || entry.situacao || ""));
+      })
+      .sort((a, b) => {
+        const aDate = String(a?.created_at || a?.criado_em || a?.solicitado_em || "");
+        const bDate = String(b?.created_at || b?.criado_em || b?.solicitado_em || "");
+        return aDate.localeCompare(bDate);
+      })
+      .slice(0, 5);
+  }
+
+  async function loadTelaoQueue() {
+    try {
+      return normalizeTelaoQueue(await telaoRpc("listar_fila_telao"));
+    } catch {
+      return normalizeTelaoQueue(await telaoRest("fila_telao?select=researcher_id,created_at&order=created_at.asc&limit=5"));
+    }
   }
 
   async function nextTelaoRequest() {
@@ -1085,6 +1125,7 @@
       };
       const [message, tone] = messages[result] || ["Não foi possível enviar. Tente de novo.", "warning"];
       showToast(message, tone);
+      if (result === "ok" || result === "ja_na_fila") window.dispatchEvent(new Event("telao-queue-change"));
     } catch {
       showToast("Sem conexão. Tente de novo.", "warning");
     } finally {
@@ -1372,7 +1413,10 @@
       footer.querySelector("[data-screen-mode]")?.insertAdjacentHTML("afterend", autoRotationControlMarkup());
       footer.querySelector("[data-auto-rotate]")?.addEventListener("change", (event) => setAutoRotation(event.currentTarget.checked));
     }
-    initializeDataPage(() => renderProfile());
+    initializeDataPage(() => {
+      renderProfile();
+      initializeFinderQueue();
+    });
   }
 
   // Telão: olha a fila a cada 4 segundos e mostra o pedido na hora (só com a troca automática ligada).
@@ -1411,5 +1455,44 @@
     window.setInterval(() => {
       if (autoRotationEnabled) setOpen(!drawer.classList.contains("is-open"));
     }, FINDER_CYCLE);
+  }
+
+  function initializeFinderQueue() {
+    const queue = document.querySelector("[data-finder-queue]");
+    const list = queue?.querySelector("[data-finder-queue-list]");
+    if (!queue || !list) return;
+    let busy = false;
+
+    const researcherName = (entry, index) => {
+      const id = typeof entry === "object" && entry
+        ? entry.researcher_id ?? entry.pesquisador_id ?? entry.id_pesquisador ?? entry.p_researcher_id ?? entry.id
+        : entry;
+      const match = researchers.find((researcher) => String(researcher.id) === String(id));
+      return match?.nome || entry?.nome || entry?.name || `Pesquisador ${index + 1}`;
+    };
+
+    const refresh = async () => {
+      if (busy || document.hidden) return;
+      busy = true;
+      try {
+        const entries = await loadTelaoQueue();
+        list.replaceChildren(...entries.map((entry, index) => {
+          const item = document.createElement("li");
+          const name = document.createElement("span");
+          name.textContent = researcherName(entry, index);
+          item.append(name);
+          return item;
+        }));
+        queue.hidden = entries.length === 0;
+      } catch {
+        queue.hidden = true;
+      } finally {
+        busy = false;
+      }
+    };
+
+    refresh();
+    window.setInterval(refresh, 6_000);
+    window.addEventListener("telao-queue-change", refresh);
   }
 })();

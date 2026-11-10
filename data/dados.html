@@ -105,7 +105,7 @@
     tbody tr:hover td { background: #eef6fa; }
     td.empty { background: var(--empty) !important; }
     td.n { text-align: right; font-variant-numeric: tabular-nums; }
-    td.expanded { white-space: normal; max-width: 520px; }
+    td.expanded { white-space: pre-line; max-width: 520px; }
     td.row-num { color: var(--soft); text-align: right; position: sticky; left: 0; z-index: 1; background: #fff; }
     thead th.row-num { left: 0; z-index: 3; cursor: default; }
     .status { padding: 40px 20px; color: var(--soft); text-align: center; }
@@ -194,6 +194,8 @@
         depois("biografia", "nome");
         depois("abstract_ai", "biografia");
         depois("abstract_ai_origem", "abstract_ai");
+        depois("biografia_topicos", "abstract_ai_origem");
+        depois("biografia_topicos_origem", "biografia_topicos");
 
         // colunas numéricas: todos os valores preenchidos são números
         for (const c of campos) {

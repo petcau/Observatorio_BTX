@@ -559,6 +559,74 @@
     }
   }
 
+  function initializeHeroPhotoRotation() {
+    const heroPhotos = [...document.querySelectorAll("[data-hero-photo]")];
+    if (!heroPhotos.length || window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+
+    const visibleIds = new Set(heroPhotos.map((image) => image.dataset.photoId).filter(Boolean));
+    let photoDeck = shuffle([...CAROUSEL_APPROVED_PHOTO_IDS]);
+    let slotIndex = 0;
+    let isSwapping = false;
+
+    const nextAvailableId = () => {
+      if (!photoDeck.length) photoDeck = shuffle([...CAROUSEL_APPROVED_PHOTO_IDS]);
+
+      let attempts = photoDeck.length;
+      while (attempts > 0) {
+        const candidate = photoDeck.shift();
+        if (candidate && !visibleIds.has(candidate)) return candidate;
+        if (candidate) photoDeck.push(candidate);
+        attempts -= 1;
+      }
+      return null;
+    };
+
+    const swapPhoto = () => {
+      if (document.hidden || isSwapping) return;
+
+      const nextId = nextAvailableId();
+      if (!nextId) return;
+
+      const target = heroPhotos[slotIndex];
+      const previousId = target.dataset.photoId;
+      const nextSource = `assets/carousel/${nextId}.webp`;
+      const preloader = new Image();
+      isSwapping = true;
+
+      preloader.onload = () => {
+        target.classList.add("is-changing");
+
+        window.setTimeout(() => {
+          let revealTimer;
+          const reveal = () => {
+            window.clearTimeout(revealTimer);
+            target.classList.remove("is-changing");
+            isSwapping = false;
+          };
+
+          target.addEventListener("load", reveal, { once: true });
+          target.addEventListener("error", reveal, { once: true });
+
+          target.src = nextSource;
+          target.dataset.photoId = nextId;
+          visibleIds.delete(previousId);
+          visibleIds.add(nextId);
+          slotIndex = (slotIndex + 1) % heroPhotos.length;
+          revealTimer = window.setTimeout(reveal, 900);
+        }, 300);
+      };
+
+      preloader.onerror = () => {
+        isSwapping = false;
+      };
+
+      preloader.decoding = "async";
+      preloader.src = nextSource;
+    };
+
+    window.setInterval(swapPhoto, 3200);
+  }
+
   const hideAttraction = () => {
     attraction.classList.remove("is-visible");
     attraction.setAttribute("aria-hidden", "true");
@@ -609,5 +677,6 @@
   window.addEventListener("load", () => {
     document.body.classList.add("is-ready");
     initializeScientistCarousel();
+    initializeHeroPhotoRotation();
   });
 })();

@@ -818,6 +818,96 @@ function resumirBiografia(registros) {
 }
 
 // ---------------------------------------------------------------------------
+// ETAPA — resumirTopicos  →  grava biografia_topicos e biografia_topicos_origem
+// Resumo da biografia em tópicos (na ordem em que aparecem no texto),
+// com no máximo LIMITE_TOPICOS caracteres no total. Formato: uma linha por tópico, "• texto".
+// - resumo em tópicos feito pela IA no cache → usa os tópicos            ("ia")
+//   (cache: data/cache/biografia_topicos.json, por id + impressão digital da biografia)
+// - sem resumo ainda → frases da biografia viram tópicos, até o limite   ("provisorio")
+//   e o id vai para data/cache/biografia_topicos_pendentes.json (mais longas primeiro).
+// Gerados pela IA no chat com: node data/ferramentas/resumos.js topicos lote|gravar
+// Regras de escrita (o que entra, o que sai, como condensar): data/regras/biografia_topicos.md
+// ---------------------------------------------------------------------------
+const LIMITE_TOPICOS = 600;
+const CACHE_TOPICOS = path.join(PASTA, "cache", "biografia_topicos.json");
+const PENDENTES_TOPICOS = path.join(PASTA, "cache", "biografia_topicos_pendentes.json");
+
+// Estratégia de lotes por importância
+const TAMANHO_LOTE = 25;
+const FAIXA_CLASSIFICACAO = { "A+": 1, A: 2, "B+": 3, B: 4, "C+": 5, C: 6, "D+": 7, D: 8, "E+": 9, E: 10 };
+const PESO_TITULACAO = { "Pós-Doutorado": 5, Doutorado: 4, Mestrado: 3, "Especialização": 2, "Graduação": 1 };
+
+function juntarTopicos(lista) {
+  return lista.map((t) => `• ${t}`).join("\n");
+}
+
+function frasesEmTopicos(texto, limite) {
+  const frases = String(texto || "").replace(/\s+/g, " ").trim()
+    .split(/(?<=[.;!?])\s+(?=[A-ZÁÉÍÓÚÂÊÔÃÕÇ0-9])/)
+    .map((f) => f.replace(/[.;]+$/, "").trim())
+    .filter(Boolean);
+  const escolhidas = [];
+  for (const f of frases) {
+    const teste = juntarTopicos([...escolhidas, f]);
+    if (teste.length > limite) {
+      if (!escolhidas.length) escolhidas.push(cortarNoFimDeFrase(f, limite - 2));
+      break;
+    }
+    escolhidas.push(f);
+  }
+  return juntarTopicos(escolhidas);
+}
+
+function resumirTopicos(registros) {
+  let cache = {};
+  try { cache = JSON.parse(fs.readFileSync(CACHE_TOPICOS, "utf8")); } catch { cache = {}; }
+
+  const conta = { ia: 0, provisorio: 0, branco: 0, desatualizado: 0 };
+  const pendentes = [];
+  for (const r of registros) {
+    const bio = String(r.biografia || "").replace(/\s+/g, " ").trim();
+    if (!bio) { r.biografia_topicos = ""; r.biografia_topicos_origem = ""; conta.branco += 1; continue; }
+
+    const hash = impressaoDigital(bio);
+    const salvo = cache[r.id];
+    if (salvo && salvo.hash === hash && Array.isArray(salvo.topicos) && salvo.topicos.length) {
+      r.biografia_topicos = juntarTopicos(salvo.topicos);
+      r.biografia_topicos_origem = "ia";
+      conta.ia += 1;
+      continue;
+    }
+    if (salvo && salvo.hash !== hash) conta.desatualizado += 1;
+    r.biografia_topicos = frasesEmTopicos(bio, LIMITE_TOPICOS);
+    r.biografia_topicos_origem = "provisorio";
+    conta.provisorio += 1;
+    pendentes.push({ id: r.id, nome: r.nome, tamanho: bio.length, hash });
+  }
+
+  // Ordem dos lotes: importância do pesquisador (faixa da classificação),
+  // depois titulação, número de artigos e tamanho da biografia.
+  const porId = new Map(registros.map((r) => [r.id, r]));
+  for (const p of pendentes) {
+    const r = porId.get(p.id);
+    p.faixa = FAIXA_CLASSIFICACAO[r.classificacao] || 10;
+    p.classificacao = r.classificacao || "";
+    p.titulacao = r.graduacao || "";
+    p.artigos = Number(r.artigos) || 0;
+  }
+  pendentes.sort((a, b) =>
+    a.faixa - b.faixa ||
+    (PESO_TITULACAO[b.titulacao] || 0) - (PESO_TITULACAO[a.titulacao] || 0) ||
+    b.artigos - a.artigos ||
+    b.tamanho - a.tamanho);
+  pendentes.forEach((p, i) => { p.lote = Math.floor(i / TAMANHO_LOTE) + 1; });
+  fs.mkdirSync(path.dirname(PENDENTES_TOPICOS), { recursive: true });
+  fs.writeFileSync(PENDENTES_TOPICOS, JSON.stringify({ gerado_em: new Date().toISOString(), limite: LIMITE_TOPICOS, tamanho_lote: TAMANHO_LOTE, total: pendentes.length, pendentes }, null, 1));
+
+  console.log(`    resultado: tópicos IA ${conta.ia} | provisório ${conta.provisorio} | sem biografia ${conta.branco}`);
+  console.log(`    pendentes de tópicos pela IA: ${pendentes.length}${conta.desatualizado ? ` (${conta.desatualizado} por biografia alterada)` : ""} → data/cache/biografia_topicos_pendentes.json`);
+  return registros;
+}
+
+// ---------------------------------------------------------------------------
 // ETAPAS de transformação (executadas em ordem depois de carregar)
 // Cada etapa recebe a lista de registros e devolve a lista (pode ser async).
 // ---------------------------------------------------------------------------
@@ -832,6 +922,7 @@ const ETAPAS = [
   extrairTema,             // 7a. tema_ia: temas de pesquisa extraídos da biografia
   inferirTematica,         // 7. tematica_ia: base antiga / curso / palavras-chave (regras em data/regras/tematicas.json)
   resumirBiografia,        // 8. abstract_ai: resumo da biografia (≤ 900 caracteres) feito pela IA no chat
+  resumirTopicos,          // 9. biografia_topicos: resumo em tópicos (≤ 600 caracteres) feito pela IA no chat
 ];
 
 // Descrição de cada etapa (aparece na aba Pipeline de data/dados.html)
@@ -845,6 +936,7 @@ const DESCRICOES = {
   inferirArea2: { titulo: "Área 2 (area_ia)", tipo: "transformacao", texto: "Para quem ainda está sem area_ia e tem biografia: a área mais provável pelas palavras da biografia, sem exigir confiança mínima. Menos precisa que a primeira (~67%)." },
   extrairTema: { titulo: "Tema (tema_ia)", tipo: "transformacao", texto: "Extrai da biografia os temas de pesquisa: a lista após \"seguintes temas:\" ou, se não houver, o trecho \"com ênfase em…\". Formato: A; B; C." },
   resumirBiografia: { titulo: "Resumo (abstract_ai)", tipo: "transformacao", texto: "Resumo da biografia com até 900 caracteres. Biografias curtas usam o texto original; as longas usam o resumo feito pela IA no chat (cache em data/cache/abstract_ai.json) ou, enquanto não houver, a biografia cortada no fim de uma frase." },
+  resumirTopicos: { titulo: "Tópicos (biografia_topicos)", tipo: "transformacao", texto: "Resumo da biografia em tópicos, na ordem em que aparecem no texto, com até 600 caracteres. Usa os tópicos feitos pela IA no chat (cache em data/cache/biografia_topicos.json) ou, enquanto não houver, as frases da biografia como tópicos até o limite. Regras de escrita em data/regras/biografia_topicos.md." },
   inferirTematica: { titulo: "Temática (tematica_ia)", tipo: "transformacao", texto: "Classifica nas 57 temáticas: bolsistas antigos mantêm a sua; os demais pelo curso citado ou pelas palavras-chave da biografia. Regras editáveis em data/regras/tematicas.json." },
   inferirSexoBiografia3: { titulo: "Sexo pela biografia 3", tipo: "transformacao", texto: "Pares escolhidos pela equipe (aluno, graduando, médico, professor, mestre, pesquisador, monitor, secretário, estagiário, voluntário). Só um gênero presente → esse gênero." }
 };
@@ -906,7 +998,7 @@ async function main() {
 
   pipeline.push({
     nome: "gravar", titulo: "Gravar JSON", tipo: "saida",
-    texto: "Grava data/pesquisadores.json (metadados + registros), usado pelo Painel BTX.",
+    texto: "Grava data/pesquisadores.json completo (uso local, fora do git) e a versão do site: data/publico/indice.json (campos curtos) + data/publico/detalhes/XX.json (biografia e resumos, em partes pelo início do id).",
     entrada: registros.length, saida: registros.length, duracao_ms: 0,
     log: [`${campos.length} campos`]
   });
@@ -927,6 +1019,62 @@ async function main() {
   fs.writeFileSync(SAIDA, JSON.stringify(saida));
   const mb = (fs.statSync(SAIDA).size / 1024 / 1024).toFixed(1);
   console.log(`atualizar_dados: ${path.basename(SAIDA)} gravado (${mb} MB) em ${((Date.now() - inicio) / 1000).toFixed(1)}s`);
+
+  gravarPublico(saida);
+}
+
+// ---------------------------------------------------------------------------
+// Saída para o site (versionada no git): índice leve + detalhes em partes
+//   data/publico/indice.json         campos curtos de todos os registros, em colunas
+//                                    ({ metadata, campos, linhas: [[...], ...] })
+//   data/publico/detalhes/XX.json    textos longos, por id, agrupados pelos 2
+//                                    primeiros caracteres do id (00 … ff)
+// O pesquisadores.json completo continua sendo gravado, mas só para uso local
+// (data/dados.html e data/ferramentas/resumos.js) e fica fora do git.
+// ---------------------------------------------------------------------------
+const PUBLICO = path.join(PASTA, "publico");
+const CAMPOS_DETALHE = [
+  "biografia", "abstract_ai", "abstract_ai_origem",
+  "biografia_topicos", "biografia_topicos_origem",
+  "tema_ia", "tema_ia_origem",
+];
+const parteDoId = (id) => {
+  const p = String(id || "").slice(0, 2).toLowerCase();
+  return /^[0-9a-f]{2}$/.test(p) ? p : "xx";
+};
+
+function gravarPublico(saida) {
+  const { metadata, data: registros } = saida;
+  const camposIndice = metadata.campos.filter((c) => !CAMPOS_DETALHE.includes(c));
+
+  const indice = {
+    metadata: { ...metadata, pipeline: undefined, campos_indice: camposIndice, campos_detalhe: CAMPOS_DETALHE },
+    campos: camposIndice,
+    linhas: registros.map((r) => camposIndice.map((c) => r[c] ?? "")),
+  };
+
+  const partes = {};
+  for (const r of registros) {
+    const detalhe = {};
+    for (const c of CAMPOS_DETALHE) if (r[c] !== undefined && r[c] !== "") detalhe[c] = r[c];
+    (partes[parteDoId(r.id)] ||= {})[r.id] = detalhe;
+  }
+
+  const pastaDetalhes = path.join(PUBLICO, "detalhes");
+  fs.rmSync(pastaDetalhes, { recursive: true, force: true }); // remove partes antigas
+  fs.mkdirSync(pastaDetalhes, { recursive: true });
+  fs.writeFileSync(path.join(PUBLICO, "indice.json"), JSON.stringify(indice));
+  for (const [parte, conteudo] of Object.entries(partes)) {
+    fs.writeFileSync(path.join(pastaDetalhes, `${parte}.json`), JSON.stringify(conteudo));
+  }
+
+  const tamanho = (f) => fs.statSync(f).size / 1024 / 1024;
+  const arquivos = Object.keys(partes).map((p) => path.join(pastaDetalhes, `${p}.json`));
+  const maior = Math.max(...arquivos.map(tamanho));
+  console.log(
+    `atualizar_dados: publico/indice.json (${tamanho(path.join(PUBLICO, "indice.json")).toFixed(1)} MB) ` +
+    `+ ${arquivos.length} partes em publico/detalhes (maior: ${(maior * 1024).toFixed(0)} KB)`
+  );
 }
 
 main().catch((erro) => {
