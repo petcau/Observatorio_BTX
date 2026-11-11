@@ -2406,6 +2406,9 @@ body.internal-page .top-row--internal + .numbers-hero {
   text-overflow: ellipsis;
   white-space: nowrap;
 }
+.finder-drawer__queue ol[hidden],
+.finder-drawer__queue-empty[hidden] { display: none; }
+.finder-drawer__queue-empty { margin: 0; color: var(--ink-soft); font-size: .73rem; font-weight: 700; line-height: 1.3; }
 
 /* A barra empurra o conteúdo em vez de cobrir: reserva o espaço da aba e, aberta, do painel */
 :root { --finder-tab: 44px; --finder-panel: clamp(220px, 18vw, 300px); }

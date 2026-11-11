@@ -1031,7 +1031,7 @@
   })();
 
   // ===== Fila do telão (Supabase) =====
-  // Chave pública (publishable): só permite chamar as funções pedir_telao/proximo_telao.
+  // Chave pública (publishable): só permite chamar as funções pedir_telao/proximo_telao/listar_fila_telao/total_amei.
   const TELAO_API = "https://jaboxhqlxxneetippzfk.supabase.co/rest/v1/rpc";
   const TELAO_REST = TELAO_API.replace(/\/rpc$/, "");
   const TELAO_KEY = "sb_publishable_PgECeJDoWsoPMUOdmmBg4w_znueBFdm";
@@ -1074,14 +1074,15 @@
         const bDate = String(b?.created_at || b?.criado_em || b?.solicitado_em || "");
         return aDate.localeCompare(bDate);
       })
-      .slice(0, 5);
+      .slice(0, 8);
   }
 
+  // Lê a fila (tabela telao_pedidos, só os ainda não exibidos) pela função listar_fila_telao
   async function loadTelaoQueue() {
     try {
       return normalizeTelaoQueue(await telaoRpc("listar_fila_telao"));
     } catch {
-      return normalizeTelaoQueue(await telaoRest("fila_telao?select=researcher_id,created_at&order=created_at.asc&limit=5"));
+      return normalizeTelaoQueue(await telaoRest("telao_pedidos?select=researcher_id,created_at&shown_at=is.null&order=created_at.asc&limit=8"));
     }
   }
 
@@ -1483,7 +1484,18 @@
           item.append(name);
           return item;
         }));
-        queue.hidden = entries.length === 0;
+        list.hidden = entries.length === 0;
+        // fila vazia: mantém a seção com um aviso em vez de escondê-la
+        let empty = queue.querySelector("[data-finder-queue-empty]");
+        if (!empty) {
+          empty = document.createElement("p");
+          empty.className = "finder-drawer__queue-empty";
+          empty.setAttribute("data-finder-queue-empty", "");
+          empty.textContent = "Ninguém na fila ainda. Peça pelo celular!";
+          queue.append(empty);
+        }
+        empty.hidden = entries.length > 0;
+        queue.hidden = false;
       } catch {
         queue.hidden = true;
       } finally {
