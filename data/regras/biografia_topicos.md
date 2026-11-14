@@ -7,6 +7,8 @@ Formato do arquivo: `[ { "id": "...", "topicos": ["...", "..."] } ]`.
 ## Formato
 - Até **600 caracteres no total**, contando o "• " de cada tópico e as quebras de linha (a ferramenta recusa acima disso).
 - Um tópico por linha; em geral 5 a 8 tópicos.
+- **Meta de tamanho (aproveitar o limite):** biografia com mais de 900 caracteres → resumo de 520 a 600; de 600 a 900 → 400 a 550; até 600 → quase tudo, só reorganizado em tópicos, sem enchimento. O espaço extra vai para vínculos atuais completos (todos os PPGs), temas de pesquisa quase completos, redes/colaborações citadas e cargos recentes com período.
+- Títulos e nomes de cursos copiados como estão no texto (não fundir "Saúde Comunitária" e "Saúde Pública" em "Saúde Coletiva").
 - **Ordem do texto:** os tópicos seguem a sequência em que as informações aparecem na biografia.
 - Um assunto por tópico; se o texto volta a um assunto, juntar no tópico onde ele apareceu primeiro.
 - Frases curtas, sem repetir o nome da pessoa ("Doutora em Educação (UFBA)").

@@ -44,8 +44,8 @@
     .abas { display: flex; gap: 4px; margin-top: 10px; }
     .aba { padding: 8px 18px; color: var(--soft); background: none; border: 0; border-bottom: 3px solid transparent; font: 700 .92rem "Segoe UI", Arial, sans-serif; cursor: pointer; }
     .aba.is-ativa { color: var(--deep); border-bottom-color: var(--teal); }
-    .painel-dados, .painel-pipeline { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
-    .painel-dados[hidden], .painel-pipeline[hidden] { display: none; }
+    .painel-dados, .painel-pipeline, .painel-startups { flex: 1 1 auto; min-height: 0; display: flex; flex-direction: column; }
+    .painel-dados[hidden], .painel-pipeline[hidden], .painel-startups[hidden] { display: none; }
 
     /* ===== Pipeline (estilo Apache Hop) ===== */
     .pipe-barra { display: flex; flex-wrap: wrap; align-items: center; gap: 14px; padding: 10px 20px; background: #fff; border-bottom: 1px solid var(--line); }
@@ -105,7 +105,15 @@
     tbody tr:hover td { background: #eef6fa; }
     td.empty { background: var(--empty) !important; }
     td.n { text-align: right; font-variant-numeric: tabular-nums; }
+    td:not(.row-num) { cursor: text; user-select: text; }
     td.expanded { white-space: pre-line; max-width: 520px; }
+    td.is-selected { position: relative; outline: 3px solid var(--blue); outline-offset: -3px; background: #dbeafe !important; }
+    td.is-editing { padding: 2px; overflow: visible; outline: 3px solid #f59e0b; outline-offset: -3px; background: #fff7d6 !important; }
+    .cell-editor { display: block; width: min(520px, 70vw); min-width: 220px; height: 30px; margin: 0; padding: 4px 7px; color: var(--ink); font: inherit; border: 1px solid #d97706; border-radius: 3px; background: #fff; }
+    td.site-cell { color: #075985; text-decoration: underline; text-underline-offset: 2px; cursor: pointer; }
+    td.validacao-cell { text-align: center; overflow: visible; }
+    .validado-btn { padding: 4px 9px; color: #52606d; border: 1px solid #aeb8c2; border-radius: 999px; background: #fff; font-size: .76rem; cursor: pointer; }
+    .validado-btn[aria-pressed="true"] { color: #14532d; border-color: #22c55e; background: #dcfce7; font-weight: 700; }
     td.row-num { color: var(--soft); text-align: right; position: sticky; left: 0; z-index: 1; background: #fff; }
     thead th.row-num { left: 0; z-index: 3; cursor: default; }
     .status { padding: 40px 20px; color: var(--soft); text-align: center; }
@@ -115,11 +123,12 @@
 </head>
 <body>
   <header>
-    <h1>Dados do Painel BTX — pesquisadores.json</h1>
+    <h1>Dados do Painel BTX</h1>
     <div class="meta" id="meta">Carregando…</div>
     <nav class="abas" role="tablist" aria-label="Visões">
-      <button class="aba is-ativa" type="button" role="tab" aria-selected="true" data-aba="dados">Dados</button>
-      <button class="aba" type="button" role="tab" aria-selected="false" data-aba="pipeline">Pipeline</button>
+      <button class="aba is-ativa" type="button" role="tab" aria-selected="true" data-aba="dados">Dados Pesquisadores</button>
+      <button class="aba" type="button" role="tab" aria-selected="false" data-aba="pipeline">Pipeline Pesquisadores</button>
+      <button class="aba" type="button" role="tab" aria-selected="false" data-aba="startups">Dados Startups</button>
     </nav>
   </header>
 
@@ -154,11 +163,37 @@
       <button id="colDir" type="button" aria-label="Colunas à direita">▶</button>
       <button id="colFim" type="button" aria-label="Última coluna">⇥</button>
     </span>
-    <span class="legend"><i></i> campo em branco · clique numa célula para ver o texto inteiro</span>
+    <span class="legend"><i></i> campo em branco · clique numa célula para selecionar e copiar</span>
     <span class="count" id="contagem"></span>
   </div>
 
   <div class="wrap" id="wrap"><div class="status" id="status">Carregando pesquisadores.json (arquivo grande, pode levar alguns segundos)…</div></div>
+  </section>
+
+  <!-- ===== Aba Dados Startups ===== -->
+  <section class="painel-startups" id="aba-startups" hidden>
+    <div class="toolbar">
+      <input type="search" id="startupBusca" placeholder="Buscar startup…" autocomplete="off" />
+      <label>em <select id="startupColuna"><option value="">todas as colunas</option></select></label>
+      <button id="startupLimparFiltros" type="button" title="Limpa a busca e os filtros das colunas">Limpar filtros</button>
+      <button id="startupBaixarCsv" type="button" title="Baixar a base com as alterações feitas na tabela">Baixar CSV editado</button>
+      <label>ordenar por <select id="startupOrdenarPor"><option value="">(ordem original)</option></select></label>
+      <select id="startupDirecao" aria-label="Direção da ordenação das startups"><option value="1">crescente (A→Z, 0→9)</option><option value="-1">decrescente (Z→A, 9→0)</option></select>
+      <label>linhas por página <select id="startupTamanho"><option>25</option><option>50</option><option>100</option><option>120</option><option selected>200</option></select></label>
+      <button id="startupAnterior">‹ Anterior</button>
+      <span id="startupPagina"></span>
+      <button id="startupProxima">Próxima ›</button>
+      <span class="rolar" title="Rolar as colunas (também: Shift + roda do mouse)">
+        <button id="startupColInicio" type="button" aria-label="Primeira coluna de startups">⇤</button>
+        <button id="startupColEsq" type="button" aria-label="Colunas de startups à esquerda">◀</button>
+        <button id="startupColDir" type="button" aria-label="Colunas de startups à direita">▶</button>
+        <button id="startupColFim" type="button" aria-label="Última coluna de startups">⇥</button>
+      </span>
+      <span class="legend"><i></i> campo em branco · clique para selecionar · Enter/F2 para editar · Esc para cancelar</span>
+      <span class="count" id="startupContagem"></span>
+    </div>
+    <div class="meta pipe-barra" id="startupMeta">Carregando startups.csv…</div>
+    <div class="wrap" id="startupWrap"><div class="status">Carregando startups.csv…</div></div>
   </section>
 
   <script>
@@ -177,6 +212,18 @@
       const esc = (v) => String(v).replace(/[&<>"]/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]));
       const norm = (v) => String(v ?? "").normalize("NFD").replace(/[̀-ͯ]/g, "").toLowerCase();
 
+      function selecionarCelula(td) {
+        document.querySelectorAll("td.is-selected").forEach((celula) => celula.classList.remove("is-selected"));
+        td.classList.add("is-selected", "expanded");
+        td.setAttribute("tabindex", "-1");
+        td.focus({ preventScroll: true });
+        const selecao = window.getSelection();
+        const intervalo = document.createRange();
+        intervalo.selectNodeContents(td);
+        selecao.removeAllRanges();
+        selecao.addRange(intervalo);
+      }
+
       async function carregar() {
         const resposta = await fetch("pesquisadores.json", { cache: "no-cache" });
         if (!resposta.ok) throw new Error(`não foi possível abrir pesquisadores.json (${resposta.status})`);
@@ -184,18 +231,17 @@
         const m = json.metadata || {};
         todos = json.data || [];
         campos = m.campos || Object.keys(todos[0] || {});
-        // ordem de exibição: biografia logo depois do nome
-        // biografia logo depois do nome; resumo da IA (abstract_ai) e sua origem logo depois da biografia
+        // ordem de exibição: biografia logo depois do nome; tópicos logo depois da biografia
         const depois = (campo, ancora) => {
           if (!campos.includes(campo) || !campos.includes(ancora)) return;
           campos = campos.filter((c) => c !== campo);
           campos.splice(campos.indexOf(ancora) + 1, 0, campo);
         };
         depois("biografia", "nome");
-        depois("abstract_ai", "biografia");
-        depois("abstract_ai_origem", "abstract_ai");
-        depois("biografia_topicos", "abstract_ai_origem");
+        depois("biografia_topicos", "biografia");
         depois("biografia_topicos_origem", "biografia_topicos");
+        depois("abstract_ai", "biografia_topicos_origem");
+        depois("abstract_ai_origem", "abstract_ai");
 
         // colunas numéricas: todos os valores preenchidos são números
         for (const c of campos) {
@@ -340,7 +386,377 @@
           return;
         }
         const td = e.target.closest("td");
-        if (td && !td.classList.contains("row-num")) td.classList.toggle("expanded");
+        if (td && !td.classList.contains("row-num")) selecionarCelula(td);
+      });
+
+      // ===== Dados das startups =====
+      let startupCampos = [];
+      let startupTodos = [];
+      let startupFiltrados = [];
+      let startupPaginaAtual = 1;
+      let startupOrdem = { campo: null, dir: 1 };
+      let startupCacheCabecalho = null;
+      const startupFiltrosCol = {};
+      const startupNumericos = new Set();
+      const STARTUP_EDICOES_CHAVE = "btx-startup-edicoes";
+      const startupEdicoes = (() => {
+        try { return JSON.parse(localStorage.getItem(STARTUP_EDICOES_CHAVE) || "{}"); }
+        catch { return {}; }
+      })();
+
+      function idOriginalStartup(item, indice) {
+        return String(item.CNPJ || item.Rank || item.Startup || `linha-${indice + 1}`);
+      }
+
+      function totalEdicoesStartup() {
+        return Object.values(startupEdicoes).reduce((total, camposEditados) => total + Object.keys(camposEditados).length, 0);
+      }
+
+      function atualizarMetaStartups() {
+        const editadas = totalEdicoesStartup();
+        $("startupMeta").innerHTML = `Fonte <b>startups.csv</b> · <b>${startupTodos.length.toLocaleString("pt-BR")}</b> startups · <b>${startupCampos.length}</b> campos · codificação Windows-1252${editadas ? ` · <b>${editadas}</b> célula${editadas === 1 ? "" : "s"} editada${editadas === 1 ? "" : "s"} localmente` : ""}`;
+      }
+
+      function lerCsv(texto, separador = ";") {
+        const linhas = [];
+        let linha = [];
+        let valor = "";
+        let entreAspas = false;
+
+        for (let i = 0; i < texto.length; i += 1) {
+          const caractere = texto[i];
+          const proximo = texto[i + 1];
+          if (caractere === '"') {
+            if (entreAspas && proximo === '"') {
+              valor += '"';
+              i += 1;
+            } else {
+              entreAspas = !entreAspas;
+            }
+          } else if (caractere === separador && !entreAspas) {
+            linha.push(valor);
+            valor = "";
+          } else if ((caractere === "\n" || caractere === "\r") && !entreAspas) {
+            if (caractere === "\r" && proximo === "\n") i += 1;
+            linha.push(valor);
+            if (linha.some((item) => item.trim())) linhas.push(linha);
+            linha = [];
+            valor = "";
+          } else {
+            valor += caractere;
+          }
+        }
+        if (valor || linha.length) {
+          linha.push(valor);
+          if (linha.some((item) => item.trim())) linhas.push(linha);
+        }
+        if (!linhas.length) return [];
+        const cabecalhos = linhas.shift().map((item) => item.replace(/^\uFEFF/, "").trim());
+        return linhas.map((valores) => Object.fromEntries(cabecalhos.map((campo, i) => [campo, valores[i] ?? ""])));
+      }
+
+      const numeroBR = (valor) => Number(String(valor).trim()
+        .replace(/^R\$\s*/, "")
+        .replace(/\./g, "")
+        .replace(",", "."));
+
+      async function carregarStartups() {
+        const resposta = await fetch("startups.csv", { cache: "no-cache" });
+        if (!resposta.ok) throw new Error(`não foi possível abrir startups.csv (${resposta.status})`);
+        const bytes = await resposta.arrayBuffer();
+        // A planilha foi exportada em Windows-1252; decodificar explicitamente preserva os acentos.
+        const texto = new TextDecoder("windows-1252").decode(bytes);
+        startupTodos = lerCsv(texto);
+        if (!startupTodos.length) throw new Error("startups.csv não contém registros");
+        startupCampos = Object.keys(startupTodos[0]);
+        startupTodos.forEach((item, indice) => {
+          const id = idOriginalStartup(item, indice);
+          Object.defineProperty(item, "_btxId", { value: id, enumerable: false });
+          if (startupEdicoes[id]) Object.assign(item, startupEdicoes[id]);
+        });
+
+        for (const campo of startupCampos) {
+          const preenchidos = startupTodos.map((item) => item[campo]).filter((valor) => !vazio(valor));
+          if (preenchidos.length && preenchidos.every((valor) => /^\s*(?:R\$\s*)?-?[\d.]+(?:,\d+)?\s*$/.test(valor))) {
+            startupNumericos.add(campo);
+          }
+        }
+
+        const opcoes = startupCampos.map((campo) => `<option value="${esc(campo)}">${esc(campo)}</option>`).join("");
+        $("startupColuna").insertAdjacentHTML("beforeend", opcoes);
+        $("startupOrdenarPor").insertAdjacentHTML("beforeend", opcoes);
+        atualizarMetaStartups();
+        aplicarStartups();
+      }
+
+      const startupValidacoes = (() => {
+        try { return JSON.parse(localStorage.getItem("btx-startup-sites-validados") || "{}"); }
+        catch { return {}; }
+      })();
+
+      function chaveValidacaoStartup(item) {
+        return item._btxId || item.CNPJ || item.Rank || item.Startup;
+      }
+
+      function cabecalhoValidacao() {
+        return `<th class="validacao-head" title="Validação manual do site">Validação<small>site validado manualmente</small></th>`;
+      }
+
+      function celulaValidacao(item) {
+        if (vazio(item.Site)) return `<td class="empty validacao-cell"></td>`;
+        const chave = chaveValidacaoStartup(item);
+        const ativo = Boolean(startupValidacoes[chave]);
+        const titulo = ativo ? "Site validado manualmente" : "Marcar site como validado manualmente";
+        return `<td class="validacao-cell"><button type="button" class="validado-btn" data-validar-site="${esc(chave)}" aria-pressed="${ativo}" title="${titulo}">${ativo ? "✓ Validado" : "Validar"}</button></td>`;
+      }
+
+      function preenchimentoStartup(campo) {
+        const preenchidos = startupTodos.reduce((total, item) => total + (vazio(item[campo]) ? 0 : 1), 0);
+        return `${(preenchidos / (startupTodos.length || 1) * 100).toFixed(1)}% preenchido`;
+      }
+
+      function aplicarStartups(opcoes = {}) {
+        const manterPagina = opcoes && opcoes.manterPagina === true;
+        const termo = norm($("startupBusca").value.trim());
+        const coluna = $("startupColuna").value;
+        const filtrosAtivos = Object.entries(startupFiltrosCol);
+        startupFiltrados = startupTodos.filter((item) => {
+          for (const [campo, tipo] of filtrosAtivos) {
+            if (tipo === "vazio" && !vazio(item[campo])) return false;
+            if (tipo === "preenchido" && vazio(item[campo])) return false;
+          }
+          if (!termo) return true;
+          if (coluna) return norm(item[coluna]).includes(termo);
+          return startupCampos.some((campo) => norm(item[campo]).includes(termo));
+        });
+
+        if (startupOrdem.campo) {
+          const campo = startupOrdem.campo;
+          const numerico = startupNumericos.has(campo);
+          startupFiltrados.sort((a, b) => {
+            const va = a[campo], vb = b[campo];
+            if (vazio(va) && vazio(vb)) return 0;
+            if (vazio(va)) return 1;
+            if (vazio(vb)) return -1;
+            const diferenca = numerico
+              ? numeroBR(va) - numeroBR(vb)
+              : String(va).localeCompare(String(vb), "pt-BR");
+            return diferenca * startupOrdem.dir;
+          });
+        }
+        if (!manterPagina) startupPaginaAtual = 1;
+        desenharStartups();
+      }
+
+      function desenharStartups() {
+        const tamanho = Number($("startupTamanho").value);
+        const totalPaginas = Math.max(1, Math.ceil(startupFiltrados.length / tamanho));
+        startupPaginaAtual = Math.min(Math.max(1, startupPaginaAtual), totalPaginas);
+        const inicio = (startupPaginaAtual - 1) * tamanho;
+        const linhas = startupFiltrados.slice(inicio, inicio + tamanho);
+
+        if (!startupCacheCabecalho) {
+          startupCacheCabecalho = startupCampos.map((campo) => `<small>${preenchimentoStartup(campo)}</small>`);
+        }
+        const cabecalho = `<tr><th class="row-num">#</th>${startupCampos.map((campo, i) => {
+          const ordenado = startupOrdem.campo === campo;
+          const seta = ordenado ? (startupOrdem.dir === 1 ? "▲" : "▼") : "↕";
+          const filtro = startupFiltrosCol[campo] || "";
+          const seletor = `<select class="filtro-col${filtro ? " ativo" : ""}" data-startup-filtro="${esc(campo)}" aria-label="Filtrar ${esc(campo)}">
+            <option value=""${filtro === "" ? " selected" : ""}>Todos</option>
+            <option value="vazio"${filtro === "vazio" ? " selected" : ""}>Em branco</option>
+            <option value="preenchido"${filtro === "preenchido" ? " selected" : ""}>Preenchido</option>
+          </select>`;
+          const th = `<th data-startup-campo="${esc(campo)}" class="${ordenado ? "sorted" : ""}${filtro ? " filtrada" : ""}" title="Clique no nome para ordenar por ${esc(campo)}">${esc(campo)} <span class="seta">${seta}</span>${startupCacheCabecalho[i]}${seletor}</th>`;
+          return campo === "Site" ? th + cabecalhoValidacao() : th;
+        }).join("")}</tr>`;
+        const corpo = linhas.map((item, i) => `<tr><td class="row-num">${(inicio + i + 1).toLocaleString("pt-BR")}</td>${startupCampos.map((campo) => {
+          const valor = item[campo];
+          const atributosEdicao = `data-startup-id="${esc(item._btxId)}" data-startup-campo-edicao="${esc(campo)}"`;
+          let td;
+          if (vazio(valor)) td = `<td class="empty" ${atributosEdicao}></td>`;
+          else if (campo === "Site") td = `<td class="site-cell" ${atributosEdicao} data-site-url="${esc(valor)}" title="Dois cliques para abrir; Enter ou F2 para editar: ${esc(valor)}">${esc(valor)}</td>`;
+          else td = `<td class="${startupNumericos.has(campo) ? "n" : ""}" ${atributosEdicao} title="${esc(String(valor).slice(0, 500))}">${esc(valor)}</td>`;
+          return campo === "Site" ? td + celulaValidacao(item) : td;
+        }).join("")}</tr>`).join("");
+
+        $("startupWrap").innerHTML = linhas.length
+          ? `<table><thead>${cabecalho}</thead><tbody>${corpo}</tbody></table>`
+          : `<div class="status">Nenhuma startup encontrada.</div>`;
+        $("startupPagina").textContent = `página ${startupPaginaAtual} de ${totalPaginas}`;
+        $("startupAnterior").disabled = startupPaginaAtual <= 1;
+        $("startupProxima").disabled = startupPaginaAtual >= totalPaginas;
+        $("startupContagem").textContent = `${startupFiltrados.length.toLocaleString("pt-BR")} de ${startupTodos.length.toLocaleString("pt-BR")} startups`;
+        $("startupWrap").scrollTop = 0;
+      }
+
+      function redesenharAposEdicao(id, campo) {
+        const wrap = $("startupWrap");
+        const posicao = { x: wrap.scrollLeft, y: wrap.scrollTop };
+        startupCacheCabecalho = null;
+        aplicarStartups({ manterPagina: true });
+        requestAnimationFrame(() => {
+          wrap.scrollLeft = posicao.x;
+          wrap.scrollTop = posicao.y;
+          const celula = [...wrap.querySelectorAll("td[data-startup-id]")].find((td) =>
+            td.dataset.startupId === id && td.dataset.startupCampoEdicao === campo);
+          if (celula) selecionarCelula(celula);
+        });
+      }
+
+      function gravarEdicaoStartup(id, campo, valor) {
+        const item = startupTodos.find((registro) => registro._btxId === id);
+        if (!item || !startupCampos.includes(campo)) return;
+        item[campo] = valor;
+        startupEdicoes[id] ||= {};
+        startupEdicoes[id][campo] = valor;
+        localStorage.setItem(STARTUP_EDICOES_CHAVE, JSON.stringify(startupEdicoes));
+        atualizarMetaStartups();
+        redesenharAposEdicao(id, campo);
+      }
+
+      function iniciarEdicaoStartup(td) {
+        if (!td || td.classList.contains("is-editing") || !td.dataset.startupId) return;
+        const id = td.dataset.startupId;
+        const campo = td.dataset.startupCampoEdicao;
+        const item = startupTodos.find((registro) => registro._btxId === id);
+        if (!item || !startupCampos.includes(campo)) return;
+
+        document.querySelectorAll("td.is-editing input.cell-editor").forEach((editor) => editor.blur());
+        selecionarCelula(td);
+        td.classList.add("is-editing");
+        const editor = document.createElement("input");
+        editor.type = "text";
+        editor.className = "cell-editor";
+        editor.value = item[campo] ?? "";
+        editor.setAttribute("aria-label", `Editar ${campo} de ${item.Startup || "startup"}`);
+        td.replaceChildren(editor);
+
+        let encerrado = false;
+        const concluir = (salvar) => {
+          if (encerrado) return;
+          encerrado = true;
+          if (salvar) gravarEdicaoStartup(id, campo, editor.value);
+          else redesenharAposEdicao(id, campo);
+        };
+        editor.addEventListener("keydown", (e) => {
+          if (e.key === "Enter") { e.preventDefault(); concluir(true); }
+          else if (e.key === "Escape") { e.preventDefault(); concluir(false); }
+        });
+        editor.addEventListener("blur", () => concluir(true));
+        editor.focus();
+        editor.select();
+      }
+
+      function csvStartupsEditado() {
+        const escaparCsv = (valor) => {
+          const texto = String(valor ?? "");
+          return /[;"\r\n]/.test(texto) ? `"${texto.replace(/"/g, '""')}"` : texto;
+        };
+        const campoValidacao = "Site validado manualmente";
+        const camposExportados = startupCampos.filter((campo) => campo !== campoValidacao);
+        const indiceSite = camposExportados.indexOf("Site");
+        camposExportados.splice(indiceSite >= 0 ? indiceSite + 1 : camposExportados.length, 0, campoValidacao);
+        const linhas = [camposExportados, ...startupTodos.map((item) => camposExportados.map((campo) => {
+          if (campo === campoValidacao) return startupValidacoes[chaveValidacaoStartup(item)] ? "Sim" : "";
+          return item[campo] ?? "";
+        }))];
+        return `\uFEFF${linhas.map((linha) => linha.map(escaparCsv).join(";")).join("\r\n")}\r\n`;
+      }
+
+      function baixarCsvStartups() {
+        const blob = new Blob([csvStartupsEditado()], { type: "text/csv;charset=utf-8" });
+        const url = URL.createObjectURL(blob);
+        const link = document.createElement("a");
+        link.href = url;
+        link.download = "startups-editado.csv";
+        document.body.appendChild(link);
+        link.click();
+        link.remove();
+        URL.revokeObjectURL(url);
+      }
+
+      let startupEspera = null;
+      $("startupBusca").addEventListener("input", () => {
+        clearTimeout(startupEspera);
+        startupEspera = setTimeout(aplicarStartups, 250);
+      });
+      $("startupColuna").addEventListener("change", aplicarStartups);
+      $("startupLimparFiltros").addEventListener("click", () => {
+        Object.keys(startupFiltrosCol).forEach((campo) => delete startupFiltrosCol[campo]);
+        $("startupBusca").value = "";
+        $("startupColuna").value = "";
+        aplicarStartups();
+      });
+      $("startupBaixarCsv").addEventListener("click", baixarCsvStartups);
+      $("startupOrdenarPor").addEventListener("change", () => {
+        startupOrdem = { campo: $("startupOrdenarPor").value || null, dir: Number($("startupDirecao").value) };
+        aplicarStartups();
+      });
+      $("startupDirecao").addEventListener("change", () => {
+        startupOrdem = { campo: startupOrdem.campo, dir: Number($("startupDirecao").value) };
+        aplicarStartups();
+      });
+      $("startupTamanho").addEventListener("change", desenharStartups);
+      $("startupAnterior").addEventListener("click", () => { startupPaginaAtual -= 1; desenharStartups(); });
+      $("startupProxima").addEventListener("click", () => { startupPaginaAtual += 1; desenharStartups(); });
+      const rolarStartups = (dx) => $("startupWrap").scrollBy({ left: dx, behavior: "smooth" });
+      $("startupColEsq").addEventListener("click", () => rolarStartups(-$("startupWrap").clientWidth * 0.8));
+      $("startupColDir").addEventListener("click", () => rolarStartups($("startupWrap").clientWidth * 0.8));
+      $("startupColInicio").addEventListener("click", () => $("startupWrap").scrollTo({ left: 0, behavior: "smooth" }));
+      $("startupColFim").addEventListener("click", () => $("startupWrap").scrollTo({ left: $("startupWrap").scrollWidth, behavior: "smooth" }));
+      $("startupWrap").addEventListener("change", (e) => {
+        const seletor = e.target.closest("select[data-startup-filtro]");
+        if (!seletor) return;
+        if (seletor.value) startupFiltrosCol[seletor.dataset.startupFiltro] = seletor.value;
+        else delete startupFiltrosCol[seletor.dataset.startupFiltro];
+        const x = $("startupWrap").scrollLeft;
+        aplicarStartups();
+        $("startupWrap").scrollLeft = x;
+      });
+      $("startupWrap").addEventListener("click", (e) => {
+        if (e.target.closest(".cell-editor")) return;
+        if (e.target.closest("select")) return;
+        const botaoValidacao = e.target.closest("button[data-validar-site]");
+        if (botaoValidacao) {
+          const chave = botaoValidacao.dataset.validarSite;
+          if (startupValidacoes[chave]) delete startupValidacoes[chave];
+          else startupValidacoes[chave] = true;
+          localStorage.setItem("btx-startup-sites-validados", JSON.stringify(startupValidacoes));
+          const validado = Boolean(startupValidacoes[chave]);
+          botaoValidacao.setAttribute("aria-pressed", String(validado));
+          botaoValidacao.textContent = validado ? "✓ Validado" : "Validar";
+          botaoValidacao.title = startupValidacoes[chave] ? "Site validado manualmente" : "Marcar site como validado manualmente";
+          return;
+        }
+        const th = e.target.closest("th[data-startup-campo]");
+        if (th) {
+          const campo = th.dataset.startupCampo;
+          startupOrdem = startupOrdem.campo === campo
+            ? { campo, dir: -startupOrdem.dir }
+            : { campo, dir: 1 };
+          $("startupOrdenarPor").value = campo;
+          $("startupDirecao").value = String(startupOrdem.dir);
+          aplicarStartups();
+          return;
+        }
+        const td = e.target.closest("td");
+        if (td && !td.classList.contains("row-num")) selecionarCelula(td);
+      });
+      $("startupWrap").addEventListener("dblclick", (e) => {
+        if (e.target.closest(".cell-editor")) return;
+        const td = e.target.closest("td[data-startup-id]");
+        if (!td) return;
+        if (td.dataset.siteUrl) window.open(td.dataset.siteUrl, "_blank", "noopener,noreferrer");
+        else iniciarEdicaoStartup(td);
+      });
+      $("startupWrap").addEventListener("keydown", (e) => {
+        if (e.target.closest(".cell-editor")) return;
+        if (e.key !== "Enter" && e.key !== "F2") return;
+        const td = $("startupWrap").querySelector("td.is-selected[data-startup-id]");
+        if (!td) return;
+        e.preventDefault();
+        iniciarEdicaoStartup(td);
       });
 
       // ===== Abas =====
@@ -352,9 +768,13 @@
         });
         $("aba-dados").hidden = aba.dataset.aba !== "dados";
         $("aba-pipeline").hidden = aba.dataset.aba !== "pipeline";
-        history.replaceState(null, "", aba.dataset.aba === "pipeline" ? "#pipeline" : location.pathname + location.search);
+        $("aba-startups").hidden = aba.dataset.aba !== "startups";
+        $("meta").hidden = aba.dataset.aba === "startups";
+        const hash = { dados: "#pesquisadores", pipeline: "#pipeline", startups: "#startups" }[aba.dataset.aba];
+        history.replaceState(null, "", hash);
       }));
       if (location.hash === "#pipeline") document.querySelector('.aba[data-aba="pipeline"]').click();
+      if (location.hash === "#startups") document.querySelector('.aba[data-aba="startups"]').click();
 
       // ===== Pipeline: desenho no estilo Apache Hop =====
       const CORES = { entrada: "#2563eb", transformacao: "#07677e", saida: "#b45309" };
@@ -456,6 +876,10 @@
       carregar().catch((erro) => {
         $("status").textContent = `Erro: ${erro.message}. Abra esta página por um servidor (Live Server), não com duplo clique no arquivo.`;
         $("meta").textContent = "";
+      });
+      carregarStartups().catch((erro) => {
+        $("startupWrap").innerHTML = `<div class="status">Erro: ${esc(erro.message)}. Abra esta página por um servidor (Live Server), não com duplo clique no arquivo.</div>`;
+        $("startupMeta").textContent = "";
       });
     })();
   </script>

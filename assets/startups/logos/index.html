@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Logos das startups • Observatório BTX</title>
+  <style>
+    * { box-sizing: border-box; }
+    body { margin: 0; padding: 28px; color: #20142f; background: #f4f1f6; font: 14px/1.4 "Segoe UI", Arial, sans-serif; }
+    h1 { margin: 0; color: #2a0d43; }
+    header p { margin: 6px 0 24px; color: #685d70; }
+    main { display: grid; grid-template-columns: repeat(auto-fill, minmax(190px, 1fr)); gap: 14px; }
+    article { min-width: 0; padding: 14px; background: #fff; border: 1px solid #ded7e2; border-radius: 12px; box-shadow: 0 6px 18px rgba(42, 13, 67, .06); }
+    figure { height: 120px; margin: 0 0 10px; display: grid; place-items: center; overflow: hidden; border-radius: 8px; background: linear-gradient(135deg, #fff, #f4f7fa); }
+    img { width: 100%; height: 100%; object-fit: contain; }
+    strong, small { display: block; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    small { margin-top: 3px; color: #766c7c; }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Logos das startups</h1>
+    <p id="resumo">Carregando manifesto…</p>
+  </header>
+  <main id="galeria"></main>
+  <script>
+    fetch("manifest.json", { cache: "no-cache" })
+      .then((response) => response.json())
+      .then((manifest) => {
+        const items = manifest.resultados.filter((item) => item.status === "baixada");
+        document.querySelector("#resumo").textContent = `${items.length} de ${manifest.total} logos encontradas`;
+        document.querySelector("#galeria").innerHTML = items.map((item) => `<article>
+          <figure><img src="${encodeURI(item.arquivo)}" alt="Logo de ${item.startup.replace(/&/g, "&amp;").replace(/</g, "&lt;").replace(/"/g, "&quot;")}" /></figure>
+          <strong>${item.rank}. ${item.startup.replace(/&/g, "&amp;").replace(/</g, "&lt;")}</strong>
+          <small>${item.metodo}</small>
+        </article>`).join("");
+      })
+      .catch((error) => { document.querySelector("#resumo").textContent = `Erro: ${error.message}`; });
+  </script>
+</body>
+</html>
