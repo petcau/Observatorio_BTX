@@ -1,17 +1,17 @@
 {
-  "gerado_em": "2026-11-14T19:06:34.498Z",
-  "total": 120,
+  "gerado_em": "2026-11-14T21:11:51.020Z",
+  "total": 83,
   "resultados": [
     {
       "rank": 1,
       "startup": "Escavador",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "001-escavador.ico",
+      "origem_pagina": "https://escavador.com/",
+      "origem_imagem": "https://www.escavador.com/favicon.ico",
+      "metodo": "arquivo institucional no domínio validado",
       "pitch_deck": "https://docs.google.com/presentation/d/1BPpkHLkz7ZsjQBiOVxfOIhWLA0u6v24KX6W3tMDfBw0/edit?usp=drivesdk",
-      "observacao": "https://escavador.com/: HTTP 403 | https://www.escavador.com/: HTTP 403"
+      "observacao": ""
     },
     {
       "rank": 2,
@@ -49,35 +49,24 @@
     {
       "rank": 5,
       "startup": "Forpy",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "005-forpy.ico",
+      "origem_pagina": "https://www.forpy.com.br/",
+      "origem_imagem": "https://www.forpy.com.br/assets/favicon.ico",
+      "metodo": "favicon do site",
       "pitch_deck": "https://drive.google.com/file/d/1OUBoZ0sRFpys8TXJoRBpkrgacr9yLlHu/view?usp=sharing",
-      "observacao": "https://www.forpy.com.br/: nenhuma imagem identificada explicitamente como logo | https://www.forpy.com.br/: nenhuma imagem identificada explicitamente como logo"
+      "observacao": ""
     },
     {
       "rank": 6,
       "startup": "MORADIA LEGAL & GeoSmart Fiscal GovTech",
-      "status": "não encontrada",
+      "status": "rejeitada na revisão",
       "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "origem_pagina": "https://www.efirma.com.br/empresa/moradia-legal-geosmart-fiscal-govtech",
+      "origem_imagem": "https://www.efirma.com.br/images/site-logo.svg",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/drive/folders/1DysAO2lvCUyZfaPJMjjaLsSr48KRoNL_?usp=drive_link",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 7,
-      "startup": "ITECH",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://youtu.be/aTuE7C2dvWs",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": "a imagem encontrada é da plataforma eFirma, não da Moradia Legal"
     },
     {
       "rank": 8,
@@ -88,7 +77,7 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://youtu.be/W5CwMUYugcQ?si=ykmeUEm9mCKd8vkq",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": "https://www.linkedin.com/company/guidar-sense/: HTTP 403 | https://www.linkedin.com/: nenhuma imagem identificada explicitamente como logo"
     },
     {
       "rank": 9,
@@ -99,7 +88,7 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://www.branef.com.br",
-      "observacao": "https://branef.com.br/: fetch failed | https://www.branef.com.br/: fetch failed | https://www.branef.com.br: fetch failed"
+      "observacao": "https://www.branef.com.br/: fetch failed"
     },
     {
       "rank": 10,
@@ -113,37 +102,26 @@
       "observacao": ""
     },
     {
-      "rank": 11,
-      "startup": "+ SOLIDÁRIO EDUCAÇÃO e TECNOLOGIAS ESG",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://youtu.be/nVWw9Z5VXHQ",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
       "rank": 12,
       "startup": "Cacaus Biocosméticos",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "012-cacaus-biocosmeticos.webp",
+      "origem_pagina": "https://cacausbiocosmeticos.lojavirtualnuvem.com.br/",
+      "origem_imagem": "https://dcdn-us.mitiendanube.com/stores/004/246/389/themes/common/logo-1263161492-1713628342-7cb1943fff35653aa2eddb0aadf3d1471713628342-480-0.webp",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/file/d/16l2OVyYTIR5yjnLR5RqZwJr4bgVBQcdM/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 13,
       "startup": "Greenchat",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://www.inforeis.net/",
-      "origem_imagem": "https://www.inforeis.net/assets/logo-inforeis.png",
+      "status": "baixada",
+      "arquivo": "013-greenchat.png",
+      "origem_pagina": "https://greenchat.com.br/",
+      "origem_imagem": "https://greenchat.com.br/wp-content/uploads/2025/09/01-1-Photoroom.png",
       "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://youtu.be/emK1HVL-72k?list=PLq_cQ2HY35b1pdqOJQmAQCXMZmUoV3VPQ",
-      "observacao": "a imagem encontrada é da Inforeis, não da Greenchat"
+      "observacao": ""
     },
     {
       "rank": 14,
@@ -154,18 +132,18 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://drive.google.com/file/d/1mj-jyl6JRjurR9F-q39sXVNHmOVJ0aMF/view?usp=sharing",
-      "observacao": "https://rs2build.com.br/: fetch failed | https://www.rs2build.com.br/: fetch failed"
+      "observacao": "https://rs2build.com.br/: fetch failed"
     },
     {
       "rank": 15,
       "startup": "Georaiz",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "015-georaiz.png",
+      "origem_pagina": "https://www.georaiz.com/",
+      "origem_imagem": "https://static.wixstatic.com/media/43d7e5_497b40d61a694559bdabbf981235daac~mv2.png/v1/crop/x_98,y_376,w_846,h_297/fill/w_185,h_56,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/GEORAIZ%20-%20Logotipo_Prancheta%201.png",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://www.youtube.com/watch?v=FFCQniH2r8Y",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 16,
@@ -173,7 +151,7 @@
       "status": "baixada",
       "arquivo": "016-mobapps.webp",
       "origem_pagina": "https://mobapps.com.br/",
-      "origem_imagem": "https://mobapps.com.br/_next/image?url=%2Fassets%2Flogo.png&amp;w=384&amp;q=75",
+      "origem_imagem": "https://mobapps.com.br/_next/image?url=%2Fassets%2Flogo.png&w=384&q=75",
       "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://docs.google.com/presentation/d/1abBSg1F9ivquUmm1REcfOuWWhc2TBHc4q7OduBaykrc/edit?usp=sharing",
       "observacao": ""
@@ -181,13 +159,13 @@
     {
       "rank": 17,
       "startup": "RS TEK",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "017-rs-tek.png",
+      "origem_pagina": "https://rstek.com.br/",
+      "origem_imagem": "https://rstek.com.br/wp-content/uploads/2020/03/icone_rs_tek_amarelo.png",
+      "metodo": "favicon do site",
       "pitch_deck": "https://workdrive.zohoexternal.com/external/afc5110c2a4ec62e1f8688125bd18f04aa44cfd30cd0ebc198f13e6f2cc7f340",
-      "observacao": "https://rstek.com.br/: nenhuma imagem identificada explicitamente como logo | https://rstek.com.br/: nenhuma imagem identificada explicitamente como logo"
+      "observacao": ""
     },
     {
       "rank": 18,
@@ -201,37 +179,15 @@
       "observacao": ""
     },
     {
-      "rank": 19,
-      "startup": "Puba",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/1F9nhfbWuDn4cVmlpPVyuHYdJXmEUZOtc/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
       "rank": 20,
       "startup": "TempusMed",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://sistemasconnecta.com.br/",
-      "origem_imagem": "https://sistemasconnecta.com.br/assets/logo/connecta-principal.svg",
-      "metodo": "imagem marcada como logo no site",
+      "status": "baixada",
+      "arquivo": "020-tempusmed.png",
+      "origem_pagina": "https://tempusmed.com.br/",
+      "origem_imagem": "https://tempusmed.com.br/icon-192.png",
+      "metodo": "favicon do site",
       "pitch_deck": "https://drive.google.com/file/d/18efJMRsjTCxikev04YUF3jSvuclX2SW_/view?usp=sharing",
-      "observacao": "a imagem encontrada é da Sistemas Connecta, não da TempusMed"
-    },
-    {
-      "rank": 21,
-      "startup": "FlowEcho",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/1IMbM3tFZPXVNnbsEAaGfq-T1LJokherx/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 22,
@@ -258,24 +214,13 @@
     {
       "rank": 24,
       "startup": "Maker Lab 3D",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://www.makerlab3d.com.br/portifolio/",
-      "origem_imagem": "https://www.makerlab3d.com.br/portifolio/img/metodo.jpg",
-      "metodo": "imagem marcada como logo no site",
-      "pitch_deck": "https://www.makerlab3d.com.br/portifolio/",
-      "observacao": "a imagem é um diagrama e não a logo da Maker Lab 3D"
-    },
-    {
-      "rank": 25,
-      "startup": "DUMAR",
       "status": "não encontrada",
       "arquivo": "",
       "origem_pagina": "",
       "origem_imagem": "",
       "metodo": "",
-      "pitch_deck": "https://www.canva.com/design/DAGY690Ujjk/sAtgF_BzvydChxskLqZI2Q/edit",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "pitch_deck": "https://www.makerlab3d.com.br/portifolio/",
+      "observacao": "https://www.makerlab3d.com.br/: nenhuma imagem identificada explicitamente como logo"
     },
     {
       "rank": 26,
@@ -302,22 +247,22 @@
     {
       "rank": 28,
       "startup": "Capim Pimenta cosméticos LTDA",
-      "status": "não encontrada",
+      "status": "rejeitada na revisão",
       "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "origem_pagina": "https://capimpimenta.com/",
+      "origem_imagem": "https://assets.zyrosite.com/cdn-cgi/image/format=auto,w=180,h=180,fit=crop,f=png/ALpOGvrR02InKV39/apresentaassapso-clanica-de-esta-c-tica-sofisticada-cinza-e-paassego-.zip---1-YNqPP90153Fo3317.jpeg",
+      "metodo": "ícone institucional do site",
       "pitch_deck": "https://drive.google.com/file/d/1I3vZ-w8N_Iq8OvyGKok0w5P5ChQ5TJiM/view?usp=drivesdk",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": "a imagem encontrada é uma fotografia, não a logo da Capim Pimenta"
     },
     {
       "rank": 29,
       "startup": "Bold Solution",
       "status": "baixada",
-      "arquivo": "029-bold-solution.png",
+      "arquivo": "029-bold-solution.webp",
       "origem_pagina": "https://www.boldsolution.com.br/",
-      "origem_imagem": "https://www.boldsolution.com.br/wp-content/uploads/2024/10/cropped-Bold-Favicom-180x180.png",
-      "metodo": "ícone institucional do site",
+      "origem_imagem": "https://www.boldsolution.com.br/_next/image?url=%2FLogo_Bold_Claro.png&w=384&q=75",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://docs.google.com/presentation/d/15letI098NRNQr3eNU-JeY2ZLOOdIVV1WgM4GJmDJJHA/edit?usp=sharing",
       "observacao": ""
     },
@@ -336,10 +281,10 @@
       "rank": 31,
       "startup": "Soff.ia",
       "status": "baixada",
-      "arquivo": "031-soff-ia.png",
+      "arquivo": "031-soff-ia.svg",
       "origem_pagina": "https://soffia.tech/",
-      "origem_imagem": "https://soffia.tech/assets/logo-dark.png",
-      "metodo": "imagem marcada como logo no site",
+      "origem_imagem": "https://soffia.tech/assets/base.svg",
+      "metodo": "favicon do site",
       "pitch_deck": "https://docs.google.com/presentation/d/18cnz15oZKkdMVxbm0cuo9eK7j_-ETiVd/edit?usp=sharing&ouid=115810775064951411193&rtpof=true&sd=true",
       "observacao": ""
     },
@@ -352,7 +297,7 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://drive.google.com/file/d/1myLJqf5kLXQaF2_GvJ3mjONCvraP6czM/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": "https://www.instagram.com/aromasyaba/: nenhuma imagem identificada explicitamente como logo | https://www.instagram.com/: nenhuma imagem identificada explicitamente como logo"
     },
     {
       "rank": 33,
@@ -363,7 +308,7 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://drive.google.com/file/d/1MML9Fske3GAGtrphgBDePPNbWQMsTPja/view?usp=sharing",
-      "observacao": "https://qugem.com/: nenhuma imagem identificada explicitamente como logo | https://www.qugem.com/: nenhuma imagem identificada explicitamente como logo"
+      "observacao": "https://qugem.com/: nenhuma imagem identificada explicitamente como logo"
     },
     {
       "rank": 34,
@@ -374,7 +319,7 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://drive.google.com/file/d/1C8HvV5xjPDI3g03CSzi-DTppmXCv9gLR/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": "https://www.instagram.com/lyrioesg_sustentabilidade/: nenhuma imagem identificada explicitamente como logo | https://www.instagram.com/: nenhuma imagem identificada explicitamente como logo"
     },
     {
       "rank": 35,
@@ -385,7 +330,7 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://drive.google.com/drive/folders/1u8UvNQlwzTH-WVKB-XYE8AJBAILiDwtY?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": "https://www.canteirocircular.com.br/: nenhuma imagem identificada explicitamente como logo"
     },
     {
       "rank": 36,
@@ -396,18 +341,7 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://drive.google.com/file/d/1QKxxEt1ldojwXFtp95jXZW5PwRyfGgaA/view?usp=sharing",
-      "observacao": "https://historicoacaademico.com/: fetch failed | https://www.historicoacaademico.com/: fetch failed"
-    },
-    {
-      "rank": 37,
-      "startup": "K-TECH",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/1WpvAPzMwcPRMGNEEo25ru7NTkFwSigfb/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": "https://historicoacaademico.com/: fetch failed"
     },
     {
       "rank": 38,
@@ -421,17 +355,6 @@
       "observacao": "a imagem encontrada é o ícone do LinkedIn, não a logo da Levolt"
     },
     {
-      "rank": 39,
-      "startup": "Imersão Azul",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://institutogaiasoul.ong.br/",
-      "origem_imagem": "https://institutogaiasoul.ong.br/wp-content/uploads/2024/08/logo-gaia-soul-branca.png",
-      "metodo": "imagem marcada como logo no site",
-      "pitch_deck": "https://www.youtube.com/watch?v=-7jyUiuJd24",
-      "observacao": "a imagem encontrada pertence ao Instituto Gaia Soul, não à Imersão Azul"
-    },
-    {
       "rank": 40,
       "startup": "4AM",
       "status": "não encontrada",
@@ -440,84 +363,62 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://etepindustria-my.sharepoint.com/:b:/g/personal/admetep_etepindustria_onmicrosoft_com/IQDYLAO3xjKASpHdurD8SOBXAZKEuHY0289EVtyekqjrBe4?e=lbxQmB",
-      "observacao": "https://4amengineering.com.br/: fetch failed | https://www.4amengineering.com.br/: fetch failed"
+      "observacao": "https://4amengineering.com.br/: fetch failed"
     },
     {
       "rank": 41,
       "startup": "UZE Collection Center",
-      "status": "não encontrada",
+      "status": "rejeitada na revisão",
       "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "origem_pagina": "https://collectioncenter.com.br/",
+      "origem_imagem": "https://files.manuscdn.com/user_upload_by_module/web_dev_logo/310519663093172131/JICTNwpyamlCOAfZ.png",
+      "metodo": "arquivo institucional no domínio validado",
       "pitch_deck": "https://drive.google.com/file/d/1visGSx9Und4OhyZ6PDY7zs44L3PYE2Zh/view?usp=sharing",
-      "observacao": "https://collectioncenter.com.br/: nenhuma imagem identificada explicitamente como logo | https://collectioncenter.com.br/: nenhuma imagem identificada explicitamente como logo"
+      "observacao": "o arquivo encontrado é um ícone vazio e não identifica a UZE Collection Center"
     },
     {
       "rank": 42,
       "startup": "FLYSERV DRONES",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "042-flyserv-drones.webp",
+      "origem_pagina": "https://flyserv.com.br/",
+      "origem_imagem": "https://flyserv.com.br/src/assets/FLYSERV.webp",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://1drv.ms/b/c/89ef6040be7e7d60/IQC1VreGtIlTTZXKhRkAvOJZAZH1IDd21IMp7YU7ort6rbY?e=r1p9uV",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 43,
       "startup": "SALUT BIOTECH",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "043-salut-biotech.webp",
+      "origem_pagina": "https://www.salutbio.com.br/",
+      "origem_imagem": "https://www.salutbio.com.br/cdn/shop/files/simbolo_marrom.png?height=57&v=1753622900",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/file/d/165-k6A1F5-aF6uT70Y-GNvT_Zc7lZ1MR/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 44,
-      "startup": "Syntro",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/1RSzwuqK01h6vWLby3HpSRmc06hU7Kbus/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 45,
       "startup": "Dre Metrics",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "045-dre-metrics.png",
+      "origem_pagina": "https://www.dremetrics.com.br/",
+      "origem_imagem": "https://www.dremetrics.com.br/assets/logo-BiDGV4Ou.png",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/drive/folders/1opxYCcu9qEiaHxkZvtXJGha7smYDogYD?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 46,
-      "startup": "O.S.10",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://www.protonsistemas.com.br/",
-      "origem_imagem": "https://www.protonsistemas.com.br/wp-content/uploads/2025/06/cropped-fav-proton-180x180.png",
-      "metodo": "ícone institucional do site",
-      "pitch_deck": "https://drive.google.com/file/d/1e7DC3VsKkFSCo_0y6rr5tenrC8VZxUrx/view?usp=sharing",
-      "observacao": "o ícone encontrado não identifica a startup O.S.10"
+      "observacao": ""
     },
     {
       "rank": 47,
       "startup": "Amplia Idiomas",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "047-amplia-idiomas.png",
+      "origem_pagina": "https://www.ampliaidiomas.com.br/",
+      "origem_imagem": "https://www.ampliaidiomas.com.br/img/favicon.png",
+      "metodo": "favicon do site",
       "pitch_deck": "https://docs.google.com/presentation/d/1AS3VYerE9Hs93iHB6N7G_tlPVwJixvl5bA02q2STSYw/edit?usp=sharing",
-      "observacao": "https://www.ampliaidiomas.com.br/: nenhuma imagem identificada explicitamente como logo | https://www.ampliaidiomas.com.br/: nenhuma imagem identificada explicitamente como logo"
+      "observacao": ""
     },
     {
       "rank": 48,
@@ -533,24 +434,13 @@
     {
       "rank": 49,
       "startup": "Clube Conecta Fácil",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "049-clube-conecta-facil.png",
+      "origem_pagina": "https://clubeconectafacil.com.br/",
+      "origem_imagem": "https://clubeconectafacil.com.br/wp-content/uploads/2026/04/fivicom-300x300.png",
+      "metodo": "favicon do site",
       "pitch_deck": "https://drive.google.com/file/d/1_akgfR926gahwyRsJX_WRkVNI65YJh6R/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 50,
-      "startup": "Appimmovi",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://canva.link/lyzf394jli6ezo7",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 51,
@@ -561,18 +451,7 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://drive.google.com/file/d/1529nisfw6lbycM4T0pzLQR2FkC7gTW9A/view?usp=sharing",
-      "observacao": "https://opusecosystem.com.br/: This operation was aborted | https://www.opusecosystem.com.br/: This operation was aborted"
-    },
-    {
-      "rank": 52,
-      "startup": "Bora Planejar",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://canva.link/o7eherczcqlzqxj",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": "https://opusecosystem.com.br/: This operation was aborted"
     },
     {
       "rank": 53,
@@ -586,37 +465,26 @@
       "observacao": "a imagem encontrada é um banner, não uma logo isolada"
     },
     {
-      "rank": 54,
-      "startup": "TRILHA-i",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://www.claraidea.com.br/",
-      "origem_imagem": "https://static.wixstatic.com/media/975382_d0d29f79f6ba4ec7ac32803143310f91~mv2.png/v1/fill/w_360,h_345,al_c,q_85,usm_0.66_1.00_0.01,enc_avif,quality_auto/975382_d0d29f79f6ba4ec7ac32803143310f91~mv2.png",
-      "metodo": "imagem marcada como logo no site",
-      "pitch_deck": "https://drive.google.com/file/d/1GQKlXQBUI-X3R-4Lmts5v0rBsnnOLRbq/view?usp=drive_link",
-      "observacao": "a imagem encontrada é uma captura de quadro, não a logo da TRILHA-i"
-    },
-    {
       "rank": 55,
       "startup": "TAP IA INOVA SIMPLES (I.S)",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "055-tap-ia-inova-simples-i-s.png",
+      "origem_pagina": "https://tap-ia-startup.web.app/",
+      "origem_imagem": "https://tap-ia-startup.web.app/logo-mao.png",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/file/d/1XuWB0pkD2d81JyYiqkmR-VjLDs2Z91xI/view?usp=drive_link",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 56,
       "startup": "Vivai",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "056-vivai.svg",
+      "origem_pagina": "https://vivaiapp.com.br/",
+      "origem_imagem": "https://vivaiapp.com.br/logo.svg",
+      "metodo": "favicon do site",
       "pitch_deck": "https://drive.google.com/file/d/1kVRWKc2YgTHlUglySLTM1g0DMSlKKNhz/view?usp=drive_link",
-      "observacao": "https://vivaiapp.com.br/: nenhuma imagem identificada explicitamente como logo | https://vivaiapp.com.br/: nenhuma imagem identificada explicitamente como logo"
+      "observacao": ""
     },
     {
       "rank": 57,
@@ -627,227 +495,139 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://docs.google.com/presentation/d/1tSz1a3w4U7wIqZB6DhjwOEt8SPZupKdW/edit?usp=sharing&ouid=102640361983108597797&rtpof=true&sd=true",
-      "observacao": "https://victorcayres.com.br/: fetch failed | https://www.victorcayres.com.br/: fetch failed"
-    },
-    {
-      "rank": 58,
-      "startup": "AMBI9",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://youtu.be/ZjrG84OuY-M",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": "https://victorcayres.com.br/: fetch failed"
     },
     {
       "rank": 59,
       "startup": "Eletroid",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://eletroseguranca.com.br/",
-      "origem_imagem": "https://eletroseguranca.com.br/wp-content/uploads/2026/08/eletro1-logo-20-08-26.jpg",
-      "metodo": "imagem marcada como logo no site",
+      "status": "baixada",
+      "arquivo": "059-eletroid.jpg",
+      "origem_pagina": "https://eletroid.com.br/",
+      "origem_imagem": "https://eletroid.com.br/wp-content/uploads/2026/07/cropped-logo-eletroi_125x125-180x180.jpg",
+      "metodo": "ícone institucional do site",
       "pitch_deck": "https://eletroid.com.br",
-      "observacao": "a imagem encontrada é da Eletro Segurança, não da Eletroid"
-    },
-    {
-      "rank": 60,
-      "startup": "Forgalenic",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/1PcsDXKd0wR8IL4UjlZrUtntoyjIrbj4n/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 61,
       "startup": "EtiquetAí",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "061-etiquetai.webp",
+      "origem_pagina": "https://etiquetai.com.br/",
+      "origem_imagem": "https://etiquetai.com.br/_next/image?url=%2Fimages%2Flogo%2Fetiquetai-logo.png&w=640&q=75",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://static.etiquetai.com.br/pitch_deck/EtiquetAi%CC%81%20-%20Pitch%20Deck.pdf",
-      "observacao": "https://etiquetai.com.br/: nenhuma imagem identificada explicitamente como logo | https://etiquetai.com.br/: nenhuma imagem identificada explicitamente como logo | https://static.etiquetai.com.br/pitch_deck/EtiquetAi%CC%81%20-%20Pitch%20Deck.pdf: conteúdo application/pdf | https://static.etiquetai.com.br: HTTP 404"
+      "observacao": ""
     },
     {
       "rank": 62,
       "startup": "Gestor Condo",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "062-gestor-condo.webp",
+      "origem_pagina": "https://gestorcondo.com.br/",
+      "origem_imagem": "https://gestorcondo.com.br/_next/image?url=%2Flogo-black.png&w=1080&q=75",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/drive/folders/1ZT_M_OxyERmH5pFzQUWHyREk-pmeSW_A?usp=drive_link",
-      "observacao": "https://gestorcondo.com.br/: nenhuma imagem identificada explicitamente como logo | https://www.gestorcondo.com.br/: nenhuma imagem identificada explicitamente como logo"
+      "observacao": ""
     },
     {
       "rank": 63,
       "startup": "Impactaê",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://www.impactae.org/",
-      "origem_imagem": "https://static.wixstatic.com/media/5e1a45_ba3d8c8d7869459bae3c509f2b3a3afc~mv2.webp/v1/crop/x_7,y_121,w_588,h_206/fill/w_221,h_78,al_c,q_80,usm_0.66_1.00_0.01,enc_avif,quality_auto/logotipo-grande%20(1).webp",
-      "metodo": "imagem marcada como logo no site",
-      "pitch_deck": "https://canva.link/ao0an4tuvqlzbcc",
-      "observacao": "a imagem encontrada é do Instituto Brasil Solidário, não da Impactaê"
-    },
-    {
-      "rank": 64,
-      "startup": "Lead.IA",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/drive/folders/1-z9Xc0RLsQC9Kjh7SReIpEDL2sdC9FJN?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 65,
-      "startup": "RitMEI",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://ignix.ia.br/",
-      "origem_imagem": "https://ignix.ia.br/img/ignix-logo-fundo-claro.png?v=20261106a",
-      "metodo": "imagem marcada como logo no site",
-      "pitch_deck": "https://drive.google.com/file/d/1In2Z4joZGwMNsfreiwYLYpVhWfYHBZ2Q/view?usp=sharing",
-      "observacao": "a imagem encontrada é da Ignix AI, não da RitMEI"
-    },
-    {
-      "rank": 66,
-      "startup": "Voxel4D",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://www.dronessolution.com.br/",
-      "origem_imagem": "https://www.dronessolution.com.br/icons/apple-touch-icon.png",
+      "status": "baixada",
+      "arquivo": "063-impactae.png",
+      "origem_pagina": "https://www.impactae.org/links",
+      "origem_imagem": "https://static.wixstatic.com/media/5e1a45_d0d2b8a1baa44423a1d4a12633eb28b3%7Emv2.png/v1/fill/w_180%2Ch_180%2Clg_1%2Cusm_0.66_1.00_0.01/5e1a45_d0d2b8a1baa44423a1d4a12633eb28b3%7Emv2.png",
       "metodo": "ícone institucional do site",
-      "pitch_deck": "https://drive.google.com/file/d/1We_wiT4gcBP-Vnzof1qwHzEzVYOlEau6/view?usp=sharing",
-      "observacao": "a imagem encontrada é da Drones Solution, não da Voxel4D"
+      "pitch_deck": "https://canva.link/ao0an4tuvqlzbcc",
+      "observacao": ""
     },
     {
       "rank": 67,
       "startup": "praticonfe",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "067-praticonfe.png",
+      "origem_pagina": "https://praticonfe.com.br/",
+      "origem_imagem": "https://praticonfe.com.br/foto-navegador.png",
+      "metodo": "favicon do site",
       "pitch_deck": "https://drive.google.com/drive/u/0/folders/1WNeo4mg-sbLe6mHLvFA1K0vuVrvjvWm7",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 68,
       "startup": "Participe.ai - Plataforma que conecta soluções sustentáveis e tecnologia",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "068-participe-ai-plataforma-que-conecta-solucoes-sustentaveis-e-tecnologia.jpg",
+      "origem_pagina": "https://www.participeai.com.br/",
+      "origem_imagem": "https://www.participeai.com.br/favicon.jpg",
+      "metodo": "favicon do site",
       "pitch_deck": "https://drive.google.com/drive/folders/1836wbMpXLszpqgVCtkRuUn6ZY69FRz6s?usp=sharinghttps://drive.google.com/drive/folders/1836wbMpXLszpqgVCtkRuUn6ZY69FRz6s?usp=sharinghttps://drive.google.com/drive/folders/1836wbMpXLszpqgVCtkRuUn6ZY69FRz6s?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 69,
-      "startup": "Chama Drone",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/drive/folders/1c29X6SsNytso52pCnQKwejBHW8LCur67?usp=sharing",
-      "observacao": "https://grupoavagro.com.br/: nenhuma imagem identificada explicitamente como logo | https://www.grupoavagro.com.br/: nenhuma imagem identificada explicitamente como logo"
-    },
-    {
-      "rank": 70,
-      "startup": "ConnectPlant",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/1DgVDqieP1lcQ2HMoOyW6auDjHGbUmbPa/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 71,
       "startup": "NeuroSight",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "071-neurosight.svg",
+      "origem_pagina": "https://neurosight.tech/",
+      "origem_imagem": "https://neurosight.tech/favicon.svg",
+      "metodo": "favicon do site",
       "pitch_deck": "https://neurosight.tech",
-      "observacao": "https://neurosight.tech/: nenhuma imagem identificada explicitamente como logo | https://neurosight.tech/: nenhuma imagem identificada explicitamente como logo"
+      "observacao": ""
     },
     {
       "rank": 72,
       "startup": "Pronto Afeto",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "072-pronto-afeto.webp",
+      "origem_pagina": "https://prontoafeto.com.br/",
+      "origem_imagem": "https://prontoafeto.com.br/wp-content/uploads/2019/07/logo.png",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/file/d/1G0Kv-9WLjiBPO3jEiCxPcgTbaGvZNczD/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 73,
       "startup": "start solidarium",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "073-start-solidarium.webp",
+      "origem_pagina": "https://www.startsolucoes.ind.br/",
+      "origem_imagem": "https://cdn.awsli.com.br/400x300/716/716697/logo/feed-start-solidarium-33-yfqu6bdg99.jpg",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/file/d/1KLu9n7z9OWwWsmQrqSpdGSseKrTPhquY/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 74,
       "startup": "RAIZ BRASIL AGRO",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "074-raiz-brasil-agro.svg",
+      "origem_pagina": "https://raizbrasil.agr.br/",
+      "origem_imagem": "https://raizbrasil.agr.br/logo-white-no-background.svg",
+      "metodo": "logo declarada nos dados estruturados do site",
       "pitch_deck": "https://canva.link/my7dknz4rhm6rqj",
-      "observacao": "https://raizbrasil.agr.br/: nenhuma imagem identificada explicitamente como logo | https://www.raizbrasil.agr.br/: fetch failed"
+      "observacao": ""
     },
     {
       "rank": 75,
       "startup": "PreVita",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "075-previta.webp",
+      "origem_pagina": "https://previtasaude.com.br/",
+      "origem_imagem": "https://previtasaude.com.br/_next/image?url=%2Flogo-mark.png&w=96&q=75",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/file/d/1BwukPE2hQBq_sVBOOShApdP7AJn9Ps-O/view?usp=sharing",
-      "observacao": "https://previtasaude.com.br/: nenhuma imagem identificada explicitamente como logo | https://www.previtasaude.com.br/: nenhuma imagem identificada explicitamente como logo"
-    },
-    {
-      "rank": 76,
-      "startup": "Ludicus",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://youtu.be/huaEvH2BVus?is=j2n0ClzxJAED6YMv",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 77,
       "startup": "CITI Tour Rural",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "077-citi-tour-rural.png",
+      "origem_pagina": "https://linktr.ee/citirural",
+      "origem_imagem": "https://ugc.production.linktr.ee/6b865ea2-983e-41b5-a641-4191399eb533_Blue-Lined-Car-Wash-Logo--1-.png?io=true&size=thumbnail-stack_v1_0",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://www.youtube.com/watch?v=-4EPLhVdvRA",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 78,
@@ -863,101 +643,79 @@
     {
       "rank": 79,
       "startup": "Tunero",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "079-tunero.png",
+      "origem_pagina": "https://tunero.com.br/",
+      "origem_imagem": "https://tunero.com.br/apple-touch-icon.png?v=tunero-1",
+      "metodo": "ícone institucional do site",
       "pitch_deck": "https://drive.google.com/drive/folders/1WkKiQIq1Sf9Jxmc05N5pVbCLJvrJPQyP?usp=drive_link",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 80,
       "startup": "Conduzzir",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "080-conduzzir.svg",
+      "origem_pagina": "https://conduzzir.com.br/",
+      "origem_imagem": "https://conduzzir.com.br/_next/static/immutable/media/logo.2f21g3lzykr6o.svg",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://canva.link/87wim8t8am2idoc",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 81,
       "startup": "Made In Rudado",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "081-made-in-rudado.svg",
+      "origem_pagina": "https://madeinrudado.com.br/",
+      "origem_imagem": "https://madeinrudado.com.br/wp-content/uploads/2025/11/logo-wm2.svg",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://canva.link/uyeikkhjk797tfr",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 82,
       "startup": "Ágilitt",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "082-agilitt.svg",
+      "origem_pagina": "https://www.agilitt.com.br/",
+      "origem_imagem": "https://static.wixstatic.com/shapes/ac20e2_239f21d818ea41c89204e81489009128.svg",
+      "metodo": "favicon do site",
       "pitch_deck": "https://docs.agilitt.com.br/apresentacao/",
-      "observacao": "https://www.agilitt.com.br/: nenhuma imagem identificada explicitamente como logo | https://www.agilitt.com.br/: nenhuma imagem identificada explicitamente como logo | https://docs.agilitt.com.br/apresentacao/: nenhuma imagem identificada explicitamente como logo | https://docs.agilitt.com.br: HTTP 403"
+      "observacao": ""
     },
     {
       "rank": 83,
       "startup": "Room Connect",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "083-room-connect.png",
+      "origem_pagina": "https://roomconnect.io/",
+      "origem_imagem": "https://roomconnect.io/wp-content/uploads/2026/06/RoomConnect-logo-esquerda-2-1.png",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/file/d/1EFN_may0MoRxyPhlMpJdMFHV9io2uE-r/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 84,
-      "startup": "MEPER INOVA SIMPLES (I.S.)",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://canva.link/gcee72xhge77e8d",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 85,
-      "startup": "INOVALE",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/1uU4WX23ZMfNtZn1CtitMm9CxCSeKRhTb/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 86,
       "startup": "MilIeco Moda que transforma",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "086-milieco-moda-que-transforma.png",
+      "origem_pagina": "https://milieco.com.br/",
+      "origem_imagem": "https://milieco.com.br/img/logojane-header.png",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/file/d/1lMBu9NB2dxlJIYP0JkrR-EHmsgHxsx_s/view?usp=drivesdk",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 87,
       "startup": "Prolytiq",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
+      "status": "baixada",
+      "arquivo": "087-prolytiq.png",
       "origem_pagina": "https://prolytiq.com/pt",
-      "origem_imagem": "https://prolytiq.com/site/v1/opening/prism-dark-1672.webp",
-      "metodo": "imagem marcada como logo no site",
+      "origem_imagem": "https://prolytiq.com/apple-icon.png",
+      "metodo": "logo declarada nos dados estruturados do site",
       "pitch_deck": "https://ecosmais.com.br/formulario/c1d71838bfd9b64f5c6c551725301f1fadfcf74858169e3a",
-      "observacao": "a imagem encontrada é uma fotografia, não a logo da Prolytiq"
+      "observacao": ""
     },
     {
       "rank": 88,
@@ -965,32 +723,10 @@
       "status": "baixada",
       "arquivo": "088-cognitio-one-tecnologia-e-educacao-ltda.png",
       "origem_pagina": "https://beta.cognitio.one/",
-      "origem_imagem": "https://beta.cognitio.one/static/apple-touch-icon.png",
-      "metodo": "ícone institucional do site",
+      "origem_imagem": "https://cognitio.one/apple-touch-icon.png",
+      "metodo": "logo declarada nos dados estruturados do site",
       "pitch_deck": "https://beta.cognitio.one/",
       "observacao": ""
-    },
-    {
-      "rank": 89,
-      "startup": "IB Inteligência Baiana Inova Simples",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://docs.google.com/presentation/d/1AEHtIm4vHwVtnIVyNAEKSYLoTBKAp-6b/edit?usp=sharing&ouid=108075899010255328423&rtpof=true&sd=true",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 90,
-      "startup": "Aê Comunicação",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://canva.link/1g02s867xijagwi",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
     },
     {
       "rank": 91,
@@ -1001,7 +737,7 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://drive.google.com/file/d/1KQIqs1_AegcoWOc7BJh567pWisYVwLWp/view?usp=drivesdk",
-      "observacao": "https://mkthowl.com/: HTTP 403 | https://www.mkthowl.com/: HTTP 403"
+      "observacao": "https://mkthowl.com/: HTTP 403"
     },
     {
       "rank": 92,
@@ -1012,29 +748,18 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://drive.google.com/file/d/1qst6oMo9YZUOy__JsK--vONrbHwXYH8E/view?usp=drive_link",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 93,
-      "startup": "QLIFE",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://interativabr.com/",
-      "origem_imagem": "https://interativabr.com/img/logo.jpg",
-      "metodo": "imagem marcada como logo no site",
-      "pitch_deck": "https://youtu.be/RTODgnlCjzc",
-      "observacao": "a imagem encontrada é da InterAtiva, não da QLIFE"
+      "observacao": "https://www.instagram.com/amoridico/: nenhuma imagem identificada explicitamente como logo | https://www.instagram.com/: nenhuma imagem identificada explicitamente como logo"
     },
     {
       "rank": 94,
       "startup": "Nexus ESG 360",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "094-nexus-esg-360.png",
+      "origem_pagina": "https://nexusesg360.app/",
+      "origem_imagem": "https://nexusesg360.app/favicon.png",
+      "metodo": "logo declarada nos dados estruturados do site",
       "pitch_deck": "https://youtu.be/Fo-iVPHvvZk?is=t4MJvtizkh9Dlo_Q",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 95,
@@ -1045,18 +770,18 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://www.bahiatechexperience.com.br/",
-      "observacao": "https://nucleobim.com/: HTTP 503 | https://www.nucleobim.com/: HTTP 503 | https://www.bahiatechexperience.com.br/: nenhuma imagem identificada explicitamente como logo | https://www.bahiatechexperience.com.br/: nenhuma imagem identificada explicitamente como logo"
+      "observacao": "https://nucleobim.com/: HTTP 503"
     },
     {
       "rank": 96,
       "startup": "Orzon",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://hubconquista.com.br/",
-      "origem_imagem": "https://hubconquista.com.br/wp-content/themes/hubconquista/images/logo/logo-hub-conquista.png",
+      "status": "baixada",
+      "arquivo": "096-orzon.svg",
+      "origem_pagina": "https://orzon.app/",
+      "origem_imagem": "https://orzon.app/brand/orzon-mark-light.svg",
       "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://orzon.app/pitchdeck",
-      "observacao": "a imagem encontrada é da Hub Conquista, não da Orzon"
+      "observacao": ""
     },
     {
       "rank": 97,
@@ -1081,39 +806,6 @@
       "observacao": ""
     },
     {
-      "rank": 99,
-      "startup": "San'Mielle Hidromelaria",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/1WW3ByG3FtZ0jUNUksQnAg1ASfod36RBn/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 100,
-      "startup": "DOM NUTRI PRODUTOS ALIMENTÍCIOS LTADA",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://docs.google.com/presentation/d/1Fc5_LRhwT3xLZw2Gk8D9v2YNL9D090DI/edit?usp=sharing&ouid=117060853895242881674&rtpof=true&sd=true",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 101,
-      "startup": "GermFree",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://www.youtube.com/watch?v=xaEDfOvfOB4",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
       "rank": 102,
       "startup": "Bratecon",
       "status": "baixada",
@@ -1125,48 +817,15 @@
       "observacao": ""
     },
     {
-      "rank": 103,
-      "startup": "Delta Tecnologia e Sistemas",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/1Nq6x7W-_JvpuIfXxt0Cy93NuhwOlpj78/view?usp=drive_link",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
       "rank": 104,
       "startup": "ER.IA",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "104-er-ia.png",
+      "origem_pagina": "https://eria.tec.br/",
+      "origem_imagem": "https://eria.tec.br/eria.png",
+      "metodo": "favicon do site",
       "pitch_deck": "https://eria.tec.br/pitch_deck",
-      "observacao": "https://eria.tec.br/pitch_deck: nenhuma imagem identificada explicitamente como logo | https://eria.tec.br/: nenhuma imagem identificada explicitamente como logo"
-    },
-    {
-      "rank": 105,
-      "startup": "Prettu's Bee",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/19OsTMn6dq4Isld6Q8Gj8SXV7VGHw4txQ/view?usp=drive_link",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 106,
-      "startup": "PlenÀsSoluções",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/drive/folders/1F2uGOTCLhzSMzjiefibDXALxG9CBpdc6?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 107,
@@ -1177,73 +836,29 @@
       "origem_imagem": "",
       "metodo": "",
       "pitch_deck": "https://canva.link/35q76nej7e9x2e7",
-      "observacao": "https://minhaescoladelinguas.com.br/: nenhuma imagem identificada explicitamente como logo | https://minhaescoladelinguas.com.br/: nenhuma imagem identificada explicitamente como logo"
-    },
-    {
-      "rank": 108,
-      "startup": "Malaika Academia Audiovisual",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://gamma.app/docs/Copy-of-Untitled-tj8bdwwmbaaqetu",
-      "observacao": "https://gamma.app/docs/Copy-of-Untitled-tj8bdwwmbaaqetu: HTTP 403 | https://gamma.app: HTTP 403"
+      "observacao": "https://minhaescoladelinguas.com.br/: nenhuma imagem identificada explicitamente como logo"
     },
     {
       "rank": 109,
       "startup": "Upver",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "109-upver.png",
+      "origem_pagina": "https://upver.app/",
+      "origem_imagem": "https://upver.app/icons/apple-touch-icon-180.png",
+      "metodo": "ícone institucional do site",
       "pitch_deck": "https://drive.google.com/file/d/1wE2rXiTDK09gjubftws9aijfVU8V0z0j/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 110,
-      "startup": "Vetlligence",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://docs.google.com/presentation/d/1ERBAWwEVOB-4yk8Wa96oyhU6QCnSaNlB/edit?usp=drive_link&ouid=107007499845645985497&rtpof=true&sd=true",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 111,
-      "startup": "Recicla Valor",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://canva.link/bkurdfp15c5qafr",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 112,
       "startup": "EndoAfetos",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "112-endoafetos.png",
+      "origem_pagina": "https://endoafetos.com.br/",
+      "origem_imagem": "https://endoafetos.com.br/assets/logo.png",
+      "metodo": "favicon do site",
       "pitch_deck": "https://drive.google.com/drive/folders/1QGnwVYvTbzcHsv4LLc8rmDWB3ChMxSuV?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
-      "rank": 113,
-      "startup": "Open Seller",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/1jxiHVGg5_6rZzc6QR-rrV8gsw8SqdYg_/view?usp=sharing",
-      "observacao": "https://camaradeinovacao.com/: HTTP 403 | https://www.camaradeinovacao.com/: HTTP 403"
+      "observacao": ""
     },
     {
       "rank": 114,
@@ -1259,35 +874,24 @@
     {
       "rank": 115,
       "startup": "Marargila",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "115-marargila.webp",
+      "origem_pagina": "https://marargila.com/",
+      "origem_imagem": "https://images.yampi.me/assets/stores/marargila/uploads/logo/6ab6d92ad30c9.png",
+      "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://drive.google.com/file/d/1BEw1iirorSvTykKBJD0in6EeMPu_RrvX/view?usp=sharing",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 116,
       "startup": "KONTULARI TECNOLOGIA LTDA",
-      "status": "rejeitada na revisão",
-      "arquivo": "",
-      "origem_pagina": "https://advicegroup.com.br/",
-      "origem_imagem": "https://advicegroup.com.br/static/5a6b07f9da080f348852e1c4853fa525/cee84/LogoExpWhite.png",
+      "status": "baixada",
+      "arquivo": "116-kontulari-tecnologia-ltda.webp",
+      "origem_pagina": "https://kontulari.com.br/",
+      "origem_imagem": "https://kontulari.com.br/static/b801f3909eb7d77efcdba73e1cfa657e/4cefe/logoExWhite.webp",
       "metodo": "imagem marcada como logo no site",
       "pitch_deck": "https://advicegroupba-my.sharepoint.com/:b:/g/personal/carlos_filho_advicegroup_com_br/IQB0z8wcCJOQR67mKTivw4RhAZDz7SoDHYpDND3wjNi6AcU?e=sN5gQ7",
-      "observacao": "a imagem encontrada é da Advice Group, não da Kontulari"
-    },
-    {
-      "rank": 117,
-      "startup": "Points",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://drive.google.com/file/d/1jdYV0UtzDd8KRIZ7RD2TSQGEy-DfMTwd/view?pli=1",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
+      "observacao": ""
     },
     {
       "rank": 118,
@@ -1301,26 +905,15 @@
       "observacao": ""
     },
     {
-      "rank": 119,
-      "startup": "Âmbar kombuchas",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
-      "pitch_deck": "https://canva.link/nqakj6dp8do3zmc",
-      "observacao": "sem domínio empresarial ou site próprio no pitch"
-    },
-    {
       "rank": 120,
       "startup": "Ocean Ride",
-      "status": "não encontrada",
-      "arquivo": "",
-      "origem_pagina": "",
-      "origem_imagem": "",
-      "metodo": "",
+      "status": "baixada",
+      "arquivo": "120-ocean-ride.ico",
+      "origem_pagina": "http://www.oxeanhub.com/",
+      "origem_imagem": "https://www.oxeanhub.com/favicon.ico",
+      "metodo": "arquivo institucional no domínio validado",
       "pitch_deck": "http://www.oxeanhub.com",
-      "observacao": "https://www.oxeanhub.com/: nenhuma imagem identificada explicitamente como logo | https://www.oxeanhub.com/: nenhuma imagem identificada explicitamente como logo"
+      "observacao": ""
     }
   ]
 }

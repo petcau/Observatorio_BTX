@@ -114,6 +114,13 @@
     td.validacao-cell { text-align: center; overflow: visible; }
     .validado-btn { padding: 4px 9px; color: #52606d; border: 1px solid #aeb8c2; border-radius: 999px; background: #fff; font-size: .76rem; cursor: pointer; }
     .validado-btn[aria-pressed="true"] { color: #14532d; border-color: #22c55e; background: #dcfce7; font-weight: 700; }
+    .startup-logo-preview { position: fixed; right: 22px; bottom: 22px; z-index: 20; width: min(300px, calc(100vw - 32px)); padding: 16px; border: 1px solid var(--line); border-radius: 14px; background: #fff; box-shadow: 0 18px 48px rgba(2, 74, 96, .24); }
+    .startup-logo-preview[hidden] { display: none; }
+    .startup-logo-preview .fechar { position: absolute; top: 8px; right: 8px; width: 30px; height: 30px; padding: 0; color: var(--soft); border: 0; border-radius: 50%; background: #eef3f6; font: 700 20px/30px Arial, sans-serif; cursor: pointer; }
+    .startup-logo-quadro { display: grid; place-items: center; height: 170px; margin-bottom: 12px; padding: 12px; overflow: hidden; border-radius: 10px; background: #f7f9fa; }
+    .startup-logo-quadro img { display: block; max-width: 100%; max-height: 100%; object-fit: contain; }
+    .startup-logo-preview strong { display: block; padding-right: 28px; color: var(--deep); font-size: 1rem; }
+    .startup-logo-preview span { display: block; margin-top: 4px; color: var(--soft); font-size: .8rem; }
     td.row-num { color: var(--soft); text-align: right; position: sticky; left: 0; z-index: 1; background: #fff; }
     thead th.row-num { left: 0; z-index: 3; cursor: default; }
     .status { padding: 40px 20px; color: var(--soft); text-align: center; }
@@ -177,6 +184,7 @@
       <label>em <select id="startupColuna"><option value="">todas as colunas</option></select></label>
       <button id="startupLimparFiltros" type="button" title="Limpa a busca e os filtros das colunas">Limpar filtros</button>
       <button id="startupBaixarCsv" type="button" title="Baixar a base com as alterações feitas na tabela">Baixar CSV editado</button>
+      <button id="startupRecarregarCsv" type="button" title="Descarta o rascunho salvo neste navegador e recarrega startups.csv">Recarregar do CSV</button>
       <label>ordenar por <select id="startupOrdenarPor"><option value="">(ordem original)</option></select></label>
       <select id="startupDirecao" aria-label="Direção da ordenação das startups"><option value="1">crescente (A→Z, 0→9)</option><option value="-1">decrescente (Z→A, 9→0)</option></select>
       <label>linhas por página <select id="startupTamanho"><option>25</option><option>50</option><option>100</option><option>120</option><option selected>200</option></select></label>
@@ -195,6 +203,13 @@
     <div class="meta pipe-barra" id="startupMeta">Carregando startups.csv…</div>
     <div class="wrap" id="startupWrap"><div class="status">Carregando startups.csv…</div></div>
   </section>
+
+  <aside class="startup-logo-preview" id="startupLogoPreview" aria-live="polite" hidden>
+    <button class="fechar" id="startupLogoFechar" type="button" aria-label="Fechar prévia da logo">×</button>
+    <div class="startup-logo-quadro"><img id="startupLogoImagem" alt="" hidden /></div>
+    <strong id="startupLogoNome"></strong>
+    <span id="startupLogoStatus"></span>
+  </aside>
 
   <script>
     (() => {
@@ -385,6 +400,8 @@
           aplicar();
           return;
         }
+        const tr = e.target.closest("tr[data-startup-id]");
+        if (tr) mostrarLogoStartup(tr.dataset.startupId);
         const td = e.target.closest("td");
         if (td && !td.classList.contains("row-num")) selecionarCelula(td);
       });
@@ -396,13 +413,74 @@
       let startupPaginaAtual = 1;
       let startupOrdem = { campo: null, dir: 1 };
       let startupCacheCabecalho = null;
+      let startupCodificacao = "Windows-1252";
       const startupFiltrosCol = {};
       const startupNumericos = new Set();
       const STARTUP_EDICOES_CHAVE = "btx-startup-edicoes";
+      const STARTUP_VALIDACOES_CHAVE = "btx-startup-sites-validados";
+      const STARTUP_BASE_CHAVE = "btx-startup-base-assinatura";
+      const STARTUP_CAMPO_VALIDACAO = "Site validado manualmente";
+      const startupLogosPorRank = new Map();
+      let startupLogosCarregadas = false;
+      let startupLogoAtualId = null;
       const startupEdicoes = (() => {
         try { return JSON.parse(localStorage.getItem(STARTUP_EDICOES_CHAVE) || "{}"); }
         catch { return {}; }
       })();
+
+      function limparObjeto(objeto) {
+        Object.keys(objeto).forEach((chave) => delete objeto[chave]);
+      }
+
+      function assinaturaCsv(texto) {
+        let hash = 2166136261;
+        for (let i = 0; i < texto.length; i += 1) {
+          hash ^= texto.charCodeAt(i);
+          hash = Math.imul(hash, 16777619);
+        }
+        return `${texto.length}:${(hash >>> 0).toString(16)}`;
+      }
+
+      async function carregarLogosStartups() {
+        try {
+          const resposta = await fetch("../assets/startups/logos/manifest.json", { cache: "no-cache" });
+          if (!resposta.ok) throw new Error(`HTTP ${resposta.status}`);
+          const manifesto = await resposta.json();
+          for (const logo of manifesto.resultados || []) {
+            if (logo.status === "baixada" && logo.arquivo) startupLogosPorRank.set(String(logo.rank), logo);
+          }
+        } catch {
+          startupLogosPorRank.clear();
+        } finally {
+          startupLogosCarregadas = true;
+          if (startupLogoAtualId) mostrarLogoStartup(startupLogoAtualId);
+        }
+      }
+
+      function mostrarLogoStartup(id) {
+        const item = startupTodos.find((registro) => registro._btxId === id);
+        if (!item) return;
+        startupLogoAtualId = id;
+        const logo = startupLogosPorRank.get(String(item.Rank || ""));
+        const painel = $("startupLogoPreview");
+        const imagem = $("startupLogoImagem");
+        $("startupLogoNome").textContent = item.Startup || "Startup";
+        painel.hidden = false;
+
+        if (logo) {
+          imagem.hidden = false;
+          imagem.alt = `Logo de ${item.Startup || "startup"}`;
+          imagem.src = `../assets/startups/logos/${encodeURIComponent(logo.arquivo)}`;
+          $("startupLogoStatus").textContent = `Logo encontrada no site validado · posição ${item.Rank || "—"}`;
+        } else {
+          imagem.hidden = true;
+          imagem.removeAttribute("src");
+          imagem.alt = "";
+          $("startupLogoStatus").textContent = startupLogosCarregadas
+            ? "Logo não encontrada com segurança no site validado."
+            : "Carregando logo…";
+        }
+      }
 
       function idOriginalStartup(item, indice) {
         return String(item.CNPJ || item.Rank || item.Startup || `linha-${indice + 1}`);
@@ -414,7 +492,7 @@
 
       function atualizarMetaStartups() {
         const editadas = totalEdicoesStartup();
-        $("startupMeta").innerHTML = `Fonte <b>startups.csv</b> · <b>${startupTodos.length.toLocaleString("pt-BR")}</b> startups · <b>${startupCampos.length}</b> campos · codificação Windows-1252${editadas ? ` · <b>${editadas}</b> célula${editadas === 1 ? "" : "s"} editada${editadas === 1 ? "" : "s"} localmente` : ""}`;
+        $("startupMeta").innerHTML = `Fonte <b>startups.csv</b> · <b>${startupTodos.length.toLocaleString("pt-BR")}</b> startups · <b>${startupCampos.length}</b> campos · codificação ${startupCodificacao}${editadas ? ` · <b>${editadas}</b> célula${editadas === 1 ? "" : "s"} editada${editadas === 1 ? "" : "s"} localmente` : ""}`;
       }
 
       function lerCsv(texto, separador = ";") {
@@ -464,15 +542,36 @@
         const resposta = await fetch("startups.csv", { cache: "no-cache" });
         if (!resposta.ok) throw new Error(`não foi possível abrir startups.csv (${resposta.status})`);
         const bytes = await resposta.arrayBuffer();
-        // A planilha foi exportada em Windows-1252; decodificar explicitamente preserva os acentos.
-        const texto = new TextDecoder("windows-1252").decode(bytes);
+        const inicio = new Uint8Array(bytes, 0, Math.min(3, bytes.byteLength));
+        const temBomUtf8 = inicio[0] === 0xEF && inicio[1] === 0xBB && inicio[2] === 0xBF;
+        startupCodificacao = temBomUtf8 ? "UTF-8" : "Windows-1252";
+        const texto = new TextDecoder(temBomUtf8 ? "utf-8" : "windows-1252").decode(bytes);
         startupTodos = lerCsv(texto);
         if (!startupTodos.length) throw new Error("startups.csv não contém registros");
-        startupCampos = Object.keys(startupTodos[0]);
+        const camposCsv = Object.keys(startupTodos[0]);
+        const temValidacaoNoCsv = camposCsv.includes(STARTUP_CAMPO_VALIDACAO);
+        const assinaturaAtual = assinaturaCsv(texto);
+        const assinaturaAnterior = localStorage.getItem(STARTUP_BASE_CHAVE);
+
+        // Um CSV novo vira a fonte oficial e não recebe rascunhos da versão anterior.
+        // Na primeira migração, um CSV já exportado pelo painel também é tratado como oficial.
+        if ((assinaturaAnterior && assinaturaAnterior !== assinaturaAtual) || (!assinaturaAnterior && temValidacaoNoCsv)) {
+          limparObjeto(startupEdicoes);
+          limparObjeto(startupValidacoes);
+          localStorage.removeItem(STARTUP_EDICOES_CHAVE);
+          localStorage.removeItem(STARTUP_VALIDACOES_CHAVE);
+        }
+        localStorage.setItem(STARTUP_BASE_CHAVE, assinaturaAtual);
+
+        // A validação é exibida como botão ao lado de Site, sem duplicar a coluna do CSV.
+        startupCampos = camposCsv.filter((campo) => campo !== STARTUP_CAMPO_VALIDACAO);
         startupTodos.forEach((item, indice) => {
           const id = idOriginalStartup(item, indice);
           Object.defineProperty(item, "_btxId", { value: id, enumerable: false });
           if (startupEdicoes[id]) Object.assign(item, startupEdicoes[id]);
+          if (startupValidacoes[id] === undefined && temValidacaoNoCsv) {
+            startupValidacoes[id] = /^(?:sim|yes|true|1|x|validado)$/i.test(String(item[STARTUP_CAMPO_VALIDACAO] || "").trim());
+          }
         });
 
         for (const campo of startupCampos) {
@@ -490,7 +589,7 @@
       }
 
       const startupValidacoes = (() => {
-        try { return JSON.parse(localStorage.getItem("btx-startup-sites-validados") || "{}"); }
+        try { return JSON.parse(localStorage.getItem(STARTUP_VALIDACOES_CHAVE) || "{}"); }
         catch { return {}; }
       })();
 
@@ -570,7 +669,7 @@
           const th = `<th data-startup-campo="${esc(campo)}" class="${ordenado ? "sorted" : ""}${filtro ? " filtrada" : ""}" title="Clique no nome para ordenar por ${esc(campo)}">${esc(campo)} <span class="seta">${seta}</span>${startupCacheCabecalho[i]}${seletor}</th>`;
           return campo === "Site" ? th + cabecalhoValidacao() : th;
         }).join("")}</tr>`;
-        const corpo = linhas.map((item, i) => `<tr><td class="row-num">${(inicio + i + 1).toLocaleString("pt-BR")}</td>${startupCampos.map((campo) => {
+        const corpo = linhas.map((item, i) => `<tr data-startup-id="${esc(item._btxId)}"><td class="row-num">${(inicio + i + 1).toLocaleString("pt-BR")}</td>${startupCampos.map((campo) => {
           const valor = item[campo];
           const atributosEdicao = `data-startup-id="${esc(item._btxId)}" data-startup-campo-edicao="${esc(campo)}"`;
           let td;
@@ -653,7 +752,7 @@
           const texto = String(valor ?? "");
           return /[;"\r\n]/.test(texto) ? `"${texto.replace(/"/g, '""')}"` : texto;
         };
-        const campoValidacao = "Site validado manualmente";
+        const campoValidacao = STARTUP_CAMPO_VALIDACAO;
         const camposExportados = startupCampos.filter((campo) => campo !== campoValidacao);
         const indiceSite = camposExportados.indexOf("Site");
         camposExportados.splice(indiceSite >= 0 ? indiceSite + 1 : camposExportados.length, 0, campoValidacao);
@@ -676,6 +775,29 @@
         URL.revokeObjectURL(url);
       }
 
+      function recarregarStartupsDoCsv() {
+        const temRascunho = Object.keys(startupEdicoes).length || Object.keys(startupValidacoes).length;
+        if (temRascunho && !confirm("Descartar as edições e validações locais deste navegador e recarregar os dados oficiais de startups.csv?")) return;
+        localStorage.removeItem(STARTUP_EDICOES_CHAVE);
+        localStorage.removeItem(STARTUP_VALIDACOES_CHAVE);
+        localStorage.removeItem(STARTUP_BASE_CHAVE);
+        location.reload();
+      }
+
+      $("startupLogoFechar").addEventListener("click", () => {
+        startupLogoAtualId = null;
+        $("startupLogoPreview").hidden = true;
+      });
+      $("startupLogoImagem").addEventListener("error", () => {
+        $("startupLogoImagem").hidden = true;
+        $("startupLogoStatus").textContent = "Não foi possível carregar o arquivo da logo.";
+      });
+      document.addEventListener("keydown", (e) => {
+        if (e.key !== "Escape" || $("startupLogoPreview").hidden) return;
+        startupLogoAtualId = null;
+        $("startupLogoPreview").hidden = true;
+      });
+
       let startupEspera = null;
       $("startupBusca").addEventListener("input", () => {
         clearTimeout(startupEspera);
@@ -689,6 +811,7 @@
         aplicarStartups();
       });
       $("startupBaixarCsv").addEventListener("click", baixarCsvStartups);
+      $("startupRecarregarCsv").addEventListener("click", recarregarStartupsDoCsv);
       $("startupOrdenarPor").addEventListener("change", () => {
         startupOrdem = { campo: $("startupOrdenarPor").value || null, dir: Number($("startupDirecao").value) };
         aplicarStartups();
@@ -720,9 +843,8 @@
         const botaoValidacao = e.target.closest("button[data-validar-site]");
         if (botaoValidacao) {
           const chave = botaoValidacao.dataset.validarSite;
-          if (startupValidacoes[chave]) delete startupValidacoes[chave];
-          else startupValidacoes[chave] = true;
-          localStorage.setItem("btx-startup-sites-validados", JSON.stringify(startupValidacoes));
+          startupValidacoes[chave] = !Boolean(startupValidacoes[chave]);
+          localStorage.setItem(STARTUP_VALIDACOES_CHAVE, JSON.stringify(startupValidacoes));
           const validado = Boolean(startupValidacoes[chave]);
           botaoValidacao.setAttribute("aria-pressed", String(validado));
           botaoValidacao.textContent = validado ? "✓ Validado" : "Validar";
@@ -769,6 +891,10 @@
         $("aba-dados").hidden = aba.dataset.aba !== "dados";
         $("aba-pipeline").hidden = aba.dataset.aba !== "pipeline";
         $("aba-startups").hidden = aba.dataset.aba !== "startups";
+        if (aba.dataset.aba !== "startups") {
+          startupLogoAtualId = null;
+          $("startupLogoPreview").hidden = true;
+        }
         $("meta").hidden = aba.dataset.aba === "startups";
         const hash = { dados: "#pesquisadores", pipeline: "#pipeline", startups: "#startups" }[aba.dataset.aba];
         history.replaceState(null, "", hash);
@@ -881,6 +1007,7 @@
         $("startupWrap").innerHTML = `<div class="status">Erro: ${esc(erro.message)}. Abra esta página por um servidor (Live Server), não com duplo clique no arquivo.</div>`;
         $("startupMeta").textContent = "";
       });
+      carregarLogosStartups();
     })();
   </script>
 </body>
